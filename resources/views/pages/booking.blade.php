@@ -5,7 +5,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        @include('Partials.sidebar')
+        @include('partials.sidebar')
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -14,7 +14,7 @@
             <!-- Main Content -->
             <div id="content">
                 <!-- Topbar -->
-                @include('Partials.topbar')
+                @include('partials.topbar')
                 <!-- End of Topbar -->
 
                 <div class="container-fluid">
@@ -138,7 +138,7 @@
         <!-- End of Content Wrapper -->
 
         <!-- Scroll to Top Button-->
-        @include('Partials.scrolltotop')
+        @include('partials.scrolltotop')
     </div>
     <!-- End of Page Wrapper -->
 @endsection
