@@ -9,8 +9,7 @@
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column"
-            style="background-color: white; height: 100vh">
+        <div id="content-wrapper" class="d-flex flex-column " style="background-color: white;">
 
             <!-- Main Content -->
             <div id="content">
@@ -103,66 +102,51 @@
 
                             <div class="row">
                                 <div class="col">
-                                    <div class="card-deck">
-                                        <div class="card border-0 mb-4">
-                                            <a href="#"><img class="rounded img-fluid"
-                                                    src="{{ asset('img/room-1.jpeg') }}" alt="Card image cap"></a>
-                                            <div class="px-0 card-body">
-                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No. 101
-                                                </h4>
-                                                <p class="card-text">Kamar Besar Lt. 2</p>
-                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
-                                                    <div class="d-sm-flex">
-                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
-                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
-                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small></p>
-                                                    </div>
-                                            </div>
-                                        </div>
-                                        <div class="card  border-0 mb-4">
-                                            <a href="#">
-                                                <img class="rounded img-fluid" src="{{ asset('img/room-2.jpeg') }}"
-                                                    alt="Card image cap">
-                                            </a>
-                                            <div class="px-0 card-body">
-                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No. 101
-                                                </h4>
-                                                <p class="card-text">Kamar Besar Lt. 2</p>
-                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
-                                                    <div class="d-sm-flex">
-                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
-                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
-                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small></p>
-                                                    </div>
-                                            </div>
-                                        </div>
-                                        <div class="w-100 d-none d-sm-block d-md-none"><!-- wrap every 2 on sm--></div>
-                                        <div class="card border-0 mb-4">
-                                            <a href="#">
-                                                <img class="rounded img-fluid" src="{{ asset('img/room-3.jpg') }}"
-                                                    alt="Card image cap">
-                                            </a>
-                                            <div class="px-0 card-body">
-                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No.
-                                                    101</h4>
-                                                <p class="card-text">Kamar Besar Lt. 2</p>
-                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
-                                                    <div class="d-sm-flex">
-                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
-                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
-                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
-                                                        </p>
-                                                    </div>
-                                            </div>
-                                        </div>
-                                        <div class="w-100 d-none d-md-block d-lg-none"><!-- wrap every 3 on md--></div>
-                                        <div class="card border-0 mb-4">
-                                            <a href="#">
-                                                <img class="rounded img-fluid" src="{{ asset('img/room-5.jpeg') }}"
-                                                    alt="Card image cap">
-                                            </a>
 
-                                            <div class="px-0 card-body">
+                                    <div class="card-deck">
+                                        <div class="card mb-4 border-0">
+                                            <img class="card-img-top rounded img-fluid" src="{{ asset('img/room-1.jpeg') }}"
+                                                alt="Card image cap">
+                                            <div class="card-body card-body-animation px-0">
+                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No. 101
+                                                </h4>
+                                                <p class="card-text">Kamar Besar Lt. 2</p>
+                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
+                                                    <div class="d-sm-flex">
+                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
+                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
+                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small></p>
+                                                    </div>
+                                                    <a href="#" class="stretched-link"></a>
+                                            </div>
+                                        </div>
+
+                                        <div class="card mb-4 border-0">
+
+                                            <img class="card-img-top rounded img-fluid" src="{{ asset('img/room-2.jpeg') }}"
+                                                alt="Card image cap">
+                                            <div class="card-body card-body-animation px-0">
+                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No. 101
+                                                </h4>
+                                                <p class="card-text">Kamar Besar Lt. 2</p>
+                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
+                                                    <div class="d-sm-flex">
+                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
+                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
+                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small></p>
+                                                    </div>
+                                                    <a href="#" class="stretched-link"></a>
+                                            </div>
+                                        </div>
+
+                                        <div class="w-100 d-none d-sm-block d-md-none"><!-- wrap every 2 on sm--></div>
+
+                                        <div class="card mb-4 border-0">
+
+                                            <img class="card-img-top rounded img-fluid" src="{{ asset('img/room-3.jpg') }}"
+                                                alt="Card image cap">
+
+                                            <div class="card-body card-body-animation px-0">
                                                 <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No.
                                                     101</h4>
                                                 <p class="card-text">Kamar Besar Lt. 2</p>
@@ -173,65 +157,148 @@
                                                         <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
                                                         </p>
                                                     </div>
+                                                    <a href="#" class="stretched-link"></a>
                                             </div>
                                         </div>
-                                        {{-- <div class="w-100 d-none d-sm-block d-md-none"><!-- wrap every 2 on sm--></div>
-                                         <div class="w-100 d-none d-lg-block d-xl-none"><!-- wrap every 4 on lg--></div>
-                                        <div class="card mb-4">
-                                            <img class="card-img-top img-fluid" src="//placehold.it/500x280" alt="Card image cap">
-                                            <div class="card-body">
-                                                <h4 class="card-title">5 Card title</h4>
-                                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+
+                                        <div class="w-100 d-none d-md-block d-lg-none"><!-- wrap every 3 on md--></div>
+
+                                        <div class="card mb-4 border-0">
+                                            <img class="card-img-top rounded img-fluid" src="{{ asset('img/room-5.jpeg') }}"
+                                                alt="Card image cap">
+                                            <div class="card-body card-body-animation px-0">
+                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No.
+                                                    101</h4>
+                                                <p class="card-text">Kamar Besar Lt. 2</p>
+                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
+                                                    <div class="d-sm-flex">
+                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
+                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
+                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
+                                                        </p>
+                                                    </div>
+                                                    <a href="#" class="stretched-link"></a>
+                                            </div>
+                                        </div>
+                                        <div class="w-100 d-none d-lg-block d-xl-none"><!-- wrap every 4 on lg--></div>
+                                        <div class="w-100 d-none d-sm-block d-md-none"><!-- wrap every 2 on sm--></div>
+                                        <div class="w-100 d-none d-lg-block d-xl-none"><!-- wrap every 4 on lg--></div>
+                                        {{-- <div class="card mb-4 border-0">
+                                            <img class="card-img-top img-fluid" src="//placehold.it/500x280"
+                                                alt="Card image cap">
+                                            <div class="card-body card-body-animation px-0">
+                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No.
+                                                    101
+                                                </h4>
+                                                <p class="card-text">Kamar Besar Lt. 2</p>
+                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
+                                                    <div class="d-sm-flex">
+                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
+                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
+                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
+                                                        </p>
+                                                    </div>
+                                                    <a href="#" class="stretched-link"></a>
                                             </div>
                                         </div>
                                         <div class="w-100 d-none d-xl-block"><!-- wrap every 5 on xl--></div>
-                                        <div class="card mb-4">
-                                            <img class="card-img-top img-fluid" src="//placehold.it/500x300" alt="Card image cap">
-                                            <div class="card-body">
-                                                <h4 class="card-title">6 Card title</h4>
-                                                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                        <div class="card mb-4 border-0">
+                                            <img class="card-img-top img-fluid" src="//placehold.it/500x300"
+                                                alt="Card image cap">
+                                            <div class="card-body card-body-animation px-0">
+                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No.
+                                                    101</h4>
+                                                <p class="card-text">Kamar Besar Lt. 2</p>
+                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
+                                                    <div class="d-sm-flex">
+                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
+                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
+                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
+                                                        </p>
+                                                    </div>
+                                                    <a href="#" class="stretched-link"></a>
                                             </div>
                                         </div>
                                         <div class="w-100 d-none d-sm-block d-md-none"><!-- wrap every 2 on sm--></div>
                                         <div class="w-100 d-none d-md-block d-lg-none"><!-- wrap every 3 on md--></div>
-                                        <div class="card mb-4">
-                                            <img class="card-img-top img-fluid" src="//placehold.it/500x270" alt="Card image cap">
-                                            <div class="card-body">
-                                                <h4 class="card-title">7 Card title</h4>
-                                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                        <div class="card mb-4 border-0">
+                                            <img class="card-img-top img-fluid" src="//placehold.it/500x270"
+                                                alt="Card image cap">
+                                            <div class=" card-body card-body-animation px-0">
+                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No.
+                                                    101
+                                                </h4>
+                                                <p class="card-text">Kamar Besar Lt. 2</p>
+                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
+                                                    <div class="d-sm-flex">
+                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
+                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
+                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
+                                                        </p>
+                                                    </div>
+                                                    <a href="#" class="stretched-link"></a>
                                             </div>
                                         </div>
-                                        <div class="card mb-4">
-                                            <img class="card-img-top img-fluid" src="//placehold.it/500x300" alt="Card image cap">
-                                            <div class="card-body">
-                                                <h4 class="card-title">8 Card title</h4>
-                                                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                        <div class="card mb-4 border-0">
+                                            <img class="card-img-top img-fluid" src="//placehold.it/500x300"
+                                                alt="Card image cap">
+                                            <div class=" card-body card-body-animation px-0">
+                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No.
+                                                    101
+                                                </h4>
+                                                <p class="card-text">Kamar Besar Lt. 2</p>
+                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
+                                                    <div class="d-sm-flex">
+                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
+                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
+                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
+                                                        </p>
+                                                    </div>
+                                                    <a href="#" class="stretched-link"></a>
                                             </div>
                                         </div>
                                         <div class="w-100 d-none d-sm-block d-md-none"><!-- wrap every 2 on sm--></div>
                                         <div class="w-100 d-none d-lg-block d-xl-none"><!-- wrap every 4 on lg--></div>
-                                        <div class="card mb-4">
-                                            <img class="card-img-top img-fluid" src="//placehold.it/500x270" alt="Card image cap">
-                                            <div class="card-body">
-                                                <h4 class="card-title">Card title</h4>
-                                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                        <div class="card mb-4 border-0">
+                                            <img class="card-img-top img-fluid" src="//placehold.it/500x270"
+                                                alt="Card image cap">
+                                            <div class=" card-body card-body-animation px-0">
+                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No.
+                                                    101
+                                                </h4>
+                                                <p class="card-text">Kamar Besar Lt. 2</p>
+                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
+                                                    <div class="d-sm-flex">
+                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
+                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
+                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
+                                                        </p>
+                                                    </div>
+                                                    <a href="#" class="stretched-link"></a>
                                             </div>
                                         </div>
                                         <div class="w-100 d-none d-md-block d-lg-none"><!-- wrap every 3 on md--></div>
-                                        <div class="card mb-4">
-                                            <img class="card-img-top img-fluid" src="//placehold.it/500x270" alt="Card image cap">
-                                            <div class="card-body">
-                                                <h4 class="card-title">10 Card title</h4>
-                                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                        <div class="card mb-4 border-0">
+                                            <img class="card-img-top img-fluid" src="//placehold.it/500x270"
+                                                alt="Card image cap">
+                                            <div class=" card-body card-body-animation px-0">
+                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No.
+                                                    101
+                                                </h4>
+                                                <p class="card-text">Kamar Besar Lt. 2</p>
+                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
+                                                    <div class="d-sm-flex">
+                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
+                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
+                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
+                                                        </p>
+                                                    </div>
+                                                    <a href="#" class="stretched-link"></a>
                                             </div>
                                         </div> --}}
+
                                     </div>
+
                                 </div>
                             </div>
 

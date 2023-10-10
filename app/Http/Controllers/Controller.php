@@ -17,4 +17,12 @@ class Controller extends BaseController
             'title' => "Dashboard",
         ]);
     }
+
+    public function ruangan()
+    {
+
+        return view('pages/ruangan', [
+            'title' => "Ruangan",
+        ]);
+    }
 }

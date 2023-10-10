@@ -39,6 +39,22 @@
     <script src="{{ asset('demo/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('demo/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+        $(".filter").on("keyup", function() {
+            var input = $(this).val().toUpperCase();
+
+            $(".card").each(function() {
+                if ($(this).data("string").toUpperCase().indexOf(input) < 0) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            })
+        });
+    </script>
+
     <!-- Core plugin JavaScript-->
     <script src="{{ asset('demo/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 

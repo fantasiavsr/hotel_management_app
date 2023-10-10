@@ -30,3 +30,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 }); */
 
 Route::get('/dashboard', [Controller::class, 'dashboard'])->name('dashboard');
+
+Route::get('/ruangan', [Controller::class, 'ruangan'])->name('ruangan');
