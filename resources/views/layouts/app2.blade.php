@@ -29,6 +29,8 @@
     <!-- Custom styles for DataTable-->
     <link href="{{ asset('demo/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
+
+
 </head>
 
 <body id="page-top">

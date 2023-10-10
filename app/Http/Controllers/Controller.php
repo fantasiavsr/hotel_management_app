@@ -14,7 +14,7 @@ class Controller extends BaseController
     {
 
         return view('pages/dashboard', [
-            'title' => "Dashboard",
+            'title' => "dashboard",
         ]);
     }
 
@@ -22,7 +22,39 @@ class Controller extends BaseController
     {
 
         return view('pages/ruangan', [
-            'title' => "Ruangan",
+            'title' => "ruangan",
+        ]);
+    }
+
+    public function pelanggan()
+    {
+
+        return view('pages/pelanggan', [
+            'title' => "pelanggan",
+        ]);
+    }
+
+    public function booking()
+    {
+
+        return view('pages/booking', [
+            'title' => "booking",
+        ]);
+    }
+
+    public function transaksi()
+    {
+
+        return view('pages/transaksi', [
+            'title' => "transaksi",
+        ]);
+    }
+
+    public function ruangan_detail()
+    {
+
+        return view('pages/ruangan/ruangan_detail', [
+            'title' => "ruangan_detail",
         ]);
     }
 }

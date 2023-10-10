@@ -1,10 +1,10 @@
 @media (min-width: 768px) {
-    .card {
+    .card-filter {
         max-width: 500px;
     }
 
     .has-search .form-control {
-        max-width: 360px;
+        max-width:  500px;
     }
 }
 

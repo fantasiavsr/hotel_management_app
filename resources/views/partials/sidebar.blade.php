@@ -1,4 +1,5 @@
-<ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar" style="background-color: #FAFAFA; z-index: 2; border-right: 2px solid #F0F0F0;">
+<ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar"
+    style="background-color: ; z-index: 2; border-right: 2px solid #F0F0F0;">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
@@ -14,9 +15,9 @@
     <hr class="sidebar-divider my-2">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item {{ request()->is('dashboard') ? 'active' : '' }}">
+    <li class="nav-item {{ request()->is('dashboard*') || request()->is('/') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('dashboard') }}"
-            @if ($title === 'Dashboard') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>
+            @if ($title === 'dashboard') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>
             <i class="fas fa-fw fa-home"></i>
             <span>Dashboard</span></a>
     </li>
@@ -30,18 +31,18 @@
     </div>
 
     <!-- Nav Item - Ruangan -->
-    <li class="nav-item {{ request()->is('ruangan') ? 'active' : '' }}">
+    <li class="nav-item {{ request()->is('ruangan*') ? 'active' : '' }}">
         <a class="nav-link " href="{{ route('ruangan') }}"
-            @if ($title === 'Ruangan') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;"" @endif>
+            @if (strpos($title, 'ruangan') !== false) style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>
             <i class="fa-solid fa-bed"></i>
             <span>Ruangan</span>
         </a>
     </li>
 
     <!-- Nav Item - Pelanggan -->
-    <li class="nav-item {{ request()->is('portofolio') ? 'active' : '' }}">
-        <a class="nav-link " href=""
-            @if ($title === 'Portofolio') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>
+    <li class="nav-item {{ request()->is('pelanggan') ? 'active' : '' }}">
+        <a class="nav-link " href="{{ route('pelanggan') }}"
+            @if ($title === 'pelanggan') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>
             <i class="fa-solid fa-user-astronaut"></i>
             <span>Pelanggan</span>
         </a>
@@ -49,18 +50,18 @@
 
 
     <!-- Nav Item - Booking -->
-    <li class="nav-item {{ request()->is('portofolio') ? 'active' : '' }}">
-        <a class="nav-link " href=""
-            @if ($title === 'Portofolio') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>
+    <li class="nav-item {{ request()->is('booking') ? 'active' : '' }}">
+        <a class="nav-link " href="{{ route('booking') }}"
+            @if ($title === 'booking') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>
             <i class="fa-solid fa-inbox"></i>
             <span>Booking</span>
         </a>
     </li>
 
     <!-- Nav Item - Transaksi -->
-    <li class="nav-item {{ request()->is('portofolio') ? 'active' : '' }}">
-        <a class="nav-link " href=""
-            @if ($title === 'Portofolio') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>
+    <li class="nav-item {{ request()->is('transaksi') ? 'active' : '' }}">
+        <a class="nav-link " href="{{ route('transaksi') }}"
+            @if ($title === 'transaksi') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>
             <i class="fas fa-fw fa-credit-card"></i>
             <span>Transaksi</span>
         </a>
@@ -76,14 +77,14 @@
     </div>
 
     <!-- Nav Item - Laporan -->
-    <li class="nav-item {{ request()->is('transaksi*') ? 'active' : '' }}">
+    <li class="nav-item {{ request()->is('laporan*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
             aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fa-solid fa-book"></i>
             <span>Laporan</span>
         </a>
         <div id="collapseUtilities"
-            class="collapse {{ request()->is('transaksi*') ? 'show' : '' }} {{ request()->is('item*') ? 'show' : '' }}"
+            class="collapse {{ request()->is('laporan*') ? 'show' : '' }} {{ request()->is('item*') ? 'show' : '' }}"
             aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Management:</h6>

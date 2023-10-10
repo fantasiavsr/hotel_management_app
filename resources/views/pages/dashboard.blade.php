@@ -117,7 +117,7 @@
                                                         <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
                                                         <p class="pr-2"><small class="text-muted">1 Km. Mandi</small></p>
                                                     </div>
-                                                    <a href="#" class="stretched-link"></a>
+                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
                                             </div>
                                         </div>
 
@@ -135,7 +135,7 @@
                                                         <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
                                                         <p class="pr-2"><small class="text-muted">1 Km. Mandi</small></p>
                                                     </div>
-                                                    <a href="#" class="stretched-link"></a>
+                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
                                             </div>
                                         </div>
 
@@ -157,7 +157,7 @@
                                                         <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
                                                         </p>
                                                     </div>
-                                                    <a href="#" class="stretched-link"></a>
+                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
                                             </div>
                                         </div>
 
@@ -177,7 +177,7 @@
                                                         <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
                                                         </p>
                                                     </div>
-                                                    <a href="#" class="stretched-link"></a>
+                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
                                             </div>
                                         </div>
                                         <div class="w-100 d-none d-lg-block d-xl-none"><!-- wrap every 4 on lg--></div>
@@ -198,7 +198,7 @@
                                                         <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
                                                         </p>
                                                     </div>
-                                                    <a href="#" class="stretched-link"></a>
+                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
                                             </div>
                                         </div>
                                         <div class="w-100 d-none d-xl-block"><!-- wrap every 5 on xl--></div>
@@ -216,7 +216,7 @@
                                                         <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
                                                         </p>
                                                     </div>
-                                                    <a href="#" class="stretched-link"></a>
+                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
                                             </div>
                                         </div>
                                         <div class="w-100 d-none d-sm-block d-md-none"><!-- wrap every 2 on sm--></div>
@@ -236,7 +236,7 @@
                                                         <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
                                                         </p>
                                                     </div>
-                                                    <a href="#" class="stretched-link"></a>
+                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
                                             </div>
                                         </div>
                                         <div class="card mb-4 border-0">
@@ -254,7 +254,7 @@
                                                         <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
                                                         </p>
                                                     </div>
-                                                    <a href="#" class="stretched-link"></a>
+                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
                                             </div>
                                         </div>
                                         <div class="w-100 d-none d-sm-block d-md-none"><!-- wrap every 2 on sm--></div>
@@ -274,7 +274,7 @@
                                                         <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
                                                         </p>
                                                     </div>
-                                                    <a href="#" class="stretched-link"></a>
+                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
                                             </div>
                                         </div>
                                         <div class="w-100 d-none d-md-block d-lg-none"><!-- wrap every 3 on md--></div>
@@ -293,7 +293,7 @@
                                                         <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
                                                         </p>
                                                     </div>
-                                                    <a href="#" class="stretched-link"></a>
+                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
                                             </div>
                                         </div> --}}
 
@@ -312,12 +312,12 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 {{-- img hotel profile --}}
-                                                <div class="col-3">
+                                               {{--  <div class="col-3">
                                                     <img src="{{ asset('img/item-sample1.png') }}" alt=""
                                                         class="img-fluid rounded-circle">
-                                                </div>
+                                                </div> --}}
                                                 <div class="col mb-2">
-                                                    <h1 class="h6 font-weight-bold" style="color: black">Hotel Saya <i
+                                                    <h1 class="h4 font-weight-bold mb-2" style="color: black">Hotel Saya <i
                                                             class="fa-solid fa-layer-group" style="color: #3974FE"></i>
                                                     </h1>
                                                     <p class="font-weight-bold" style="opacity: 75%">Jl. Menur No 4,
