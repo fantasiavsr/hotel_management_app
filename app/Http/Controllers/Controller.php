@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 use App\Models\ruangan;
+use PHPUnit\Event\Code\Test;
 
 class Controller extends BaseController
 {
@@ -137,6 +138,7 @@ class Controller extends BaseController
 
         $fileName = $request->image->getClientOriginalName();
         $request->image->move(public_path('img'), $fileName);
+        /* $request->image->move('img', $fileName); // 'img' is the folder name in public folder */
 
         $flight->image = $fileName;
 
@@ -208,6 +210,7 @@ class Controller extends BaseController
 
             $fileName = $request->image->getClientOriginalName();
             $request->image->move(public_path('img'), $fileName);
+            /* $request->image->move('img', $fileName); // 'img' is the folder name in public folder */
             $flight->image = $fileName;
         }
 

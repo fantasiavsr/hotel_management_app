@@ -159,7 +159,7 @@
                                         <div class="col-xl-4 form-outline mb-4">
                                             <label class="form-label">Harga</label>
                                             <input type="number" name="price" class="form-control" autofocus
-                                                style="background-color: #FAFAFA" value="{{ $ruangan->price }}">
+                                                style="background-color: #FAFAFA" value="{{ $ruangan->price }}" required>
                                         </div>
                                     </div>
                                 </div>

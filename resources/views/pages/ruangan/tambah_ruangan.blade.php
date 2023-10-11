@@ -118,7 +118,7 @@
                                     <div class="row">
                                         <div class="col-xl-4 form-outline mb-4">
                                             <label class="form-label">Harga</label>
-                                            <input type="number" name="price" class="form-control" autofocus style="background-color: #FAFAFA">
+                                            <input type="number" name="price" class="form-control" autofocus style="background-color: #FAFAFA" required>
                                         </div>
                                     </div>
                                 </div>
