@@ -107,7 +107,7 @@
                                         <div class="card mb-4 border-0">
                                             {{-- <img class="card-img-top rounded img-fluid" src="{{ asset('img/room-1.jpeg') }}"
                                                 alt="Card image cap"> --}}
-                                            <img class="card-img-top rounded img-fluid" src="{{ asset('img/room-1.jpeg') }}"
+                                            <img class="card-img-top rounded img-fluid" src="{{ asset('storage/img/room-1.jpeg') }}"
                                                 alt="Card image cap">
                                             <div class="card-body card-body-animation px-0">
                                                 <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No. 101
