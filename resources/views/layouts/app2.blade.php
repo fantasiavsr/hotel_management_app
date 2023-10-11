@@ -47,10 +47,14 @@
 
     <!-- Bootstrap core JavaScript-->
     {{-- <script src="{{ asset('demo/vendor/jquery/jquery.min.js') }}"></script> --}}
-    <script src="demo/vendor/jquery/jquery.min.js"></script>
+   {{--  <script src="demo/vendor/jquery/jquery.min.js"></script> --}}
+   @include('js.jquery')
 
     {{-- <script src="{{ asset('demo/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
-    <script src="demo/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    {{-- <script src="{{ asset('demo/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
+    {{-- <script src="demo/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> --}}
+    @include('js.bootstrap.bundle')
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
