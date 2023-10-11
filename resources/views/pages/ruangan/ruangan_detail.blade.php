@@ -24,7 +24,9 @@
                         <h1 class="h6 mb-0 font-weight-bold" style="color: black">Detail Ruangan</h1>
                         <div class="row px-2 py-2">
                             <a href="{{ url()->previous() }}" class="btn btn-outline-dark">Kembali</a>
-                            <button class="btn btn-primary mx-2">Edit Detail</button>
+                            {{-- <button class="btn btn-primary mx-2">Edit Detail</button> --}}
+
+                            <a href="{{ route('ruangan_detail_edit', $ruangan->id) }}" class="btn btn-primary mx-2">Edit Detail</a>
                         </div>
                     </div>
 
