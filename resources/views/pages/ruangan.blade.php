@@ -69,7 +69,7 @@
                                                 <div class="card-deck">
                                                     @foreach ($chunk as $item)
                                                         <div class="card card-animation mb-4 card-filter"
-                                                            data-string="{{ $item->name }}" style="max-width:">
+                                                            data-string="{{ $item->name }}">
                                                             <img class="card-img-top rounded img-fluid"
                                                                 @if ( $item->image != null )
                                                                     src="{{ asset('img/' . $item->image) }}"
@@ -84,7 +84,8 @@
                                                                 </h4>
                                                                 <p class="card-text">{{ $item->type }}</p>
                                                                 <h1 class="h5 font-weight-bold" style="color: #3974FE">
-                                                                    {{ $item->price }}</h5>
+                                                                    Rp{{ number_format($item->price, 0, ',', '.') }}
+                                                                </h5>
                                                                     <div class="d-sm-flex">
                                                                         <p class="pr-2"><small class="text-muted">9
                                                                                 sq.m</small></p>

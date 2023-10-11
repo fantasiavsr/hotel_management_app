@@ -28,16 +28,16 @@
                     </div>
 
                     <div class="mb-5">
-                        <form action="{{ route('tambah_ruangan_store') }}" method="POST">
+                        <form action="{{ route('tambah_ruangan_store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-xl-3 mb-3">
-                                    <h1 class="h5 mb-0 font-weight-bold" style="color: black">Infromasi Umum</h1>
+                                    <h1 class="h5 mb-0 font-weight-bold" style="color: black">Informasi Umum</h1>
                                 </div>
                                 <div class="col">
                                     <div class="row">
                                         <div class="col form-outline mb-4">
-                                            <label class="form-label">Nama Produk{{-- <span>
+                                            <label class="form-label">Nama{{-- <span>
                                                     <p class="text-danger" style="font-size: 12px">*Required</p>
                                                 </span> --}}</label>
                                             <input type="text" name="name" class="form-control" autofocus required style="background-color: #FAFAFA">
@@ -49,6 +49,14 @@
                                             <input type="text" name="type" class="form-control" autofocus required style="background-color: #FAFAFA">
                                         </div>
                                     </div>
+
+                                    <label class="form-label">Gambar:</label>
+                                    <div class="row d-flex">
+                                        <div class="col-sm form-outline mb-4">
+                                            <input type="file" name="image" class="form-input" autofocus>
+                                        </div>
+                                    </div>
+
                                     <div class="row">
                                         <div class="col form-outline mb-4">
                                             <label class="form-label">Jumlah Kasur</label>
@@ -87,7 +95,7 @@
                                         </div>
                                         <div class="col form-outline mb-4">
                                             <label class="form-label">Apakah Pengunjung Boleh Membawa Hewan
-                                                Peliharan?</label>
+                                                Peliharaan?</label>
                                             <select id="pets" name="pets" class="form-control" style="background-color: #FAFAFA">
                                                 <option value="yes">Ya</option>
                                                 <option selected value="no">Tidak</option>

@@ -30,7 +30,7 @@ class Controller extends BaseController
         /* check ruangan where user_id = auth user */
         $ruangan = ruangan::where('user_id', Auth::user()->id)->get();
 
-       /*  dd($ruangan); */
+        /*  dd($ruangan); */
 
         return view('pages/ruangan', [
             'title' => "ruangan",
@@ -92,21 +92,57 @@ class Controller extends BaseController
         ]);
     }
 
-    public function ruangan_detail_update($id)
+    public function ruangan_detail_update(Request $request)
     {
 
-        $ruangan = ruangan::findOrFail($id);
+        /* dd(request()->all()); */
 
-        $ruangan->update([
-            'name' => request('name'),
-            'type' => request('type'),
-            'price' => request('price'),
-            'bed' => request('bed'),
-            'bathroom' => request('bathroom'),
-            'size' => request('size'),
+        /* check if desc and propsDetails is empty fill with ' - ' */
+        if (request('desc') == null) {
+            $desc = '-';
+        } else {
+            $desc = request('desc');
+        }
+
+        if (request('propsDetails') == null) {
+            $propsDetails = '-';
+        } else {
+            $propsDetails = request('propsDetails');
+        }
+
+        if (request('image') == null) {
+            $image = 'room-7.jpeg';
+        } else {
+            $image = request('image');
+        }
+
+        /* dd($desc); */
+        $flight = ruangan::findOrFail(request('id'));
+
+        $flight->user_id = Auth::user()->id;
+        $flight->name = request('name');
+        $flight->type = request('type');
+        $flight->price = request('price');
+        $flight->bed = request('bed');
+        $flight->bathroom = request('bathroom');
+        $flight->size = request('size');
+        $flight->desc = $desc;
+        $flight->utilsRespons = request('utilsRespons');
+        $flight->pets = request('pets');
+        $flight->propsDetails = $propsDetails;
+
+        $request->validate([
+            'image' => 'required|image|max:5000',
         ]);
 
-        return redirect()->route('ruangan_detail', $ruangan->id);
+        $fileName = $request->image->getClientOriginalName();
+        $request->image->move(public_path('img'), $fileName);
+
+        $flight->image = $fileName;
+
+        $flight->save();
+
+        return redirect()->route('ruangan');
     }
 
     public function ruangan_detail_delete($id)
@@ -144,12 +180,6 @@ class Controller extends BaseController
             $propsDetails = request('propsDetails');
         }
 
-        if (request('image') == null) {
-            $image = 'room-7.jpeg';
-        } else {
-            $image = request('image');
-        }
-
         /* dd($desc); */
         $flight = new ruangan;
 
@@ -164,7 +194,22 @@ class Controller extends BaseController
         $flight->utilsRespons = request('utilsRespons');
         $flight->pets = request('pets');
         $flight->propsDetails = $propsDetails;
-        $flight->image = $image;
+
+        /* check if image empty change to room-7.jpeg */
+
+        if (request('image') == null) {
+            $image = 'room-7.jpeg';
+            $flight->image = $image;
+        } else {
+
+            $request->validate([
+                'image' => 'required|image|max:5000',
+            ]);
+
+            $fileName = $request->image->getClientOriginalName();
+            $request->image->move(public_path('img'), $fileName);
+            $flight->image = $fileName;
+        }
 
         $flight->save();
 

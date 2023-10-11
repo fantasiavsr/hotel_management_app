@@ -6,6 +6,12 @@
     .has-search .form-control {
         max-width: 500px;
     }
+
+    .card-img-top {
+        width: 100% !important;
+        height: 14vw !important;
+        object-fit: cover !important;
+    }
 }
 
 ::-webkit-scrollbar {
@@ -71,3 +77,4 @@
     pointer-events: none;
     color: #aaa;
 }
+

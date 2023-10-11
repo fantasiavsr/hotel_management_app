@@ -47,7 +47,7 @@
                                         @if ($ruangan->image) src="{{ asset('img/' . $ruangan->image) }}"
                                     @else
                                         src="{{ asset('img/room-1.jpeg') }}" @endif
-                                        alt="Card image cap">
+                                        alt="Card image cap" style="max-height: 50vh; object-fit: cover !important;">
                                 </div>
                                 {{-- <div class="col-sm-2 card-deck">
 
@@ -81,7 +81,7 @@
                                                     <p class="font-weight-bold mb-0" style="opacity: 75%">Harga
                                                     </p>
                                                     <h1 class="h4 font-weight-bold" style="color: #3974FE">
-                                                        Rp.{{ $ruangan->price }}
+                                                        Rp{{ number_format($ruangan->price, 0, ',', '.') }}
                                                     </h1>
                                                 </div>
                                             </div>

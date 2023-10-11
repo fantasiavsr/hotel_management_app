@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('/ruangan_detail/{id}/edit', [Controller::class, 'ruangan_detail_edit'])->name('ruangan_detail_edit');
 
-    Route::post('/ruangan_detail/{id}/update', [Controller::class, 'ruangan_detail_update'])->name('ruangan_detail_update');
+    Route::post('/ruangan_detail/update', [Controller::class, 'ruangan_detail_update'])->name('ruangan_detail_update');
 
     Route::get('/ruangan_detail/{id}/delete', [Controller::class, 'ruangan_detail_delete'])->name('ruangan_detail_delete');
 
