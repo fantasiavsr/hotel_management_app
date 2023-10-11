@@ -54,7 +54,7 @@
 
     {{-- <script src="{{ asset('demo/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
     {{-- <script src="demo/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> --}}
-    @include('js.bootstrap.bundle')
+    @include('js.bootstrap')
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
