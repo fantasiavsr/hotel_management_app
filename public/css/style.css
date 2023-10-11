@@ -4,7 +4,7 @@
     }
 
     .has-search .form-control {
-        max-width:  500px;
+        max-width: 500px;
     }
 }
 
@@ -55,7 +55,6 @@
 .card-body-animation:hover {
     opacity: 0.8;
 }
-
 
 .has-search .form-control {
     padding-left: 2.375rem;

@@ -41,7 +41,10 @@
                         <div class="col-sm-6">
                             <div class="row mb-3">
                                 <div class="col mb-3">
-                                    <img class="card-img-top rounded img-fluid" src="{{ asset('img/room-7.jpeg') }}"
+                                    <img class="card-img-top rounded img-fluid"
+                                        @if ($ruangan->image) src="{{ asset('img/' . $ruangan->image) }}"
+                                    @else
+                                        src="{{ asset('img/room-1.jpeg') }}" @endif
                                         alt="Card image cap">
                                 </div>
                                 {{-- <div class="col-sm-2 card-deck">
@@ -66,15 +69,17 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col">
-                                                    <h1 class="h4 font-weight-bold mb-2" style="color: black">No. 101
+                                                    <h1 class="h4 font-weight-bold mb-2" style="color: black">
+                                                        {{ $ruangan->name }}
                                                     </h1>
-                                                    <p class="font-weight-bold" style="opacity: 75%">Kamar Besar Lt.2
+                                                    <p class="font-weight-bold" style="opacity: 75%">{{ $ruangan->type }}
                                                     </p>
                                                 </div>
                                                 <div class="col text-right">
                                                     <p class="font-weight-bold mb-0" style="opacity: 75%">Harga
                                                     </p>
-                                                    <h1 class="h4 font-weight-bold" style="color: #3974FE">Rp.800.000
+                                                    <h1 class="h4 font-weight-bold" style="color: #3974FE">
+                                                        Rp.{{ $ruangan->price }}
                                                     </h1>
                                                 </div>
                                             </div>
@@ -82,19 +87,22 @@
                                             <div class="row px-2">
                                                 <div class="col col-xl-2 align-item-center pt-3 mr-2 mb-3"
                                                     style="background-color: #F0F0F0">
-                                                    <h1 class="h5 font-weight-bold" style="color: black">2</h5>
+                                                    <h1 class="h5 font-weight-bold" style="color: black">{{ $ruangan->bed }}
+                                                        </h5>
                                                         <p class="font-weight-bold" style="opacity: 75%; font-size: 10pt">
                                                             Kasur</p>
                                                 </div>
                                                 <div class="col col-xl-2 align-item-center pt-3 mr-2 mb-3"
                                                     style="background-color: #F0F0F0">
-                                                    <h1 class="h5 font-weight-bold" style="color: black">1</h5>
+                                                    <h1 class="h5 font-weight-bold" style="color: black">
+                                                        {{ $ruangan->bathroom }}</h5>
                                                         <p class="font-weight-bold" style="opacity: 75%; font-size: 10pt">
                                                             Km. Mandi</p>
                                                 </div>
                                                 <div class="col col-xl-2 align-item-center pt-3 mb-3"
                                                     style="background-color: #F0F0F0">
-                                                    <h1 class="h5 font-weight-bold" style="color: black">3x3</h5>
+                                                    <h1 class="h5 font-weight-bold" style="color: black">
+                                                        {{ $ruangan->size }}</h5>
                                                         <p class="font-weight-bold" style="opacity: 75%; font-size: 10pt">
                                                             Sq.m</p>
                                                 </div>
@@ -103,13 +111,7 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <h1 class="h6 font-weight-bold" style="color: black">Tentang</h5>
-                                                        <p>Dengan tempat tidur queen-size yang nyaman, balkon pribadi yang
-                                                            menawarkan pemandangan taman yang indah, dan fasilitas modern
-                                                            seperti AC, TV LCD 32 inci, serta akses Wi-Fi gratis, Anda akan
-                                                            merasa seperti di rumah. Kamar mandi dalam dilengkapi dengan
-                                                            fasilitas shower dan perlengkapan mandi gratis. Dengan harga
-                                                            yang terjangkau, ruangan ini adalah tempat yang ideal untuk
-                                                            tinggal selama kunjungan Anda.</p>
+                                                        <p>{{ $ruangan->desc }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -137,8 +139,13 @@
                                                 <div class="col ">
                                                     <h1 class="h5 font-weight-bold mb-0" style="color: black">Utilities
                                                     </h1>
-                                                    <p class="" style="opacity: 75%">Renter responsible for all
-                                                        utilities
+                                                    <p class="" style="opacity: 75%">
+                                                        @if ($ruangan->utilities == 'yes')
+                                                            Renter responsible for all
+                                                            utilities
+                                                        @else
+                                                            All utilities included
+                                                        @endif
                                                     </p>
                                                 </div>
                                             </div>
@@ -151,7 +158,12 @@
                                                 <div class="col ">
                                                     <h1 class="h5 font-weight-bold mb-0" style="color: black">Pet Policies
                                                     </h1>
-                                                    <p class="" style="opacity: 75%">Pets Allowed
+                                                    <p class="" style="opacity: 75%">
+                                                        @if ($ruangan->pet == 'yes')
+                                                            Pets allowed
+                                                        @else
+                                                            No pets allowed
+                                                        @endif
                                                     </p>
                                                 </div>
                                             </div>
@@ -165,8 +177,7 @@
                                                     <h1 class="h5 font-weight-bold mb-0" style="color: black">Properties
                                                         details & fees
                                                     </h1>
-                                                    <p class="" style="opacity: 75%">Must have 3x the rent in total
-                                                        household income (before taxes)
+                                                    <p class="" style="opacity: 75%">{{ $ruangan->propsDetails }}
                                                     </p>
                                                 </div>
                                             </div>

@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::DASHBOARD;
 
     /**
      * Create a new controller instance.
@@ -49,6 +49,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        /* dd($data) ; */
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -64,10 +65,34 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
+        /* check if nohp and img is null */
+        if (empty($data['nohp'])) {
+            $data['nohp'] = null;
+        }
+
+        if (empty($data['image'])) {
+            $data['image'] = null;
+        }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'type' => $data['type'],
+        ]);
+        dd($data) ;
+    }
+
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        return view('auth/register', [
+            'title' => "register",
         ]);
     }
 }

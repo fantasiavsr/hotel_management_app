@@ -107,7 +107,7 @@
                                         <div class="card mb-4 border-0">
                                             {{-- <img class="card-img-top rounded img-fluid" src="{{ asset('img/room-1.jpeg') }}"
                                                 alt="Card image cap"> --}}
-                                            <img class="card-img-top rounded img-fluid" src="{{ asset('/storage/img/room-1.jpeg') }}"
+                                            <img class="card-img-top rounded img-fluid" src="{{ asset('/img/room-1.jpeg') }}"
                                                 alt="Card image cap">
                                             <div class="card-body card-body-animation px-0">
                                                 <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No. 101
@@ -119,7 +119,7 @@
                                                         <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
                                                         <p class="pr-2"><small class="text-muted">1 Km. Mandi</small></p>
                                                     </div>
-                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
+                                                    <a href="#" class="stretched-link"></a>
                                             </div>
                                         </div>
 
@@ -137,7 +137,7 @@
                                                         <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
                                                         <p class="pr-2"><small class="text-muted">1 Km. Mandi</small></p>
                                                     </div>
-                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
+                                                    <a href="#" class="stretched-link"></a>
                                             </div>
                                         </div>
 
@@ -159,7 +159,7 @@
                                                         <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
                                                         </p>
                                                     </div>
-                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
+                                                    <a href="#" class="stretched-link"></a>
                                             </div>
                                         </div>
 
@@ -179,7 +179,7 @@
                                                         <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
                                                         </p>
                                                     </div>
-                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
+                                                    <a href="#" class="stretched-link"></a>
                                             </div>
                                         </div>
                                         <div class="w-100 d-none d-lg-block d-xl-none"><!-- wrap every 4 on lg--></div>

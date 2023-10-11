@@ -235,6 +235,39 @@
     </script>
     {{-- @endif --}}
 
+    {{-- <script>
+        $(document).ready(function() {
+            var cards = $(".card-deck");
+            var cardContainer = $("#cardContainer");
+            var pagination = $("#pagination ul");
+
+            var itemsPerPage = 8; // Jumlah kartu per halaman
+            var currentPage = 1;
+
+            showPage(currentPage);
+
+            function showPage(page) {
+                cards.hide();
+                cards.slice((page - 1) * itemsPerPage, page * itemsPerPage).show();
+            }
+
+            var totalPages = Math.ceil(cards.length / itemsPerPage);
+
+            for (var i = 1; i <= totalPages; i++) {
+                pagination.append('<li class="page-item"><a class="page-link" href="#">' + i + '</a></li>');
+            }
+
+            pagination.find("li:first").addClass("active");
+
+            pagination.find("a").on("click", function() {
+                var newPage = $(this).text();
+                pagination.find("li").removeClass("active");
+                $(this).parent().addClass("active");
+                showPage(newPage);
+                currentPage = newPage;
+            });
+        });
+    </script> --}}
 </body>
 
 </html>
