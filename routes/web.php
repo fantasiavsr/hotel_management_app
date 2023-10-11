@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +43,7 @@ Route::get('/booking', [Controller::class, 'booking'])->name('booking');
 Route::get('/transaksi', [Controller::class, 'transaksi'])->name('transaksi');
 
 Route::get('/ruangan_detail', [Controller::class, 'ruangan_detail'])->name('ruangan_detail');
+
+Route::get('/foo', function () {
+    Artisan::call('storage:link');
+});
