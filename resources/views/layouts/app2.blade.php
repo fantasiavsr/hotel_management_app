@@ -36,82 +36,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
-    <style>
-        @media (min-width: 768px) {
-            .card-filter {
-                max-width: 500px;
-            }
+    @include('css.css1')
 
-            .has-search .form-control {
-                max-width: 500px;
-            }
-        }
-
-        ::-webkit-scrollbar {
-            /* width: 17px; */
-            width: 0px;
-        }
-
-        /* scrollbar width=17px except default global scrollbar */
-        .show-scrollbar::-webkit-scrollbar {
-            width: 17px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background-color: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: #3974fe;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: #3974fe;
-            border-radius: 20px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: #3974fe;
-            border-radius: 20px;
-            border: 6px solid transparent;
-            background-clip: content-box;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background-color: #3974fe;
-        }
-
-        /* card image hover animation in work with stretched-link*/
-        .card-animation {
-            transition: transform 0.5s ease;
-        }
-
-        .card-animation:hover {
-            transform: scale(1.1);
-        }
-
-        /* card hover change opacity */
-        .card-body-animation:hover {
-            opacity: 0.8;
-        }
-
-
-        .has-search .form-control {
-            padding-left: 2.375rem;
-        }
-
-        .has-search .form-control-feedback {
-            position: absolute;
-            z-index: 2;
-            display: block;
-            width: 2.375rem;
-            height: 2.375rem;
-            line-height: 2.375rem;
-            text-align: center;
-            pointer-events: none;
-            color: #aaa;
-        }
-    </style>
+    @include('css.sb-admin-2')
 </head>
 
 <body id="page-top">
