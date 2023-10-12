@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\booking;
+use App\Models\hotels;
+use App\Models\pelanggan;
 use App\Models\User;
 use App\Models\ruangan;
-
+use App\Models\transaksi;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -228,6 +231,49 @@ class DatabaseSeeder extends Seeder
             'pets' => 'yes',
             'propsDetails' => 'Must have 3x the rent in total household income (before taxes)',
             'image' => 'room-7.jpeg',
+        ]);
+
+        hotels::create([
+            'user_id' => 1,
+            'name' => 'hotel saya',
+            'address' => 'menur 4',
+            'image' => null,
+            'desc' => 'ini test',
+        ]);
+
+        pelanggan::create([
+            'user_id' => 1,
+            'customer_id' => null,
+            'name' => 'pelanggan saya',
+            'nohp' => '081234567890',
+            'nik' => '1234567890',
+            'address' => 'menur 4',
+            'status' => 'active',
+        ]);
+
+        booking::create([
+            'user_id' => 1,
+            'visitor_id' => 1,
+            'hotel_id' => 1,
+            'room_id' => 1,
+            'visitor_name' => 'pelanggan saya',
+            'visitor_nohp' => '081234567890',
+            'total_visitor' => 2,
+            'checkin' => '2021-10-12',
+            'checkout' => '2021-10-13',
+            'status' => 'pending',
+            'price' => 800000,
+            'note' => 'ini test',
+        ]);
+
+        transaksi::create([
+            'user_id' => 1,
+            'booking_id' => 1,
+            'visitor_name' => 'pelanggan saya',
+            'visitor_nohp' => '081234567890',
+            'payment' => 'BCA',
+            'price' => 800000,
+            'status' => 'pending',
         ]);
     }
 }

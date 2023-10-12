@@ -11,23 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ruangans', function (Blueprint $table) {
+        Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('name');
-            $table->string('type');
+            $table->unsignedBigInteger('booking_id')->nullable();
+            $table->string('visitor_name')->nullable();
+            $table->string('visitor_nohp')->nullable();
+            $table->string('payment');
             $table->Integer('price');
-            $table->Integer('bed');
-            $table->Integer('bathroom');
-            $table->string('size');
-            $table->string('desc');
-            $table->enum('utilsRespons', ['yes', 'no']);
-            $table->enum('pets', ['yes', 'no']);
-            $table->string('propsDetails');
-            $table->string('image');
+            $table->enum('status', ['pending', 'success', 'cancel']);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('booking_id')->references('id')->on('bookings')->onDelete('cascade');
         });
     }
 
@@ -36,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ruangans');
+        Schema::dropIfExists('transaksis');
     }
 };

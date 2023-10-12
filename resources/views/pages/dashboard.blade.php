@@ -107,8 +107,8 @@
                                         <div class="card mb-4 border-0">
                                             {{-- <img class="card-img-top rounded img-fluid" src="{{ asset('img/room-1.jpeg') }}"
                                                 alt="Card image cap"> --}}
-                                            <img class="card-img-top rounded img-fluid" src="{{ asset('/img/room-1.jpeg') }}"
-                                                alt="Card image cap">
+                                            <img class="card-img-top rounded img-fluid"
+                                                src="{{ asset('/img/room-1.jpeg') }}" alt="Card image cap">
                                             <div class="card-body card-body-animation px-0">
                                                 <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No. 101
                                                 </h4>
@@ -125,8 +125,8 @@
 
                                         <div class="card mb-4 border-0">
 
-                                            <img class="card-img-top rounded img-fluid" src="{{ asset('/img/room-2.jpeg') }}"
-                                                alt="Card image cap">
+                                            <img class="card-img-top rounded img-fluid"
+                                                src="{{ asset('/img/room-2.jpeg') }}" alt="Card image cap">
                                             <div class="card-body card-body-animation px-0">
                                                 <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No. 101
                                                 </h4>
@@ -314,16 +314,18 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 {{-- img hotel profile --}}
-                                                {{--  <div class="col-3">
-                                                    <img src="{{ asset('img/item-sample1.png') }}" alt=""
-                                                        class="img-fluid rounded-circle">
-                                                </div> --}}
+                                                <div class="col-auto">
+                                                    <img @if ($hotels->image != null) src="{{ asset('img/' . $hotels->image) }}"
+                                                @else
+                                                    src="{{ asset('img/room-1.jpeg') }}" @endif
+                                                        alt="" class="img-fluid rounded"
+                                                        style="width: 60px; height: 60px; object-fit: cover !important;">
+                                                </div>
                                                 <div class="col mb-2">
-                                                    <h1 class="h4 font-weight-bold mb-2" style="color: black">Hotel Saya
+                                                    <h1 class="h4 font-weight-bold mb-1" style="color: black">{{ $hotels->name }}
                                                         <i class="fa-solid fa-layer-group" style="color: #3974FE"></i>
                                                     </h1>
-                                                    <p class="font-weight-bold" style="opacity: 75%">Jl. Menur No 4,
-                                                        Malang
+                                                    <p class="font-weight-bold" style="opacity: 75%"">{{ $hotels->address }}
                                                     </p>
                                                 </div>
 
@@ -344,6 +346,11 @@
                                                         <p class="font-weight-bold" style="opacity: 75%; font-size: 10pt">
                                                             Lama Buka</p>
                                                 </div>
+                                            </div>
+                                            <div class="row">
+                                                <a href="{{ route('hotel_detail', $hotels->id) }}"
+                                                 class="btn btn-primary btn-block mx-2">Edit Informasi
+                                                    Hotel</a>
                                             </div>
                                         </div>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\hotels;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -75,13 +76,29 @@ class RegisterController extends Controller
             $data['image'] = null;
         }
 
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'type' => $data['type'],
-        ]);
-        dd($data) ;
+        $user = new User;
+        $user->name = $data['name'];
+        $user->nohp = $data['nohp'];
+        $user->image = $data['image'];
+        $user->email = $data['email'];
+        $user->password = Hash::make($data['password']);
+
+        $user->save();
+
+        /* create hotel after create user with name 'Hotel Saya'*/
+        /* dd($user); */
+
+        $hotel = new hotels;
+        $hotel->user_id = $user->id;
+        $hotel->name = 'Hotel Saya';
+        $hotel->address = 'Belum Diisi';
+        $hotel->image = 'room-7.jpeg';
+        $hotel->desc = 'Belum Diisi';
+
+        /* dd($hotel); */
+        $hotel->save();
+
+        return $user;
     }
 
     /**

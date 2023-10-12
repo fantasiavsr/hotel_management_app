@@ -22,6 +22,8 @@
                     {{-- Sub Title --}}
                     <div class="d-sm-flex align-items-center justify-content-between pt-2 mt-4 mb-4">
                         <h1 class="h6 mb-0 font-weight-bold" style="color: black">List Pelanggan</h1>
+                        <a href="{{ route('tambah_pelanggan') }}" class="btn btn-primary">Tambah Pelanggan</a>
+
                     </div>
 
                     {{-- <div class="d-sm-flex align-items-center justify-content-between pt-2  mb-2">
@@ -40,212 +42,56 @@
                                 <div class="col">
                                     <div class="table-responsive">
 
-                                        <table class="table table-hover" id="dataTable" width="100%"
-                                            cellspacing="0" style="">
+                                        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0"
+                                            style="">
                                             <thead>
                                                 <tr>
                                                     <th>Nama</th>
                                                     <th>ID</th>
                                                     <th>Status</th>
-                                                    <th>Check In</th>
-                                                    <th>Check Out</th>
+                                                    <th>No HP</th>
+                                                    <th>NIK</th>
+                                                    <th>Alamat</th>
                                                     <th>Detail</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{--  @foreach ($portofolio->slice(0, 3) as $item) --}}
-                                                <tr>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-auto mb-2">
-                                                                <img class="avatar rounded-circle"
-                                                                    src="{{ asset('img/item-sample3.png') }}" alt=""
-                                                                    style="width:32px; height:32px">
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="row">
-                                                                    <h1 class="h6 font-weight-bold mb-0" style="color: black">
-                                                                        Alif Rizki</h1>
+                                                @foreach ($pelanggan as $item)
+                                                    <tr>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-auto mb-2">
+                                                                    <img class="avatar rounded-circle"
+                                                                        src="{{ asset('img/item-sample1.png') }}"
+                                                                        alt="" style="width:32px; height:32px">
                                                                 </div>
-                                                                <div class="row ">
-                                                                    <p class=""
-                                                                        style="opacity: 75%; font-size: 10pt">
-                                                                        082357995175</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>3124102</td>
-                                                    <td>
-                                                        Aktif
-                                                    </td>
-                                                    <td>10/9/2023</td>
-                                                    <td>12/9/2023</td>
-                                                    <td>
-                                                        <a href="#" class="btn btn-primary btn-sm">Detail</a>
-                                                    </td>
-                                                </tr>
-                                                {{-- @endforeach --}}
-
-                                                <tr>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-auto mb-2">
-                                                                <img class="avatar rounded-circle"
-                                                                    src="{{ asset('img/item-sample2.png') }}" alt=""
-                                                                    style="width:32px; height:32px">
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="row">
-                                                                    <h1 class="h6 font-weight-bold mb-0" style="color: black">
-                                                                        Ronaldi</h1>
-                                                                </div>
-                                                                <div class="row ">
-                                                                    <p class="f"
-                                                                        style="opacity: 75%; font-size: 10pt">
-                                                                        082357995175</p>
+                                                                <div class="col">
+                                                                    <div class="row">
+                                                                        <h1 class="h6 font-weight-bold mb-0"
+                                                                            style="color: black">
+                                                                            {{ $item->name }}</h1>
+                                                                    </div>
+                                                                    <div class="row ">
+                                                                        <p class=""
+                                                                            style="opacity: 75%; font-size: 10pt">
+                                                                            {{ $item->nohp }}</p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>0120102</td>
-                                                    <td>
-                                                        Tidak Aktif
-                                                    </td>
-                                                    <td>10/9/2023</td>
-                                                    <td>12/9/2023</td>
-                                                    <td>
-                                                        <a href="#" class="btn btn-primary btn-sm">Detail</a>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-auto mb-2">
-                                                                <img class="avatar rounded-circle"
-                                                                    src="{{ asset('img/item-sample1.png') }}" alt=""
-                                                                    style="width:32px; height:32px">
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="row">
-                                                                    <h1 class="h6 font-weight-bold mb-0" style="color: black">
-                                                                        Aria</h1>
-                                                                </div>
-                                                                <div class="row ">
-                                                                    <p class="f"
-                                                                        style="opacity: 75%; font-size: 10pt">
-                                                                        082357995175</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>0120102</td>
-                                                    <td>
-                                                        Tidak Aktif
-                                                    </td>
-                                                    <td>10/9/2023</td>
-                                                    <td>12/9/2023</td>
-                                                    <td>
-                                                        <a href="#" class="btn btn-primary btn-sm">Detail</a>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-auto mb-2">
-                                                                <img class="avatar rounded-circle"
-                                                                    src="{{ asset('img/item-sample1.png') }}" alt=""
-                                                                    style="width:32px; height:32px">
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="row">
-                                                                    <h1 class="h6 font-weight-bold mb-0" style="color: black">
-                                                                        Daffa</h1>
-                                                                </div>
-                                                                <div class="row ">
-                                                                    <p class="f"
-                                                                        style="opacity: 75%; font-size: 10pt">
-                                                                        082357995175</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>0120102</td>
-                                                    <td>
-                                                        Tidak Aktif
-                                                    </td>
-                                                    <td>10/9/2023</td>
-                                                    <td>12/9/2023</td>
-                                                    <td>
-                                                        <a href="#" class="btn btn-primary btn-sm">Detail</a>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-auto mb-2">
-                                                                <img class="avatar rounded-circle"
-                                                                    src="{{ asset('img/item-sample3.png') }}" alt=""
-                                                                    style="width:32px; height:32px">
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="row">
-                                                                    <h1 class="h6 font-weight-bold mb-0" style="color: black">
-                                                                        Emir</h1>
-                                                                </div>
-                                                                <div class="row ">
-                                                                    <p class="f"
-                                                                        style="opacity: 75%; font-size: 10pt">
-                                                                        082357995175</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>0120102</td>
-                                                    <td>
-                                                        Tidak Aktif
-                                                    </td>
-                                                    <td>10/9/2023</td>
-                                                    <td>12/9/2023</td>
-                                                    <td>
-                                                        <a href="#" class="btn btn-primary btn-sm">Detail</a>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-auto mb-2">
-                                                                <img class="avatar rounded-circle"
-                                                                    src="{{ asset('img/item-sample2.png') }}" alt=""
-                                                                    style="width:32px; height:32px">
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="row">
-                                                                    <h1 class="h6 font-weight-bold mb-0" style="color: black">
-                                                                        Dzaka</h1>
-                                                                </div>
-                                                                <div class="row ">
-                                                                    <p class="f"
-                                                                        style="opacity: 75%; font-size: 10pt">
-                                                                        082357995175</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>0120102</td>
-                                                    <td>
-                                                        Tidak Aktif
-                                                    </td>
-                                                    <td>10/9/2023</td>
-                                                    <td>12/9/2023</td>
-                                                    <td>
-                                                        <a href="#" class="btn btn-primary btn-sm">Detail</a>
-                                                    </td>
-                                                </tr>
+                                                        </td>
+                                                        <td>{{ $item->id }}</td>
+                                                        <td>
+                                                            {{ $item->status }}
+                                                        </td>
+                                                        <td>{{ $item->nohp }}</td>
+                                                        <td>{{ $item->nik }}3</td>
+                                                        <td>{{ $item->address }}</td>
+                                                        <td>
+                                                            <a href="{{ route('pelanggan_detail', $item->id) }}"
+                                                                class="btn btn-primary btn-sm">Edit</a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
 
                                             </tbody>
                                         </table>

@@ -9,4 +9,16 @@ class ruangan extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function hotel()
+    {
+        return $this->belongsTo(hotel::class);
+    }
+
+    public function booking()
+    {
+        return $this->hasMany(booking::class);
+    }
+
+
 }

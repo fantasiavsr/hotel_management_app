@@ -22,6 +22,7 @@
                     {{-- Sub Title --}}
                     <div class="d-sm-flex align-items-center justify-content-between pt-2 mt-4 mb-4">
                         <h1 class="h6 mb-0 font-weight-bold" style="color: black">List Transaksi</h1>
+                        <a href="{{ route('tambah_transaksi') }}" class="btn btn-primary">Tambah Transaksi</a>
                     </div>
 
                     {{-- <div class="d-sm-flex align-items-center justify-content-between pt-2  mb-2">
@@ -40,8 +41,8 @@
                                 <div class="col">
                                     <div class="table-responsive">
 
-                                        <table class="table table-hover" id="dataTable" width="100%"
-                                            cellspacing="0" style="">
+                                        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0"
+                                            style="">
                                             <thead>
                                                 <tr>
                                                     <th>ID Transaksi</th>
@@ -55,75 +56,54 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{--  @foreach ($portofolio->slice(0, 3) as $item) --}}
-                                                <tr>
-                                                    <td>001001</td>
-                                                    <td>3124102</td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-auto mb-2">
-                                                                <img class="avatar rounded-circle"
-                                                                    src="{{ asset('img/item-sample3.png') }}" alt=""
-                                                                    style="width:32px; height:32px">
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="row">
-                                                                    <h1 class="h6 font-weight-bold mb-0"
-                                                                        style="color: black">
-                                                                        Alif Rizki</h1>
+                                                @foreach ($transaksi as $item)
+                                                    <tr>
+                                                        <td>
+                                                            {{ $item->id }}
+                                                        </td>
+                                                        <td>
+                                                            {{ $item->booking_id }}
+                                                        </td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-auto mb-2">
+                                                                    <img class="avatar rounded-circle"
+                                                                        src="{{ asset('img/item-sample1.png') }}"
+                                                                        alt="" style="width:32px; height:32px">
                                                                 </div>
-                                                                <div class="row ">
-                                                                    <p class="" style="opacity: 75%; font-size: 10pt">
-                                                                        082357995175</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        Transfer Bank
-                                                    </td>
-                                                    <td>Rp. 800.000</td>
-                                                    <td>10/9/2023</td>
-                                                    <td>Lunas</td>
-                                                    <td>
-                                                        <a href="#" class="btn btn-primary btn-sm">Detail</a>
-                                                    </td>
-                                                </tr>
-                                                {{-- @endforeach --}}
-
-                                                <tr>
-                                                    <td>001002</td>
-                                                    <td>0120102</td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-auto mb-2">
-                                                                <img class="avatar rounded-circle"
-                                                                    src="{{ asset('img/item-sample2.png') }}" alt=""
-                                                                    style="width:32px; height:32px">
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="row">
-                                                                    <h1 class="h6 font-weight-bold mb-0"
-                                                                        style="color: black">
-                                                                        Ronaldi</h1>
-                                                                </div>
-                                                                <div class="row ">
-                                                                    <p class="f" style="opacity: 75%; font-size: 10pt">
-                                                                        082357995175</p>
+                                                                <div class="col">
+                                                                    <div class="row">
+                                                                        <h1 class="h6 font-weight-bold mb-0"
+                                                                            style="color: black">
+                                                                            {{ $item->visitor_name }}
+                                                                        </h1>
+                                                                    </div>
+                                                                    <div class="row ">
+                                                                        <p class=""
+                                                                            style="opacity: 75%; font-size: 10pt">
+                                                                            {{ $item->visitor_nohp }}</p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        Transfer Bank
-                                                    </td>
-                                                    <td>Rp. 200.000</td>
-                                                    <td>10/9/2023</td>
-                                                    <td>Belum Lunas</td>
-                                                    <td>
-                                                        <a href="#" class="btn btn-primary btn-sm">Detail</a>
-                                                    </td>
-                                                </tr>
+                                                        </td>
+                                                        <td>
+                                                            {{ $item->payment }}
+                                                        </td>
+                                                        <td>
+                                                            {{ $item->price }}
+                                                        </td>
+                                                        <td>
+                                                            {{ $item->created_at }}
+                                                        </td>
+                                                        <td>
+                                                            {{ $item->status }}
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{ route('transaksi_detail', ['id' => $item->id]) }}"
+                                                                class="btn btn-primary btn-sm">Edit</a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
 

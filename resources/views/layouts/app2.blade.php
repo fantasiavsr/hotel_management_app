@@ -39,6 +39,8 @@
     @include('css.css1')
 
     @include('css.sb-admin-2')
+
+    <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body id="page-top">
@@ -268,6 +270,19 @@
             });
         });
     </script> --}}
+
+    <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+    <script>
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+    </script>
+
+    <script>
+        $('#datepicker2').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+    </script>
 </body>
 
 </html>

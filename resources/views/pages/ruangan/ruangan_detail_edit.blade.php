@@ -24,6 +24,14 @@
                         <div class="row px-2 py-2">
                             {{-- <a href="{{ url()->previous() }}" class="btn btn-outline-dark">Kembali</a> --}}
                             {{-- <button class="btn btn-primary mx-2">Simpan</button> --}}
+                            {{-- button for delete --}}
+                            <form
+                                action="{{ route('ruangan_detail_delete', ['id' => $ruangan->id]) }}"
+                                method="delete">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $ruangan->id }}">
+                                <button type="submit" class="btn btn-danger">Hapus</button>
+                            </form>
                         </div>
                     </div>
 

@@ -78,3 +78,25 @@
     color: #aaa;
 }
 
+
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    /* color: red !important; */
+    opacity: 0.5 !important; /* Firefox */
+}
+
+.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    /* color: red !important; */
+    opacity: 0.5 !important;
+}
+
+.form-control::-ms-input-placeholder { /* Microsoft Edge */
+    /* color: red !important; */
+    opacity: 0.5 !important;
+}
+
+/* custom boostrap 4 disbaled input ng color */
+.custom-disabled .form-control {
+    background-color: #26313dd7 !important;
+    opacity: 1;
+}
+

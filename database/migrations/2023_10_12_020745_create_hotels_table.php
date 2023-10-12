@@ -11,20 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ruangans', function (Blueprint $table) {
+        Schema::create('hotels', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('name');
-            $table->string('type');
-            $table->Integer('price');
-            $table->Integer('bed');
-            $table->Integer('bathroom');
-            $table->string('size');
+            $table->string('address');
+            $table->string('image')->nullable();
             $table->string('desc');
-            $table->enum('utilsRespons', ['yes', 'no']);
-            $table->enum('pets', ['yes', 'no']);
-            $table->string('propsDetails');
-            $table->string('image');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -36,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ruangans');
+        Schema::dropIfExists('hotels');
     }
 };

@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 use App\Models\ruangan;
+use App\Models\hotels;
+use App\Models\pelanggan;
+use App\Models\booking;
+use App\Models\transaksi;
 use PHPUnit\Event\Code\Test;
 
 class Controller extends BaseController
@@ -19,9 +23,19 @@ class Controller extends BaseController
 
     public function dashboard()
     {
+        $hotels = hotels::where('user_id', Auth::user()->id)->first();
+
+        /* chekc if hotels not found */
+        if ($hotels == null) {
+            $hotels = hotels::where('user_id', 2)->first();
+        }
+
+        /* dd($hotels) ; */
+        /* dd($hotels->name) ; */
 
         return view('pages/dashboard', [
             'title' => "dashboard",
+            'hotels' => $hotels,
         ]);
     }
 
@@ -41,25 +55,33 @@ class Controller extends BaseController
 
     public function pelanggan()
     {
+        $pelanggan = pelanggan::where('user_id', Auth::user()->id)->get();
 
         return view('pages/pelanggan', [
             'title' => "pelanggan",
+            'pelanggan' => $pelanggan,
         ]);
     }
 
     public function booking()
     {
-
+        $booking = booking::where('user_id', Auth::user()->id)->get();
+        $allruangan = ruangan::where('user_id', Auth::user()->id)->get();
         return view('pages/booking', [
             'title' => "booking",
+            'booking' => $booking,
+            'allruangan' => $allruangan,
         ]);
     }
 
     public function transaksi()
     {
 
+        $transaksi = transaksi::where('user_id', Auth::user()->id)->get();
+
         return view('pages/transaksi', [
             'title' => "transaksi",
+            'transaksi' => $transaksi,
         ]);
     }
 
@@ -132,15 +154,20 @@ class Controller extends BaseController
         $flight->pets = request('pets');
         $flight->propsDetails = $propsDetails;
 
-        $request->validate([
-            'image' => 'required|image|max:5000',
-        ]);
+        /* check if user update image */
+        if (request('image') == null) {
+            $image = 'room-7.jpeg';
+            $flight->image = $image;
+        } else {
+            $request->validate([
+                'image' => 'required|image|max:5000',
+            ]);
 
-        $fileName = $request->image->getClientOriginalName();
-        $request->image->move(public_path('img'), $fileName);
-        /* $request->image->move('img', $fileName); // 'img' is the folder name in public folder */
-
-        $flight->image = $fileName;
+            $fileName = $request->image->getClientOriginalName();
+            $request->image->move(public_path('img'), $fileName);
+            /* $request->image->move('img', $fileName); // 'img' is the folder name in public folder */
+            $flight->image = $fileName;
+        }
 
         $flight->save();
 
@@ -217,5 +244,325 @@ class Controller extends BaseController
         $flight->save();
 
         return redirect()->route('ruangan');
+    }
+
+    public function hotel_detail($id)
+    {
+
+        $hotels = hotels::findOrFail($id);
+
+        return view('pages/hotel/hotel_detail_edit', [
+            'title' => "hotel_detail",
+            'hotels' => $hotels,
+        ]);
+    }
+
+    public function hotel_detail_update(Request $request)
+    {
+
+        /* dd(request()->all()); */
+        $flight = hotels::findOrFail(request('id'));
+
+        $flight->name = request('name');
+        $flight->address = request('address');
+        $flight->desc = request('desc');
+
+        /* check if user update image */
+        if (request('image') == null) {
+            $image = 'room-7.jpeg';
+            $flight->image = $image;
+        } else {
+            $request->validate([
+                'image' => 'required|image|max:5000',
+            ]);
+
+            $fileName = $request->image->getClientOriginalName();
+            $request->image->move(public_path('img'), $fileName);
+            /* $request->image->move('img', $fileName); // 'img' is the folder name in public folder */
+            $flight->image = $fileName;
+        }
+
+        $flight->save();
+
+        return redirect()->route('dashboard');
+    }
+
+    public function tambah_pelanggan()
+    {
+
+        return view('pages/pelanggan/tambah_pelanggan', [
+            'title' => "tambah_pelanggan",
+        ]);
+    }
+
+    public function tambah_pelanggan_store(Request $request)
+    {
+        /* dd(request()->all()); */
+
+        $flight = new pelanggan();
+
+        $flight->user_id = Auth::user()->id;
+        /* $flight->customer_id = $request->customer_id; */
+        $flight->name = $request->name;
+        $flight->nohp = $request->nohp;
+        $flight->nik = $request->nik;
+        $flight->address = $request->address;
+        $flight->status = $request->status;
+
+        $flight->save();
+
+        return redirect()->route('pelanggan');
+    }
+
+    public function pelanggan_detail($id)
+    {
+
+        $pelanggan = pelanggan::findOrFail($id);
+
+        return view('pages/pelanggan/pelanggan_detail_edit', [
+            'title' => "pelanggan_detail",
+            'pelanggan' => $pelanggan,
+        ]);
+    }
+
+    public function pelanggan_detail_update(Request $request)
+    {
+
+        /* dd(request()->all()); */
+        $flight = pelanggan::findOrFail(request('id'));
+
+        $flight->name = request('name');
+        $flight->nohp = request('nohp');
+        $flight->nik = request('nik');
+        $flight->address = request('address');
+        $flight->status = request('status');
+
+        $flight->save();
+
+        return redirect()->route('pelanggan');
+    }
+
+    public function tambah_booking()
+    {
+        $hotel = hotels::where('user_id', Auth::user()->id)->first();
+        $pelanggan  = pelanggan::where('user_id', Auth::user()->id)->get();
+        $ruangan  = ruangan::where('user_id', Auth::user()->id)->get();
+        return view('pages/booking/tambah_booking', [
+            'title' => "tambah_booking",
+            'hotel' => $hotel,
+            'pelanggan' => $pelanggan,
+            'ruangan' => $ruangan,
+        ]);
+    }
+
+    public function tambah_booking_store(Request $request)
+    {
+        /* dd(request()->all()); */
+
+        /* convert datepicker to mysql datetime format */
+        $checkin = date('Y-m-d', strtotime(request('checkin')));
+        $checkout = date('Y-m-d', strtotime(request('checkout')));
+
+        /* dd($checkin); */
+
+        /* if visitor_id not null get name and nohp form user */
+        if (request('visitor_id') != null) {
+            $visitor = pelanggan::findOrFail(request('visitor_id'));
+            $visitor_name = $visitor->name;
+            $visitor_nohp = $visitor->nohp;
+        } else {
+            $visitor_name = request('visitor_name');
+            $visitor_nohp = request('visitor_nohp');
+        }
+
+        /* dd($visitor_name); */
+
+        $flight = new booking();
+
+        $flight->user_id = Auth::user()->id;
+        $flight->visitor_id = request('visitor_id');
+        $flight->hotel_id = request('hotel_id');
+        $flight->room_id = request('room_id');
+        $flight->visitor_name = $visitor_name;
+        $flight->visitor_nohp = $visitor_nohp;
+        $flight->total_visitor = request('total_visitor');
+        $flight->checkin = $checkin;
+        $flight->checkout = $checkout;
+        $flight->status = request('status');
+        $flight->price = request('price');
+        $flight->note = request('note');
+
+        $flight->save();
+
+        return redirect()->route('booking');
+    }
+
+    public function booking_detail($id)
+    {
+
+        $booking = booking::findOrFail($id);
+        $hotel = hotels::where('user_id', Auth::user()->id)->first();
+        $pelanggan  = pelanggan::where('user_id', Auth::user()->id)->get();
+        $ruangan  = ruangan::where('user_id', Auth::user()->id)->get();
+
+        return view('pages/booking/booking_detail_edit', [
+            'title' => "booking_detail",
+            'booking' => $booking,
+            'hotel' => $hotel,
+            'pelanggan' => $pelanggan,
+            'ruangan' => $ruangan,
+        ]);
+    }
+
+    public function booking_detail_update(Request $request)
+    {
+
+        /* dd(request()->all()); */
+
+        /* convert datepicker to mysql datetime format */
+        $checkin = date('Y-m-d', strtotime(request('checkin')));
+        $checkout = date('Y-m-d', strtotime(request('checkout')));
+
+        /* dd($checkin); */
+
+        /* dd($visitor_name); */
+
+        $flight = booking::findOrFail(request('id'));
+
+        $flight->user_id = Auth::user()->id;
+        $flight->visitor_id = request('visitor_id');
+        $flight->hotel_id = request('hotel_id');
+        $flight->room_id = request('room_id');
+        $flight->total_visitor = request('total_visitor');
+        $flight->checkin = $checkin;
+        $flight->checkout = $checkout;
+        $flight->status = request('status');
+        $flight->price = request('price');
+        $flight->note = request('note');
+
+        $flight->save();
+
+        return redirect()->route('booking');
+    }
+
+    public function tambah_transaksi()
+    {
+        $booking = booking::where('user_id', Auth::user()->id)->get();
+        return view('pages/transaksi/tambah_transaksi', [
+            'title' => "tambah_transaksi",
+            'booking' => $booking,
+        ]);
+    }
+
+    public function tambah_transaksi_store(Request $request)
+    {
+        /* dd(request()->all()); */
+
+        /* if visitor_id not null get name and nohp form user */
+        if (request('booking_id') != null) {
+            $booking = booking::findOrFail(request('booking_id'));
+            /* dd($booking); */
+            $visitor_name = $booking->visitor_name;
+            $visitor_nohp = $booking->visitor_nohp;
+            /* dd($visitor_name); */
+        } else {
+            $visitor_name = request('visitor_name');
+            $visitor_nohp = request('visitor_nohp');
+        }
+
+        /* dd($visitor_name); */
+
+        $flight = new transaksi();
+
+        $flight->user_id = Auth::user()->id;
+        $flight->booking_id = request('booking_id');
+        $flight->visitor_name = $visitor_name;
+        $flight->visitor_nohp = $visitor_nohp;
+        $flight->payment = request('payment');
+        $flight->price = request('price');
+        $flight->status = request('status');
+
+        $flight->save();
+
+        return redirect()->route('transaksi');
+    }
+
+    public function transaksi_detail($id)
+    {
+        $transaksi = transaksi::findOrFail($id);
+        $booking = booking::where('user_id', Auth::user()->id)->get();
+        $hotel = hotels::where('user_id', Auth::user()->id)->first();
+        $pelanggan = pelanggan::where('user_id', Auth::user()->id)->get();
+        $ruangan  = ruangan::where('user_id', Auth::user()->id)->get();
+
+        return view('pages/transaksi/transaksi_detail_edit', [
+            'title' => "booking_detail",
+            'booking' => $booking,
+            'hotel' => $hotel,
+            'pelanggan' => $pelanggan,
+            'ruangan' => $ruangan,
+            'transaksi' => $transaksi,
+        ]);
+    }
+
+    public function transaksi_detail_update(Request $request)
+    {
+
+        /* dd(request()->all()); */
+
+        $flight = transaksi::findOrFail(request('id'));
+
+        $flight->user_id = Auth::user()->id;
+        $flight->payment = request('payment');
+        $flight->price = request('price');
+        $flight->status = request('status');
+
+        $flight->save();
+
+        return redirect()->route('transaksi');
+    }
+
+    /* delete ruangan */
+    public function ruangan_delete($id)
+    {
+
+        $ruangan = ruangan::findOrFail($id);
+
+        $ruangan->delete();
+
+        return redirect()->route('ruangan');
+    }
+
+    /* delete pelanggan */
+    public function pelanggan_delete($id)
+    {
+
+        $pelanggan = pelanggan::findOrFail($id);
+
+        $pelanggan->delete();
+
+        return redirect()->route('pelanggan');
+    }
+
+    /* delete booking */
+    public function booking_delete($id)
+    {
+
+        $booking = booking::findOrFail($id);
+
+        $booking->delete();
+
+        return redirect()->route('booking');
+    }
+
+    /* delete transaksi */
+    public function transaksi_delete($id)
+    {
+
+        $transaksi = transaksi::findOrFail($id);
+
+        $transaksi->delete();
+
+        return redirect()->route('transaksi');
     }
 }

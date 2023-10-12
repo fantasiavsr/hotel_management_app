@@ -18,8 +18,14 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('welcome');
+}); */
+
+Route::get('/', function () {
+    return view('auth/login', [
+        'title' => "login",
+    ]);
 });
 
 Auth::routes();
@@ -30,29 +36,42 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/dashboard', [Controller::class, 'dashboard'])->name('dashboard');
-
     Route::get('/ruangan', [Controller::class, 'ruangan'])->name('ruangan');
-
     Route::get('/pelanggan', [Controller::class, 'pelanggan'])->name('pelanggan');
-
     Route::get('/booking', [Controller::class, 'booking'])->name('booking');
-
     Route::get('/transaksi', [Controller::class, 'transaksi'])->name('transaksi');
 
     /* Route::get('/ruangan_detail', [Controller::class, 'ruangan_detail'])->name('ruangan_detail'); */
 
     Route::get('/ruangan_detail/{id}', [Controller::class, 'ruangan_detail'])->name('ruangan_detail');
-
     Route::get('/ruangan_detail/{id}/edit', [Controller::class, 'ruangan_detail_edit'])->name('ruangan_detail_edit');
-
     Route::post('/ruangan_detail/update', [Controller::class, 'ruangan_detail_update'])->name('ruangan_detail_update');
-
     Route::get('/ruangan_detail/{id}/delete', [Controller::class, 'ruangan_detail_delete'])->name('ruangan_detail_delete');
-
-    /* tambah_ruangan */
     Route::get('/tambah_ruangan', [Controller::class, 'tambah_ruangan'])->name('tambah_ruangan');
-
     Route::post('/tambah_ruangan/store', [Controller::class, 'tambah_ruangan_store'])->name('tambah_ruangan_store');
+    /* delete ruangan ruangan_delete*/
+    Route::delete('/ruangan_delete/{id}', [Controller::class, 'ruangan_delete'])->name('ruangan_delete');
+
+    Route::get('/hotel_detail/{id}', [Controller::class, 'hotel_detail'])->name('hotel_detail');
+    Route::post('/hotel_detail/update', [Controller::class, 'hotel_detail_update'])->name('hotel_detail_update');
+
+    Route::get('/tambah_pelanggan', [Controller::class, 'tambah_pelanggan'])->name('tambah_pelanggan');
+    Route::post('/tambah_pelanggan/store', [Controller::class, 'tambah_pelanggan_store'])->name('tambah_pelanggan_store');
+    Route::get('/pelanggan_detail/{id}', [Controller::class, 'pelanggan_detail'])->name('pelanggan_detail');
+    Route::post('/pelanggan_detail/update', [Controller::class, 'pelanggan_detail_update'])->name('pelanggan_detail_update');
+    Route::delete('/pelanggan_delete/{id}', [Controller::class, 'pelanggan_delete'])->name('pelanggan_delete');
+
+    Route::get('/tambah_booking', [Controller::class, 'tambah_booking'])->name('tambah_booking');
+    Route::post('/tambah_booking/store', [Controller::class, 'tambah_booking_store'])->name('tambah_booking_store');
+    Route::get('/booking_detail/{id}', [Controller::class, 'booking_detail'])->name('booking_detail');
+    Route::post('/booking_detail/update', [Controller::class, 'booking_detail_update'])->name('booking_detail_update');
+    Route::delete('/booking_delete/{id}', [Controller::class, 'booking_delete'])->name('booking_delete');
+
+    Route::get('/tambah_transaksi', [Controller::class, 'tambah_transaksi'])->name('tambah_transaksi');
+    Route::post('/tambah_transaksi/store', [Controller::class, 'tambah_transaksi_store'])->name('tambah_transaksi_store');
+    Route::get('/transaksi_detail/{id}', [Controller::class, 'transaksi_detail'])->name('transaksi_detail');
+    Route::post('/transaksi_detail/update', [Controller::class, 'transaksi_detail_update'])->name('transaksi_detail_update');
+    Route::delete('/transaksi_delete/{id}', [Controller::class, 'transaksi_delete'])->name('transaksi_delete');
 });
 
 Route::get('/foo', function () {
