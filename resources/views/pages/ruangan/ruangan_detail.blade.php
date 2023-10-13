@@ -43,11 +43,11 @@
                         <div class="col-sm-6">
                             <div class="row mb-3">
                                 <div class="col mb-3">
-                                    <img class="card-img-top rounded img-fluid"
+                                    <img class="card-img-top-custom-detail rounded img-fluid"
                                         @if ($ruangan->image) src="{{ asset('img/' . $ruangan->image) }}"
                                     @else
                                         src="{{ asset('img/room-1.jpeg') }}" @endif
-                                        alt="Card image cap" style="max-height: 50vh; object-fit: cover !important;">
+                                        alt="Card image cap" {{-- style="max-height: 50vh; object-fit: cover !important;" --}}>
                                 </div>
                                 {{-- <div class="col-sm-2 card-deck">
 

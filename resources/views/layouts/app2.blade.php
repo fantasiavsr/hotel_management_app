@@ -23,22 +23,22 @@
         referrerpolicy="no-referrer" />
 
     <!-- Custom styles for this template-->
-    {{-- <link href="{{ asset('demo/css/sb-admin-2.min.css') }}" rel="stylesheet"> --}}
-    <link href="demo/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="{{ asset('demo/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    {{-- <link href="demo/css/sb-admin-2.min.css" rel="stylesheet"> --}}
 
     {{-- <link href="{{ asset('css/style.css') }}" rel="stylesheet"> --}}
-    <link href="css/style.css" rel="stylesheet">
+    {{-- <link href="css/style.css" rel="stylesheet"> --}}
 
     <!-- Custom styles for DataTable-->
-    {{-- <link href="{{ asset('demo/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet"> --}}
-    <link href="demo/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="{{ asset('demo/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    {{-- <link href="demo/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"> --}}
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+   {{--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous"> --}}
 
     @include('css.css1')
 
-    @include('css.sb-admin-2')
+    {{-- @include('css.sb-admin-2') --}}
 
     <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 </head>
@@ -48,13 +48,13 @@
     @yield('content')
 
     <!-- Bootstrap core JavaScript-->
-    {{-- <script src="{{ asset('demo/vendor/jquery/jquery.min.js') }}"></script> --}}
-    <script src="demo/vendor/jquery/jquery.min.js"></script>
+    <script src="{{ asset('demo/vendor/jquery/jquery.min.js') }}"></script>
+    {{-- <script src="demo/vendor/jquery/jquery.min.js"></script> --}}
 
-    {{-- <script src="{{ asset('demo/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
+    <script src="{{ asset('demo/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-    {{-- <script src="{{ asset('demo/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
-    <script src="demo/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('demo/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    {{-- <script src="demo/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> --}}
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -74,26 +74,26 @@
     </script>
 
     <!-- Core plugin JavaScript-->
-    {{-- <script src="{{ asset('demo/vendor/jquery-easing/jquery.easing.min.js') }}"></script> --}}
-    <script src="demo/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="{{ asset('demo/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    {{-- <script src="demo/vendor/jquery-easing/jquery.easing.min.js"></script> --}}
 
     <!-- Custom scripts for all pages-->
-    {{-- <script src="{{ asset('demo/js/sb-admin-2.min.js') }}"></script> --}}
-    <script src="demo/js/sb-admin-2.min.js"></script>
+    <script src="{{ asset('demo/js/sb-admin-2.min.js') }}"></script>
+    {{-- <script src="demo/js/sb-admin-2.min.js"></script> --}}
 
     <!-- Page level plugins -->
-    {{-- <script src="{{ asset('demo/vendor/chart.js/Chart.min.js') }}"></script> --}}
-    <script src="demo/vendor/chart.js/Chart.min.js"></script>
+    <script src="{{ asset('demo/vendor/chart.js/Chart.min.js') }}"></script>
+    {{-- <script src="demo/vendor/chart.js/Chart.min.js"></script> --}}
 
     <!-- DataTables scripts -->
-    {{-- <script src="{{ asset('demo/vendor/datatables/jquery.dataTables.min.js') }}"></script> --}}
-    <script src="demo/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('demo/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    {{-- <script src="demo/vendor/datatables/jquery.dataTables.min.js"></script> --}}
 
-    {{-- <script src="{{ asset('demo/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script> --}}
-    <script src="demo/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="{{ asset('demo/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    {{-- <script src="demo/vendor/datatables/dataTables.bootstrap4.min.js"></script> --}}
 
-    {{-- <script src="{{ asset('demo/js/demo/datatables-demo.js') }}""></script> --}}
-    <script src="demo/js/demo/datatables-demo.js"></script>
+    <script src="{{ asset('demo/js/demo/datatables-demo.js') }}""></script>
+    {{-- <script src="demo/js/demo/datatables-demo.js"></script> --}}
 
     {{-- Custom DataTables --}}
     <script>

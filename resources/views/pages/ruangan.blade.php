@@ -70,7 +70,7 @@
                                                     @foreach ($chunk as $item)
                                                         <div class="card card-animation mb-4 card-filter"
                                                             data-string="{{ $item->name }}">
-                                                            <img class="card-img-top rounded img-fluid"
+                                                            <img class="card-img-top-custom rounded img-fluid"
                                                                 @if ( $item->image != null )
                                                                     src="{{ asset('img/' . $item->image) }}"
                                                                 @else
