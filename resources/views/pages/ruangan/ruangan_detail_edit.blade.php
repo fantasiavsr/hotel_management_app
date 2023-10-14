@@ -79,7 +79,8 @@
                                     <label class="form-label">Gambar: {{ $ruangan->image }}</label>
                                     <div class="row d-flex">
                                         <div class="col-sm form-outline mb-4">
-                                            <input type="file" name="image" class="form-input" autofocus>
+                                            <input type="file" name="image" class="form-input" autofocus value="
+                                            {{ $ruangan->image }}">
                                         </div>
                                     </div>
 

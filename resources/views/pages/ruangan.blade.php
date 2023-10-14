@@ -72,7 +72,8 @@
                                                             data-string="{{ $item->name }}">
                                                             <img class="card-img-top-custom rounded img-fluid"
                                                                 @if ( $item->image != null )
-                                                                    src="{{ asset('img/' . $item->image) }}"
+                                                                    {{-- src="{{ asset('img/' . $item->image) }}" --}}
+                                                                    src="{{ asset('public/img/' . $item->image) }}"
                                                                 @else
                                                                     src="{{ asset('img/room-1.jpeg') }}"
                                                                 @endif

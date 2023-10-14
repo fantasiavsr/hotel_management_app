@@ -53,7 +53,7 @@
                                                     <th>NIK</th>
                                                     <th>Alamat</th>
                                                     <th>Detail</th>
-                                                    <th>Delete</th>
+                                                    <th>Book</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -92,14 +92,8 @@
                                                                 class="btn btn-primary btn-sm">Edit</a>
                                                         </td>
                                                         <td>
-                                                            <form
-                                                                action="{{ route('pelanggan_delete', ['id' => $item->id]) }}"
-                                                                method="POST" onclick="return confirm('Are you sure?')">
-                                                                @method('delete')
-                                                                @csrf
-                                                                <button type="submit"
-                                                                    class="btn btn-sm btn-danger pr-4 pl-1">Delete</button>
-                                                            </form>
+                                                            <a href="{{ route('tambah_booking_pelanggan', $item->id) }}"
+                                                                class="btn btn-outline-dark btn-sm">Book Now</a>
                                                         </td>
                                                     </tr>
                                                 @endforeach

@@ -62,6 +62,7 @@ Route::middleware(['auth'])->group(function() {
     Route::delete('/pelanggan_delete/{id}', [Controller::class, 'pelanggan_delete'])->name('pelanggan_delete');
 
     Route::get('/tambah_booking', [Controller::class, 'tambah_booking'])->name('tambah_booking');
+    Route::get('/tambah_booking_pelanggan/{id}', [Controller::class, 'tambah_booking_pelanggan'])->name('tambah_booking_pelanggan');
     Route::post('/tambah_booking/store', [Controller::class, 'tambah_booking_store'])->name('tambah_booking_store');
     Route::get('/booking_detail/{id}', [Controller::class, 'booking_detail'])->name('booking_detail');
     Route::post('/booking_detail/update', [Controller::class, 'booking_detail_update'])->name('booking_detail_update');

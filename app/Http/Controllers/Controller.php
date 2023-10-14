@@ -133,12 +133,6 @@ class Controller extends BaseController
             $propsDetails = request('propsDetails');
         }
 
-        if (request('image') == null) {
-            $image = 'room-7.jpeg';
-        } else {
-            $image = request('image');
-        }
-
         /* dd($desc); */
         $flight = ruangan::findOrFail(request('id'));
 
@@ -154,11 +148,9 @@ class Controller extends BaseController
         $flight->pets = request('pets');
         $flight->propsDetails = $propsDetails;
 
-        /* check if user update image */
-        if (request('image') == null) {
-            $image = 'room-7.jpeg';
-            $flight->image = $image;
-        } else {
+        /* check if user update image with hasFile */
+        if ($request->hasFile('image')) {
+
             $request->validate([
                 'image' => 'required|image|max:5000',
             ]);
@@ -355,6 +347,22 @@ class Controller extends BaseController
         ]);
     }
 
+    public function tambah_booking_pelanggan($id)
+    {
+        $hotel = hotels::where('user_id', Auth::user()->id)->first();
+        $pelanggan  = pelanggan::where('user_id', Auth::user()->id)->get();
+        $ruangan  = ruangan::where('user_id', Auth::user()->id)->get();
+        $selected_pelanggan = pelanggan::findOrFail($id);
+        /* dd($selected_pelanggan); */
+        return view('pages/booking/tambah_booking_pelanggan', [
+            'title' => "tambah_booking_pelanggan",
+            'hotel' => $hotel,
+            'pelanggan' => $pelanggan,
+            'ruangan' => $ruangan,
+            'selected_pelanggan' => $selected_pelanggan,
+        ]);
+    }
+
     public function tambah_booking_store(Request $request)
     {
         /* dd(request()->all()); */
@@ -444,6 +452,7 @@ class Controller extends BaseController
 
         return redirect()->route('booking');
     }
+
 
     public function tambah_transaksi()
     {
