@@ -231,16 +231,16 @@
                                     type: 'GET',
                                     url: '/get-room-price/' +
                                         roomId, // Ganti dengan URL yang sesuai
+                                    /* url: 'test/get-room-price/' +
+                                        roomId, */
                                     success: function(data) {
                                         $('#room_price').val(data
                                             .price
                                         ); // Mengisi input dengan harga yang diterima dari server
                                     },
-                                    error: function() {
-                                        // Handle error jika ada
-                                        console.log(
-                                            'Terjadi kesalahan dalam pengambilan harga ruangan.'
-                                        );
+                                    error: function(err) {
+                                        // Handle error jika ada, tampilkan error apa
+                                        console.log(err);
                                     }
                                 });
                             }
@@ -256,7 +256,7 @@
                         // Ketika salah satu dari datepicker berubah
                         $('#datepicker, #datepicker2').on('change', function() {
                             updatePrice
-                        (); // Panggil fungsi updatePrice ketika salah satu dari datepicker berubah
+                                (); // Panggil fungsi updatePrice ketika salah satu dari datepicker berubah
                         });
 
                         // Fungsi untuk menghitung dan mengisi otomatis input harga
@@ -265,7 +265,7 @@
                             var checkinDate = $('#datepicker').val();
                             var checkoutDate = $('#datepicker2').val();
                             var roomPrice = parseFloat($('#room_price')
-                        .val()); // Konversi harga ruangan menjadi float
+                                .val()); // Konversi harga ruangan menjadi float
 
                             if (roomId && checkinDate && checkoutDate && !isNaN(roomPrice)) {
                                 // Hitung jumlah hari berdasarkan tanggal checkin dan checkout

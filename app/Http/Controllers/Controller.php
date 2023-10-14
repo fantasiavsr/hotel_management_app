@@ -579,7 +579,7 @@ class Controller extends BaseController
     public function getRoomPrice($id)
     {
         $ruangan = ruangan::findOrFail($id);
-
+       /*  dd($ruangan); */
         return response()->json([
             'price' => $ruangan->price,
         ]);
