@@ -584,4 +584,14 @@ class Controller extends BaseController
             'price' => $ruangan->price,
         ]);
     }
+
+    /* get booking  price */
+    public function getBookingPrice($id)
+    {
+        $booking = booking::findOrFail($id);
+       /*  dd($ruangan); */
+        return response()->json([
+            'price' => $booking->price,
+        ]);
+    }
 }

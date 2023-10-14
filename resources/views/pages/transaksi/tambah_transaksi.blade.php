@@ -48,7 +48,8 @@
                                                 style="background-color: #FAFAFA">
                                                 <option value="">Isikan Nama di bawah / Pilih Booking</option>
                                                 @foreach ($booking as $item1)
-                                                    <option value="{{ $item1->id }}">{{ $item1->id }} : {{ $item1->visitor_name }}</option>
+                                                    <option value="{{ $item1->id }}">{{ $item1->id }} :
+                                                        {{ $item1->visitor_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -57,13 +58,13 @@
                                     <div class="row">
                                         <div class="col form-outline mb-4">
                                             <label class="form-label">Nama</label>
-                                            <input id="visitor_name" type="string" name="visitor_name" class="form-control" autofocus
-                                                required style="background-color: #FAFAFA">
+                                            <input id="visitor_name" type="string" name="visitor_name" class="form-control"
+                                                autofocus required style="background-color: #FAFAFA">
                                         </div>
                                         <div class="col form-outline mb-4">
                                             <label class="form-label">No HP</label>
-                                            <input id="visitor_nohp" type="text" name="visitor_nohp" class="form-control" autofocus
-                                                required style="background-color: #FAFAFA">
+                                            <input id="visitor_nohp" type="text" name="visitor_nohp" class="form-control"
+                                                autofocus required style="background-color: #FAFAFA">
                                         </div>
                                     </div>
 
@@ -83,16 +84,16 @@
                                                 <option selected value="active">Aktif</option>
                                                 <option value="deactive">Tidak Aktif</option>
                                             </select> --}}
-                                            <input type="text" name="payment" class="form-control" autofocus
-                                                required style="background-color: #FAFAFA">
+                                            <input type="text" name="payment" class="form-control" autofocus required
+                                                style="background-color: #FAFAFA">
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col form-outline mb-4">
                                             <label class="form-label">Harga</label>
-                                            <input type="number" name="price" class="form-control" autofocus
-                                                style="background-color: #FAFAFA">
+                                            <input id="booking_price" type="number" name="price" class="form-control"
+                                                autofocus style="background-color: #FAFAFA">
                                         </div>
                                     </div>
 
@@ -125,8 +126,7 @@
                             <div class="row">
                                 <div class="col text-right">
                                     <a href="{{ url()->previous() }}" class="btn btn-outline-dark">Kembali</a>
-                                    <button type="submit" class="btn btn-primary"
-                                        style="min-width: 240px">Simpan</button>
+                                    <button type="submit" class="btn btn-primary" style="min-width: 240px">Simpan</button>
 
                                 </div>
                             </div>
@@ -142,13 +142,13 @@
             </div>
             <!-- End of Page Wrapper -->
             <script>
-                document.addEventListener('DOMContentLoaded', function () {
+                document.addEventListener('DOMContentLoaded', function() {
                     var pelangganSelect = document.getElementById('booking_id');
                     var namaInput = document.getElementById('visitor_name');
                     var nohpInput = document.getElementById('visitor_nohp');
 
                     // Membuat event listener untuk perubahan pemilihan dalam elemen 'select'
-                    pelangganSelect.addEventListener('change', function () {
+                    pelangganSelect.addEventListener('change', function() {
                         if (pelangganSelect.value === '') {
                             namaInput.disabled = false;
                             nohpInput.disabled = false;
@@ -159,7 +159,8 @@
                             namaInput.disabled = true;
                             nohpInput.disabled = true;
                             /* isi placeholder berdasarkan $pelanggan where $item1 id berdsarkan document.getElementById('visitor_id') */
-                            namaInput.placeholder = "Nama : " + pelangganSelect.options[pelangganSelect.selectedIndex].text;
+                            namaInput.placeholder = "Nama : " + pelangganSelect.options[pelangganSelect
+                                .selectedIndex].text;
                             nohpInput.placeholder = "Load from db booking";
 
                             /* isi value berdasarkan $pelanggan where $item1 id berdsarkan document.getElementById('visitor_id') */
@@ -173,6 +174,36 @@
                             nohpInput.value = "Load from db pelanggan";
 
                         }
+                    });
+
+                    $(document).ready(function() {
+                        // Ketika pilihan pada room_id berubah
+                        $('#booking_id').on('change', function() {
+                            var bookId = $(this).val(); // Mendapatkan ID ruangan yang dipilih
+
+                            if (bookId === '') {
+                                $('#booking_price').val(
+                                    ''); // Kosongkan input harga jika "Pilih Ruangan" dipilih
+                            } else {
+                                // Melakukan permintaan AJAX untuk mengambil harga ruangan
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/get-booking-price/' +
+                                        bookId, // Ganti dengan URL yang sesuai
+                                    /* url: 'test/get-room-price/' +
+                                        roomId, */
+                                    success: function(data) {
+                                        $('#booking_price').val(data
+                                            .price
+                                        ); // Mengisi input dengan harga yang diterima dari server
+                                    },
+                                    error: function(err) {
+                                        // Handle error jika ada, tampilkan error apa
+                                        console.log(err);
+                                    }
+                                });
+                            }
+                        });
                     });
                 });
             </script>

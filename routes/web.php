@@ -76,6 +76,7 @@ Route::middleware(['auth'])->group(function() {
 
     /* for get data */
     Route::get('/get-room-price/{id}', [Controller::class, 'getRoomPrice'])->name('get-room-price');
+    Route::get('/get-booking-price/{id}', [Controller::class, 'getBookingPrice'])->name('get-booking-price');
 });
 
 Route::get('/foo', function () {
