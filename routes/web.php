@@ -73,6 +73,9 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/transaksi_detail/{id}', [Controller::class, 'transaksi_detail'])->name('transaksi_detail');
     Route::post('/transaksi_detail/update', [Controller::class, 'transaksi_detail_update'])->name('transaksi_detail_update');
     Route::delete('/transaksi_delete/{id}', [Controller::class, 'transaksi_delete'])->name('transaksi_delete');
+
+    /* for get data */
+    Route::get('/get-room-price/{id}', [Controller::class, 'getRoomPrice'])->name('get-room-price');
 });
 
 Route::get('/foo', function () {

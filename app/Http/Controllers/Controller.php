@@ -574,4 +574,14 @@ class Controller extends BaseController
 
         return redirect()->route('transaksi');
     }
+
+    /* get room price */
+    public function getRoomPrice($id)
+    {
+        $ruangan = ruangan::findOrFail($id);
+
+        return response()->json([
+            'price' => $ruangan->price,
+        ]);
+    }
 }

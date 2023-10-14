@@ -78,17 +78,18 @@
                                             <label class="form-label">Ruangan</label>
                                             <select id="room_id" name="room_id" id="" class="form-control"
                                                 required style="background-color: #FAFAFA">
+                                                <option value="">Pilih Ruangan</option>
                                                 @foreach ($ruangan as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->id }} :
+                                                    <option value="{{ $item->id }}">
                                                         {{ $item->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        {{-- <div class="col form-outline mb-4">
+                                        <div class="col form-outline mb-4">
                                             <label class="form-label">Harga Ruangan Perhari</label>
                                             <input id="room_price" type="number" name="visitor_nohp" class="form-control"
-                                                autofocus required style="background-color: #FAFAFA" disabled>
-                                        </div> --}}
+                                                autofocus required style="background-color: #FAFAFA">
+                                        </div>
                                     </div>
 
                                 </div>
@@ -103,10 +104,6 @@
                                     <div class="row">
                                         <div class="col-xl-4 form-outline mb-4">
                                             <label class="form-label">Berapa Orang</label>
-                                            {{-- <select id="status" name="status" class="form-control" style="background-color: #FAFAFA">
-                                                <option selected value="active">Aktif</option>
-                                                <option value="deactive">Tidak Aktif</option>
-                                            </select> --}}
                                             <input type="number" name="total_visitor" class="form-control" autofocus
                                                 required style="background-color: #FAFAFA">
                                         </div>
@@ -140,8 +137,8 @@
                                     <div class="row">
                                         <div class="col-xl-4 form-outline mb-4">
                                             <label class="form-label">Harga</label>
-                                            <input type="number" name="price" class="form-control" autofocus required
-                                                style="background-color: #FAFAFA">
+                                            <input id="price" type="number" name="price" class="form-control"
+                                                autofocus required style="background-color: #FAFAFA">
                                         </div>
                                     </div>
 
@@ -220,25 +217,72 @@
                         }
                     });
 
-                    /* get price from selected room_id from room->price */
-                    roomSelect.addEventListener('change', function() {
-                        if (roomSelect.value === '') {
-                            roomPriceInput.disabled = false;
-                            /* remove input placeholder and previous inputed text */
-                            roomPriceInput.placeholder = "";
-                        } else {
-                            roomPriceInput.disabled = true;
-                            /* isi placeholder berdasarkan $pelanggan where $item1 id berdsarkan document.getElementById('visitor_id') */
-                            /* add value */
-                            $price = document.getElementById('room_id').options[document.getElementById(
-                                'room_id').selectedIndex].text;
+                    $(document).ready(function() {
+                        // Ketika pilihan pada room_id berubah
+                        $('#room_id').on('change', function() {
+                            var roomId = $(this).val(); // Mendapatkan ID ruangan yang dipilih
 
-                            /* get the number before ":" */
-                            $price = $price.split(":")[1];
-                            roomPriceInput.placeholder = $price;
-                            roomPriceInput.value = $price;
+                            if (roomId === '') {
+                                $('#room_price').val(
+                                    ''); // Kosongkan input harga jika "Pilih Ruangan" dipilih
+                            } else {
+                                // Melakukan permintaan AJAX untuk mengambil harga ruangan
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/get-room-price/' +
+                                        roomId, // Ganti dengan URL yang sesuai
+                                    success: function(data) {
+                                        $('#room_price').val(data
+                                            .price
+                                        ); // Mengisi input dengan harga yang diterima dari server
+                                    },
+                                    error: function() {
+                                        // Handle error jika ada
+                                        console.log(
+                                            'Terjadi kesalahan dalam pengambilan harga ruangan.'
+                                        );
+                                    }
+                                });
+                            }
+                        });
+                    });
+
+                    $(document).ready(function() {
+                        // Ketika pilihan pada room_id berubah
+                        $('#room_id').on('change', function() {
+                            updatePrice(); // Panggil fungsi updatePrice ketika pemilihan ruangan berubah
+                        });
+
+                        // Ketika salah satu dari datepicker berubah
+                        $('#datepicker, #datepicker2').on('change', function() {
+                            updatePrice
+                        (); // Panggil fungsi updatePrice ketika salah satu dari datepicker berubah
+                        });
+
+                        // Fungsi untuk menghitung dan mengisi otomatis input harga
+                        function updatePrice() {
+                            var roomId = $('#room_id').val();
+                            var checkinDate = $('#datepicker').val();
+                            var checkoutDate = $('#datepicker2').val();
+                            var roomPrice = parseFloat($('#room_price')
+                        .val()); // Konversi harga ruangan menjadi float
+
+                            if (roomId && checkinDate && checkoutDate && !isNaN(roomPrice)) {
+                                // Hitung jumlah hari berdasarkan tanggal checkin dan checkout
+                                var checkin = new Date(checkinDate);
+                                var checkout = new Date(checkoutDate);
+                                var numberOfDays = Math.ceil((checkout - checkin) / (1000 * 60 * 60 * 24));
+
+                                // Hitung total harga
+                                var totalPrice = roomPrice * numberOfDays;
+
+                                // Isi otomatis input harga
+                                $('#price').val(totalPrice);
+                            }
                         }
                     });
+
+
                 });
             </script>
         @endsection
