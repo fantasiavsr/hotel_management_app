@@ -25,9 +25,8 @@
                             {{-- <a href="{{ url()->previous() }}" class="btn btn-outline-dark">Kembali</a> --}}
                             {{-- <button class="btn btn-primary mx-2">Simpan</button> --}}
                             {{-- button for delete --}}
-                            <form
-                                action="{{ route('ruangan_detail_delete', ['id' => $ruangan->id]) }}"
-                                method="delete">
+                            <form action="{{ route('ruangan_del', ['id' => $ruangan->id]) }}" method="POST"
+                                id="deleteForm">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $ruangan->id }}">
                                 <button type="submit" class="btn btn-danger">Hapus</button>
@@ -79,7 +78,8 @@
                                     <label class="form-label">Gambar: {{ $ruangan->image }}</label>
                                     <div class="row d-flex">
                                         <div class="col-sm form-outline mb-4">
-                                            <input type="file" name="image" class="form-input" autofocus value="
+                                            <input type="file" name="image" class="form-input" autofocus
+                                                value="
                                             {{ $ruangan->image }}">
                                         </div>
                                     </div>
@@ -194,4 +194,13 @@
                 @include('partials.scrolltotop')
             </div>
             <!-- End of Page Wrapper -->
+
+            <script>
+                document.getElementById('deleteForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    if (confirm('Apakah Anda yakin ingin menghapus ini?')) {
+                        this.submit();
+                    }
+                });
+            </script>
         @endsection

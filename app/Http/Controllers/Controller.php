@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller as BaseController;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 use App\Models\ruangan;
@@ -43,7 +44,10 @@ class Controller extends BaseController
     {
 
         /* check ruangan where user_id = auth user */
-        $ruangan = ruangan::where('user_id', Auth::user()->id)->get();
+        /* $ruangan = ruangan::where('user_id', Auth::user()->id)->get(); */
+
+        /* check ruangan where user_id = auth user and isDeleted = 0 */
+        $ruangan = ruangan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
 
         /*  dd($ruangan); */
 
@@ -55,7 +59,9 @@ class Controller extends BaseController
 
     public function pelanggan()
     {
-        $pelanggan = pelanggan::where('user_id', Auth::user()->id)->get();
+        /* $pelanggan = pelanggan::where('user_id', Auth::user()->id)->get(); */
+        /* where isDeleted=0 */
+        $pelanggan = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
 
         return view('pages/pelanggan', [
             'title' => "pelanggan",
@@ -65,8 +71,12 @@ class Controller extends BaseController
 
     public function booking()
     {
-        $booking = booking::where('user_id', Auth::user()->id)->get();
+        /* $booking = booking::where('user_id', Auth::user()->id)->get(); */
+
+        /* booking where isDeleted=0 */
+        $booking = booking::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
         $allruangan = ruangan::where('user_id', Auth::user()->id)->get();
+
         return view('pages/booking', [
             'title' => "booking",
             'booking' => $booking,
@@ -77,7 +87,10 @@ class Controller extends BaseController
     public function transaksi()
     {
 
-        $transaksi = transaksi::where('user_id', Auth::user()->id)->get();
+        /* $transaksi = transaksi::where('user_id', Auth::user()->id)->get(); */
+
+        /* transaksi where isDeleted=0 */
+        $transaksi = transaksi::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
 
         return view('pages/transaksi', [
             'title' => "transaksi",
@@ -337,8 +350,9 @@ class Controller extends BaseController
     public function tambah_booking()
     {
         $hotel = hotels::where('user_id', Auth::user()->id)->first();
-        $pelanggan  = pelanggan::where('user_id', Auth::user()->id)->get();
-        $ruangan  = ruangan::where('user_id', Auth::user()->id)->get();
+        /* where isDeleted = 0 */
+        $pelanggan  = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
+        $ruangan  = ruangan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
         return view('pages/booking/tambah_booking', [
             'title' => "tambah_booking",
             'hotel' => $hotel,
@@ -350,8 +364,11 @@ class Controller extends BaseController
     public function tambah_booking_pelanggan($id)
     {
         $hotel = hotels::where('user_id', Auth::user()->id)->first();
-        $pelanggan  = pelanggan::where('user_id', Auth::user()->id)->get();
-        $ruangan  = ruangan::where('user_id', Auth::user()->id)->get();
+        /* $pelanggan  = pelanggan::where('user_id', Auth::user()->id)->get();
+        $ruangan  = ruangan::where('user_id', Auth::user()->id)->get(); */
+        /* where isDeleted = 0 */
+        $pelanggan  = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
+        $ruangan  = ruangan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
         $selected_pelanggan = pelanggan::findOrFail($id);
         /* dd($selected_pelanggan); */
         return view('pages/booking/tambah_booking_pelanggan', [
@@ -456,7 +473,11 @@ class Controller extends BaseController
 
     public function tambah_transaksi()
     {
-        $booking = booking::where('user_id', Auth::user()->id)->get();
+        /* $booking = booking::where('user_id', Auth::user()->id)->get(); */
+
+        /* booking where isDeleted=0 */
+        $booking = booking::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
+
         return view('pages/transaksi/tambah_transaksi', [
             'title' => "tambah_transaksi",
             'booking' => $booking,
@@ -488,8 +509,18 @@ class Controller extends BaseController
         $flight->visitor_name = $visitor_name;
         $flight->visitor_nohp = $visitor_nohp;
         $flight->payment = request('payment');
+
+        /* if payment = 'tunai. bank = '-' */
+        if (request('payment') == 'tunai') {
+            $flight->bank = '-';
+        } else {
+            $flight->bank = request('bank');
+        }
+
         $flight->price = request('price');
         $flight->status = request('status');
+
+       /*  dd($flight); */
 
         $flight->save();
 
@@ -532,45 +563,64 @@ class Controller extends BaseController
     }
 
     /* delete ruangan */
-    public function ruangan_delete($id)
+    public function ruangan_del()
     {
 
-        $ruangan = ruangan::findOrFail($id);
+        $ruangan = ruangan::findOrFail(request('id'));
 
-        $ruangan->delete();
+        /* $ruangan->delete(); */
+
+        /* change isDelete value to 1 */
+        $ruangan->isDeleted = 1;
+        $ruangan->save();
 
         return redirect()->route('ruangan');
+
+        /* SELECT * FROM `ruangans` WHERE isDeleted = 1
+        DELETE FROM `ruangans` WHERE isDeleted = 1 */
     }
 
     /* delete pelanggan */
-    public function pelanggan_delete($id)
+    public function pelanggan_del()
     {
 
-        $pelanggan = pelanggan::findOrFail($id);
+        $pelanggan = pelanggan::findOrFail(request('id'));
 
-        $pelanggan->delete();
+        /* $pelanggan->delete(); */
+
+        /* change isDelete value to 1 */
+        $pelanggan->isDeleted = 1;
+        $pelanggan->save();
 
         return redirect()->route('pelanggan');
     }
 
     /* delete booking */
-    public function booking_delete($id)
+    public function booking_del()
     {
 
-        $booking = booking::findOrFail($id);
+        $booking = booking::findOrFail(request('id'));
 
-        $booking->delete();
+        /* $booking->delete(); */
+
+        /* change isDelete value to 1 */
+        $booking->isDeleted = 1;
+        $booking->save();
 
         return redirect()->route('booking');
     }
 
     /* delete transaksi */
-    public function transaksi_delete($id)
+    public function transaksi_del()
     {
 
-        $transaksi = transaksi::findOrFail($id);
+        $transaksi = transaksi::findOrFail(request('id'));
 
-        $transaksi->delete();
+        /* $transaksi->delete(); */
+
+        /* change isDelete value to 1 */
+        $transaksi->isDeleted = 1;
+        $transaksi->save();
 
         return redirect()->route('transaksi');
     }
@@ -579,7 +629,7 @@ class Controller extends BaseController
     public function getRoomPrice($id)
     {
         $ruangan = ruangan::findOrFail($id);
-       /*  dd($ruangan); */
+        /*  dd($ruangan); */
         return response()->json([
             'price' => $ruangan->price,
         ]);
@@ -589,7 +639,7 @@ class Controller extends BaseController
     public function getBookingPrice($id)
     {
         $booking = booking::findOrFail($id);
-       /*  dd($ruangan); */
+        /*  dd($ruangan); */
         return response()->json([
             'price' => $booking->price,
         ]);

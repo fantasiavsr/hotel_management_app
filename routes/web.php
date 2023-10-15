@@ -50,7 +50,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/tambah_ruangan', [Controller::class, 'tambah_ruangan'])->name('tambah_ruangan');
     Route::post('/tambah_ruangan/store', [Controller::class, 'tambah_ruangan_store'])->name('tambah_ruangan_store');
     /* delete ruangan ruangan_delete*/
-    Route::delete('/ruangan_delete/{id}', [Controller::class, 'ruangan_delete'])->name('ruangan_delete');
+    Route::post('/ruangan_del}', [Controller::class, 'ruangan_del'])->name('ruangan_del');
 
     Route::get('/hotel_detail/{id}', [Controller::class, 'hotel_detail'])->name('hotel_detail');
     Route::post('/hotel_detail/update', [Controller::class, 'hotel_detail_update'])->name('hotel_detail_update');
@@ -59,20 +59,20 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/tambah_pelanggan/store', [Controller::class, 'tambah_pelanggan_store'])->name('tambah_pelanggan_store');
     Route::get('/pelanggan_detail/{id}', [Controller::class, 'pelanggan_detail'])->name('pelanggan_detail');
     Route::post('/pelanggan_detail/update', [Controller::class, 'pelanggan_detail_update'])->name('pelanggan_detail_update');
-    Route::delete('/pelanggan_delete/{id}', [Controller::class, 'pelanggan_delete'])->name('pelanggan_delete');
+    Route::post('/pelanggan_del/', [Controller::class, 'pelanggan_del'])->name('pelanggan_del');
 
     Route::get('/tambah_booking', [Controller::class, 'tambah_booking'])->name('tambah_booking');
     Route::get('/tambah_booking_pelanggan/{id}', [Controller::class, 'tambah_booking_pelanggan'])->name('tambah_booking_pelanggan');
     Route::post('/tambah_booking/store', [Controller::class, 'tambah_booking_store'])->name('tambah_booking_store');
     Route::get('/booking_detail/{id}', [Controller::class, 'booking_detail'])->name('booking_detail');
     Route::post('/booking_detail/update', [Controller::class, 'booking_detail_update'])->name('booking_detail_update');
-    Route::delete('/booking_delete/{id}', [Controller::class, 'booking_delete'])->name('booking_delete');
+    Route::post('/booking_del/', [Controller::class, 'booking_del'])->name('booking_del');
 
     Route::get('/tambah_transaksi', [Controller::class, 'tambah_transaksi'])->name('tambah_transaksi');
     Route::post('/tambah_transaksi/store', [Controller::class, 'tambah_transaksi_store'])->name('tambah_transaksi_store');
     Route::get('/transaksi_detail/{id}', [Controller::class, 'transaksi_detail'])->name('transaksi_detail');
     Route::post('/transaksi_detail/update', [Controller::class, 'transaksi_detail_update'])->name('transaksi_detail_update');
-    Route::delete('/transaksi_delete/{id}', [Controller::class, 'transaksi_delete'])->name('transaksi_delete');
+    Route::post('/transaksi_del/', [Controller::class, 'transaksi_del'])->name('transaksi_del');
 
     /* for get data */
     Route::get('/get-room-price/{id}', [Controller::class, 'getRoomPrice'])->name('get-room-price');

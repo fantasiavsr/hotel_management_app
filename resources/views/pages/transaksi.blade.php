@@ -49,6 +49,7 @@
                                                     <th>ID Booking</th>
                                                     <th>Nama Pelanggan</th>
                                                     <th>Metode Pembayaran</th>
+                                                    <th>Bank</th>
                                                     <th>Total Pembayaran</th>
                                                     <th>Tanggal</th>
                                                     <th>Status</th>
@@ -88,6 +89,9 @@
                                                         </td>
                                                         <td>
                                                             {{ $item->payment }}
+                                                        </td>
+                                                        <td>
+                                                            {{ $item->bank }}
                                                         </td>
                                                         <td>
                                                             {{ $item->price }}

@@ -80,12 +80,23 @@
                                     <div class="row">
                                         <div class="col-xl-4 form-outline mb-4">
                                             <label class="form-label">Payment</label>
-                                            {{-- <select id="status" name="status" class="form-control" style="background-color: #FAFAFA">
-                                                <option selected value="active">Aktif</option>
-                                                <option value="deactive">Tidak Aktif</option>
-                                            </select> --}}
-                                            <input type="text" name="payment" class="form-control" autofocus required
+                                            <select id="payment" name="payment" class="form-control"
                                                 style="background-color: #FAFAFA">
+                                                <option value="tunai">Tunai</option>
+                                                <option value="bank">Bank</option>
+                                            </select>
+                                            {{-- <input type="text" name="payment" class="form-control" autofocus required
+                                                style="background-color: #FAFAFA"> --}}
+                                        </div>
+                                        <div class="col-xl-4 form-outline mb-4">
+                                            <label id="banklabel" class="form-label">Pilih Rekening</label>
+                                            <select id="bank" name="bank" class="form-control"
+                                                style="background-color: #FAFAFA">
+                                                <option value="BCA">BCA</option>
+                                                <option value="BRI">BRI</option>
+                                            </select>
+                                            {{-- <input type="text" name="payment" class="form-control" autofocus required
+                                                style="background-color: #FAFAFA"> --}}
                                         </div>
                                     </div>
 
@@ -147,6 +158,10 @@
                     var namaInput = document.getElementById('visitor_name');
                     var nohpInput = document.getElementById('visitor_nohp');
 
+                    var paymentSelect = document.getElementById('payment');
+                    var labelBank = document.getElementById('banklabel');
+                    var bankSelect = document.getElementById('bank');
+
                     // Membuat event listener untuk perubahan pemilihan dalam elemen 'select'
                     pelangganSelect.addEventListener('change', function() {
                         if (pelangganSelect.value === '') {
@@ -204,6 +219,23 @@
                                 });
                             }
                         });
+                    });
+
+                    // Sembunyikan label dan input bank saat halaman dimuat
+                    bankSelect.style.display = 'none';
+                    labelBank.style.display = 'none';
+
+                    // Tambahkan event listener untuk perubahan pemilihan dalam input "payment"
+                    paymentSelect.addEventListener('change', function() {
+                        if (paymentSelect.value === 'tunai') {
+                            // Jika pilihan "Tunai" dipilih, sembunyikan input "bank"
+                            bankSelect.style.display = 'none';
+                            labelBank.style.display = 'none';
+                        } else {
+                            // Jika pilihan "Bank" dipilih, tampilkan input "bank"
+                            bankSelect.style.display = 'block';
+                            labelBank.style.display = 'block';
+                        }
                     });
                 });
             </script>

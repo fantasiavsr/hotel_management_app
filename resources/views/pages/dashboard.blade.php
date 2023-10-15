@@ -323,7 +323,7 @@
                                                 </div>
                                                 <div class="col mb-2">
                                                     <h1 class="h4 font-weight-bold mb-1" style="color: black">{{ $hotels->name }}
-                                                        <i class="fa-solid fa-layer-group" style="color: #3974FE"></i>
+
                                                     </h1>
                                                     <p class="font-weight-bold" style="opacity: 75%"">{{ $hotels->address }}
                                                     </p>

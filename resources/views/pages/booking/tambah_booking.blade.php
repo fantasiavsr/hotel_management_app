@@ -70,11 +70,19 @@
                                     <div class="row">
                                         <div class="col form-outline mb-4">
                                             <label class="form-label">Ruangan</label>
-                                            <select name="room_id" id="" class="form-control" required style="background-color: #FAFAFA">
+                                            <select id="room_id" name="room_id" id="" class="form-control"
+                                                required style="background-color: #FAFAFA">
+                                                <option value="">Pilih Ruangan</option>
                                                 @foreach ($ruangan as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                    <option value="{{ $item->id }}">
+                                                        {{ $item->name }}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                        <div class="col form-outline mb-4">
+                                            <label class="form-label">Harga Ruangan Perhari</label>
+                                            <input id="room_price" type="number" name="visitor_nohp" class="form-control"
+                                                autofocus required style="background-color: #FAFAFA">
                                         </div>
                                     </div>
 
@@ -127,7 +135,7 @@
                                     <div class="row">
                                         <div class="col-xl-4 form-outline mb-4">
                                             <label class="form-label">Harga</label>
-                                            <input type="number" name="price" class="form-control" autofocus required
+                                            <input id="price" type="number" name="price" class="form-control" autofocus required
                                                 style="background-color: #FAFAFA">
                                         </div>
                                     </div>
@@ -200,6 +208,71 @@
                             /* add value */
                             namaInput.value = document.getElementById('visitor_id').options[document.getElementById('visitor_id').selectedIndex].text;
                             nohpInput.value = "Load from db pelanggan";
+                        }
+                    });
+
+                    $(document).ready(function() {
+                        // Ketika pilihan pada room_id berubah
+                        $('#room_id').on('change', function() {
+                            var roomId = $(this).val(); // Mendapatkan ID ruangan yang dipilih
+
+                            if (roomId === '') {
+                                $('#room_price').val(
+                                    ''); // Kosongkan input harga jika "Pilih Ruangan" dipilih
+                            } else {
+                                // Melakukan permintaan AJAX untuk mengambil harga ruangan
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/get-room-price/' +
+                                        roomId, // Ganti dengan URL yang sesuai
+                                    /* url: 'test/get-room-price/' +
+                                        roomId, */
+                                    success: function(data) {
+                                        $('#room_price').val(data
+                                            .price
+                                        ); // Mengisi input dengan harga yang diterima dari server
+                                    },
+                                    error: function(err) {
+                                        // Handle error jika ada, tampilkan error apa
+                                        console.log(err);
+                                    }
+                                });
+                            }
+                        });
+                    });
+
+                    $(document).ready(function() {
+                        // Ketika pilihan pada room_id berubah
+                        $('#room_id').on('change', function() {
+                            updatePrice(); // Panggil fungsi updatePrice ketika pemilihan ruangan berubah
+                        });
+
+                        // Ketika salah satu dari datepicker berubah
+                        $('#datepicker, #datepicker2').on('change', function() {
+                            updatePrice
+                                (); // Panggil fungsi updatePrice ketika salah satu dari datepicker berubah
+                        });
+
+                        // Fungsi untuk menghitung dan mengisi otomatis input harga
+                        function updatePrice() {
+                            var roomId = $('#room_id').val();
+                            var checkinDate = $('#datepicker').val();
+                            var checkoutDate = $('#datepicker2').val();
+                            var roomPrice = parseFloat($('#room_price')
+                                .val()); // Konversi harga ruangan menjadi float
+
+                            if (roomId && checkinDate && checkoutDate && !isNaN(roomPrice)) {
+                                // Hitung jumlah hari berdasarkan tanggal checkin dan checkout
+                                var checkin = new Date(checkinDate);
+                                var checkout = new Date(checkoutDate);
+                                var numberOfDays = Math.ceil((checkout - checkin) / (1000 * 60 * 60 * 24));
+
+                                // Hitung total harga
+                                var totalPrice = roomPrice * numberOfDays;
+
+                                // Isi otomatis input harga
+                                $('#price').val(totalPrice);
+                            }
                         }
                     });
                 });

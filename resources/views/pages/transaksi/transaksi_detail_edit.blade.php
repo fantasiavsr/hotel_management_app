@@ -25,9 +25,10 @@
                             {{-- <a href="{{ url()->previous() }}" class="btn btn-outline-dark">Kembali</a> --}}
                             {{-- <button class="btn btn-primary mx-2">Simpan</button> --}}
                             {{-- button delete with action delete --}}
-                            <form action="{{ route('transaksi_delete', $transaksi->id) }}" method="POST">
+                            <form action="{{ route('transaksi_del') }}" method="POST" id="deleteForm">
                                 @csrf
-                                @method('DELETE')
+                                {{-- @method('DELETE') --}}
+                                 <input type="hidden" name="id" value="{{ $transaksi->id }}">
                                 <button type="submit" class="btn btn-danger mx-2">Hapus</button>
                             </form>
                         </div>
@@ -190,6 +191,14 @@
 
                         }
                     });
+                });
+            </script>
+            <script>
+                document.getElementById('deleteForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    if (confirm('Apakah Anda yakin ingin menghapus ini?')) {
+                        this.submit();
+                    }
                 });
             </script>
         @endsection

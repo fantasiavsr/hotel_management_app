@@ -24,9 +24,10 @@
                         <div class="row px-2 py-2">
                             {{-- <a href="{{ url()->previous() }}" class="btn btn-outline-dark">Kembali</a> --}}
                             {{-- <button class="btn btn-primary mx-2">Simpan</button> --}}
-                            <form action="{{ route('pelanggan_delete', $pelanggan->id) }}" method="POST">
+                            <form action="{{ route('pelanggan_del') }}" method="POST" id="deleteForm">
                                 @csrf
-                                @method('DELETE')
+                                {{-- @method('DELETE') --}}
+                                <input type="hidden" name="id" value="{{ $pelanggan->id }}">
                                 <button type="submit" class="btn btn-danger mx-2">Hapus</button>
                             </form>
                         </div>
@@ -121,5 +122,13 @@
                 <!-- Scroll to Top Button-->
                 @include('partials.scrolltotop')
             </div>
+            <script>
+                document.getElementById('deleteForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    if (confirm('Apakah Anda yakin ingin menghapus ini?')) {
+                        this.submit();
+                    }
+                });
+            </script>
             <!-- End of Page Wrapper -->
         @endsection

@@ -224,19 +224,16 @@
 
                             if (roomId === '') {
                                 $('#room_price').val(
-                                    ''); // Kosongkan input harga jika "Pilih Ruangan" dipilih
+                                ''); // Kosongkan input harga jika "Pilih Ruangan" dipilih
                             } else {
                                 // Melakukan permintaan AJAX untuk mengambil harga ruangan
                                 $.ajax({
                                     type: 'GET',
                                     url: '/get-room-price/' +
-                                        roomId, // Ganti dengan URL yang sesuai
-                                    /* url: 'test/get-room-price/' +
-                                        roomId, */
+                                    roomId, // Ganti dengan URL yang sesuai
                                     success: function(data) {
                                         $('#room_price').val(data
-                                            .price
-                                        ); // Mengisi input dengan harga yang diterima dari server
+                                        .price); // Mengisi input dengan harga yang diterima dari server
                                     },
                                     error: function(err) {
                                         // Handle error jika ada, tampilkan error apa
@@ -247,18 +244,8 @@
                         });
                     });
 
-                    $(document).ready(function() {
-                        // Ketika pilihan pada room_id berubah
-                        $('#room_id').on('change', function() {
-                            updatePrice(); // Panggil fungsi updatePrice ketika pemilihan ruangan berubah
-                        });
 
-                        // Ketika salah satu dari datepicker berubah
-                        $('#datepicker, #datepicker2').on('change', function() {
-                            updatePrice
-                                (); // Panggil fungsi updatePrice ketika salah satu dari datepicker berubah
-                        });
-
+                    $$(document).ready(function() {
                         // Fungsi untuk menghitung dan mengisi otomatis input harga
                         function updatePrice() {
                             var roomId = $('#room_id').val();
@@ -280,8 +267,17 @@
                                 $('#price').val(totalPrice);
                             }
                         }
-                    });
 
+                        // Ketika pilihan pada room_id berubah
+                        $('#room_id').on('change', function() {
+                            updatePrice(); // Panggil fungsi updatePrice ketika pemilihan ruangan berubah
+                        });
+
+                        // Ketika salah satu dari datepicker berubah
+                        $('#datepicker, #datepicker2').on('change', function() {
+                            updatePrice(); // Panggil fungsi updatePrice ketika salah satu dari datepicker berubah
+                        });
+                    });
 
                 });
             </script>
