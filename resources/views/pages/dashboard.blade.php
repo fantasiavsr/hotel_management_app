@@ -32,9 +32,20 @@
                                     <div class="card border-1 mb-4" style="width: 100%; background-color: #FAFAFA">
                                         <div class="card-body">
                                             <p class="font-weight-bold" style="opacity: 75%">Total Ruangan</p>
-                                            <h1 class="h3 font-weight-bold" style="color: black">102</h5>
+                                            <h1 class="h3 font-weight-bold" style="color: black">{{ $total_ruangan }}</h5>
                                                 <p class="" style="opacity: 75%"><span>terakhir diupdate</span> <span
-                                                        style="color: black">10/9/2023</span></p>
+                                                        style="color: black">
+                                                        @if (isset($ruangan_last_update->created_at))
+                                                            @if ($ruangan_last_update->created_at->format('m/d/Y') == date('m/d/Y'))
+                                                                Hari Ini
+                                                            @else
+                                                                {{ $ruangan_last_update->created_at->format('m/d/Y') }}
+                                                            @endif
+                                                        @else
+                                                            -
+                                                        @endif
+                                                    </span>
+                                                </p>
                                         </div>
 
                                         {{-- <div class="card-footer flex-row align-items-center text-center">
@@ -47,10 +58,20 @@
                                     <div class="card border-1 mb-4" style="width: 100%; background-color: #FAFAFA">
                                         <div class="card-body">
                                             <p class="font-weight-bold" style="opacity: 75%">Ruangan Dipesan Minggu Ini</p>
-                                            <h1 class="h3 font-weight-bold" style="color: black">52</h5>
-                                                <p class="" style="opacity: 75%; color: #F0382C"><i
-                                                        class="fa-solid fa-arrow-trend-down"></i> <span>10</span> <span
-                                                        style="color: black">dari minggu lalu</span></p>
+                                            <h1 class="h3 font-weight-bold" style="color: black">{{ $total_booking }}</h1>
+                                            <p class="" {{-- style="opacity: 75%; color: #F0382C" --}}
+                                                @if ($added_booking_from_last_week > 0) style="opacity: 75%; color: #2FB364"
+                                                @else
+                                                    style="opacity: 75%; color: #F0382C" @endif>
+                                                {{-- <i class="fa-solid fa-arrow-trend-down"></i>  --}}
+                                                @if ($added_booking_from_last_week > 0)
+                                                    <i class="fa-solid fa-arrow-trend-up"></i>
+                                                @else
+                                                    <i class="fa-solid fa-arrow-trend-down"></i>
+                                                @endif
+                                                <span>{{ $added_booking_from_last_week }}</span> <span
+                                                    style="color: black">dari minggu lalu</span>
+                                            </p>
                                         </div>
 
                                         {{-- <div class="card-footer flex-row align-items-center text-center">
@@ -63,10 +84,20 @@
                                     <div class="card border-1 mb-4" style="width: 100%; background-color: #FAFAFA">
                                         <div class="card-body">
                                             <p class="font-weight-bold" style="opacity: 75%">Pelanggan Minggu Ini</p>
-                                            <h1 class="h3 font-weight-bold" style="color: black">110</h5>
-                                                <p class="" style="opacity: 75%; color: #2FB364"><i
-                                                        class="fa-solid fa-arrow-trend-up"></i> <span>17</span> <span
-                                                        style="color: black">dari minggu lalu</span></p>
+                                            <h1 class="h3 font-weight-bold" style="color: black">{{ $total_pelanggan }}</h5>
+                                                <p class="" {{-- style="opacity: 75%; color: #F0382C" --}}
+                                                    @if ($added_pelanggan_from_last_week > 0) style="opacity: 75%; color: #2FB364"
+                                                @else
+                                                    style="opacity: 75%; color: #F0382C" @endif>
+                                                    {{-- <i class="fa-solid fa-arrow-trend-down"></i>  --}}
+                                                    @if ($added_pelanggan_from_last_week > 0)
+                                                        <i class="fa-solid fa-arrow-trend-up"></i>
+                                                    @else
+                                                        <i class="fa-solid fa-arrow-trend-down"></i>
+                                                    @endif
+                                                    <span>{{ $added_pelanggan_from_last_week }}</span> <span
+                                                        style="color: black">dari minggu lalu</span>
+                                                </p>
                                         </div>
 
                                         {{-- <div class="card-footer flex-row align-items-center text-center">
@@ -97,16 +128,14 @@
 
                             {{-- Sub Title --}}
                             <div class="d-sm-flex align-items-center justify-content-between mt-2 mb-3">
-                                <h1 class="h6 mb-0 font-weight-bold" style="color: black">Ruangan yang Terakhir Dipesan</h1>
+                                <h1 class="h6 mb-0 font-weight-bold" style="color: black">Ruangan yang Baru ditambahkan</h1>
                             </div>
 
                             <div class="row">
                                 <div class="col">
 
                                     <div class="card-deck">
-                                        <div class="card mb-4 border-0">
-                                            {{-- <img class="card-img-top rounded img-fluid" src="{{ asset('img/room-1.jpeg') }}"
-                                                alt="Card image cap"> --}}
+                                        {{-- <div class="card mb-4 border-0">
                                             <img class="card-img-top rounded img-fluid"
                                                 src="{{ asset('/img/room-1.jpeg') }}" alt="Card image cap">
                                             <div class="card-body card-body-animation px-0">
@@ -121,183 +150,35 @@
                                                     </div>
                                                     <a href="#" class="stretched-link"></a>
                                             </div>
-                                        </div>
-
-                                        <div class="card mb-4 border-0">
-
-                                            <img class="card-img-top rounded img-fluid"
-                                                src="{{ asset('/img/room-2.jpeg') }}" alt="Card image cap">
-                                            <div class="card-body card-body-animation px-0">
-                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No. 101
-                                                </h4>
-                                                <p class="card-text">Kamar Besar Lt. 2</p>
-                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
-                                                    <div class="d-sm-flex">
-                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
-                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
-                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small></p>
-                                                    </div>
-                                                    <a href="#" class="stretched-link"></a>
-                                            </div>
-                                        </div>
-
-                                        <div class="w-100 d-none d-sm-block d-md-none"><!-- wrap every 2 on sm--></div>
-
-                                        <div class="card mb-4 border-0">
-
-                                            <img class="card-img-top rounded img-fluid"
-                                                src="{{ asset('img/room-3.jpg') }}" alt="Card image cap">
-
-                                            <div class="card-body card-body-animation px-0">
-                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No.
-                                                    101</h4>
-                                                <p class="card-text">Kamar Besar Lt. 2</p>
-                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
-                                                    <div class="d-sm-flex">
-                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
-                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
-                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
-                                                        </p>
-                                                    </div>
-                                                    <a href="#" class="stretched-link"></a>
-                                            </div>
-                                        </div>
-
-                                        <div class="w-100 d-none d-md-block d-lg-none"><!-- wrap every 3 on md--></div>
-
-                                        <div class="card mb-4 border-0">
-                                            <img class="card-img-top rounded img-fluid"
-                                                src="{{ asset('img/room-5.jpeg') }}" alt="Card image cap">
-                                            <div class="card-body card-body-animation px-0">
-                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No.
-                                                    101</h4>
-                                                <p class="card-text">Kamar Besar Lt. 2</p>
-                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
-                                                    <div class="d-sm-flex">
-                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
-                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
-                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
-                                                        </p>
-                                                    </div>
-                                                    <a href="#" class="stretched-link"></a>
-                                            </div>
-                                        </div>
-                                        <div class="w-100 d-none d-lg-block d-xl-none"><!-- wrap every 4 on lg--></div>
-                                        <div class="w-100 d-none d-sm-block d-md-none"><!-- wrap every 2 on sm--></div>
-                                        <div class="w-100 d-none d-lg-block d-xl-none"><!-- wrap every 4 on lg--></div>
-                                        {{-- <div class="card mb-4 border-0">
-                                            <img class="card-img-top img-fluid" src="//placehold.it/500x280"
-                                                alt="Card image cap">
-                                            <div class="card-body card-body-animation px-0">
-                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No.
-                                                    101
-                                                </h4>
-                                                <p class="card-text">Kamar Besar Lt. 2</p>
-                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
-                                                    <div class="d-sm-flex">
-                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
-                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
-                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
-                                                        </p>
-                                                    </div>
-                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
-                                            </div>
-                                        </div>
-                                        <div class="w-100 d-none d-xl-block"><!-- wrap every 5 on xl--></div>
-                                        <div class="card mb-4 border-0">
-                                            <img class="card-img-top img-fluid" src="//placehold.it/500x300"
-                                                alt="Card image cap">
-                                            <div class="card-body card-body-animation px-0">
-                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No.
-                                                    101</h4>
-                                                <p class="card-text">Kamar Besar Lt. 2</p>
-                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
-                                                    <div class="d-sm-flex">
-                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
-                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
-                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
-                                                        </p>
-                                                    </div>
-                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
-                                            </div>
-                                        </div>
-                                        <div class="w-100 d-none d-sm-block d-md-none"><!-- wrap every 2 on sm--></div>
-                                        <div class="w-100 d-none d-md-block d-lg-none"><!-- wrap every 3 on md--></div>
-                                        <div class="card mb-4 border-0">
-                                            <img class="card-img-top img-fluid" src="//placehold.it/500x270"
-                                                alt="Card image cap">
-                                            <div class=" card-body card-body-animation px-0">
-                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No.
-                                                    101
-                                                </h4>
-                                                <p class="card-text">Kamar Besar Lt. 2</p>
-                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
-                                                    <div class="d-sm-flex">
-                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
-                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
-                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
-                                                        </p>
-                                                    </div>
-                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
-                                            </div>
-                                        </div>
-                                        <div class="card mb-4 border-0">
-                                            <img class="card-img-top img-fluid" src="//placehold.it/500x300"
-                                                alt="Card image cap">
-                                            <div class=" card-body card-body-animation px-0">
-                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No.
-                                                    101
-                                                </h4>
-                                                <p class="card-text">Kamar Besar Lt. 2</p>
-                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
-                                                    <div class="d-sm-flex">
-                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
-                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
-                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
-                                                        </p>
-                                                    </div>
-                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
-                                            </div>
-                                        </div>
-                                        <div class="w-100 d-none d-sm-block d-md-none"><!-- wrap every 2 on sm--></div>
-                                        <div class="w-100 d-none d-lg-block d-xl-none"><!-- wrap every 4 on lg--></div>
-                                        <div class="card mb-4 border-0">
-                                            <img class="card-img-top img-fluid" src="//placehold.it/500x270"
-                                                alt="Card image cap">
-                                            <div class=" card-body card-body-animation px-0">
-                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No.
-                                                    101
-                                                </h4>
-                                                <p class="card-text">Kamar Besar Lt. 2</p>
-                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
-                                                    <div class="d-sm-flex">
-                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
-                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
-                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
-                                                        </p>
-                                                    </div>
-                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
-                                            </div>
-                                        </div>
-                                        <div class="w-100 d-none d-md-block d-lg-none"><!-- wrap every 3 on md--></div>
-                                        <div class="card mb-4 border-0">
-                                            <img class="card-img-top img-fluid" src="//placehold.it/500x270"
-                                                alt="Card image cap">
-                                            <div class=" card-body card-body-animation px-0">
-                                                <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">No.
-                                                    101
-                                                </h4>
-                                                <p class="card-text">Kamar Besar Lt. 2</p>
-                                                <h1 class="h5 font-weight-bold" style="color: #3974FE">800rb / bln</h5>
-                                                    <div class="d-sm-flex">
-                                                        <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
-                                                        <p class="pr-2"><small class="text-muted">3 Kasur</small></p>
-                                                        <p class="pr-2"><small class="text-muted">1 Km. Mandi</small>
-                                                        </p>
-                                                    </div>
-                                                    <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
-                                            </div>
                                         </div> --}}
+
+                                        @foreach ($ruangan_new as $item)
+                                            <div class="card mb-4 border-0 card-filter">
+                                                <img class="card-img-top-custom rounded img-fluid"
+                                                    @if ($item->image != null) src="{{ asset('img/' . $item->image) }}"
+                                                @else
+                                                    src="{{ asset('img/room-1.jpeg') }}" @endif
+                                                    alt="Card image cap">
+                                                <div class="card-body card-body-animation px-0">
+                                                    <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">
+                                                        {{ $item->name }}</h4>
+                                                    <p class="card-text">{{ $item->description }}</p>
+                                                    <h1 class="h5 font-weight-bold" style="color: #3974FE">
+                                                        {{ $item->price }}rb / bln</h5>
+                                                        <div class="d-sm-flex">
+                                                            <p class="pr-2"><small class="text-muted">{{ $item->area }}
+                                                                    sq.m</small></p>
+                                                            <p class="pr-2"><small class="text-muted">{{ $item->bed }}
+                                                                    Kasur</small></p>
+                                                            <p class="pr-2"><small
+                                                                    class="text-muted">{{ $item->bathroom }}
+                                                                    Km. Mandi</small></p>
+                                                        </div>
+                                                        <a href="{{ route('ruangan_detail', $item->id) }}"
+                                                            class="stretched-link"></a>
+                                                </div>
+                                            </div>
+                                        @endforeach
 
                                     </div>
 
@@ -322,34 +203,57 @@
                                                         style="width: 60px; height: 60px; object-fit: cover !important;">
                                                 </div>
                                                 <div class="col mb-2">
-                                                    <h1 class="h4 font-weight-bold mb-1" style="color: black">{{ $hotels->name }}
+                                                    <h1 class="h4 font-weight-bold mb-1" style="color: black">
+                                                        {{ $hotels->name }}
 
                                                     </h1>
-                                                    <p class="font-weight-bold" style="opacity: 75%"">{{ $hotels->address }}
+                                                    <p class="font-weight-bold" style="opacity: 75%"">
+                                                        {{ $hotels->address }}
                                                     </p>
                                                 </div>
 
                                             </div>
                                             <div class="row">
                                                 <div class="col align-item-center text-center">
-                                                    <h1 class="h5 font-weight-bold" style="color: black">1.2rb</h5>
+                                                    <h1 class="h5 font-weight-bold" style="color: black">
+                                                        {{ /* $total_booking_all */
+                                                            /* bedakan ribu, juta dan miliar */
+                                                            $total_booking_all > 999999999
+                                                                ? round($total_booking_all / 1000000000, 2) . 'M'
+                                                                : ($total_booking_all > 999999
+                                                                    ? round($total_booking_all / 1000000, 2) . 'M'
+                                                                    : ($total_booking_all > 999
+                                                                        ? round($total_booking_all / 1000, 2) . 'K'
+                                                                        : $total_booking_all)) }}
+                                                        </h5>
                                                         <p class="font-weight-bold" style="opacity: 75%; font-size: 10pt">
                                                             Pengunjung</p>
                                                 </div>
                                                 <div class="col align-item-center text-center">
-                                                    <h1 class="h5 font-weight-bold" style="color: black">28.2jt</h5>
+                                                    <h1 class="h5 font-weight-bold" style="color: black">
+                                                        {{ /* $total_transaksi  */
+                                                            /* bedakan ribu, juta, dan miliar */
+                                                            $total_transaksi > 999999999
+                                                                ? round($total_transaksi / 1000000000, 2) . 'M'
+                                                                : ($total_transaksi > 999999
+                                                                    ? round($total_transaksi / 1000000, 2) . 'M'
+                                                                    : ($total_transaksi > 999
+                                                                        ? round($total_transaksi / 1000, 2) . 'K'
+                                                                        : $total_transaksi)) }}
+                                                        </h5>
                                                         <p class="font-weight-bold" style="opacity: 75%; font-size: 10pt">
                                                             Penghasilan</p>
                                                 </div>
                                                 <div class="col align-item-center text-center">
-                                                    <h1 class="h5 font-weight-bold" style="color: black">5thn</h5>
+                                                    <h1 class="h5 font-weight-bold" style="color: black">
+                                                        {{ $total_hari }}d</h5>
                                                         <p class="font-weight-bold" style="opacity: 75%; font-size: 10pt">
                                                             Lama Buka</p>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <a href="{{ route('hotel_detail', $hotels->id) }}"
-                                                 class="btn btn-primary btn-block mx-2">Edit Informasi
+                                                    class="btn btn-primary btn-block mx-2">Edit Informasi
                                                     Hotel</a>
                                             </div>
                                         </div>
@@ -378,182 +282,43 @@
                                                     </tr>
                                                 </thead> --}}
                                                     <tbody>
-                                                        {{--  @foreach ($portofolio->slice(0, 3) as $item) --}}
-                                                        <tr>
-                                                            <td>
-                                                                <img class="avatar rounded-circle"
-                                                                    src="{{ asset('img/item-sample2.png') }}"
-                                                                    alt="" style="width:32px; height:32px">
-                                                            </td>
-                                                            <td>
-                                                                <div class="col">
-                                                                    <div class="row">
-                                                                        <h1 class="h6 font-weight-bold mb-0"
-                                                                            style="color: black">Alif Rizki</h1>
+                                                        @foreach ($pelanggan_active as $item)
+                                                            <tr>
+                                                                <td>
+                                                                    <img class="avatar rounded-circle"
+                                                                        src="{{ asset('img/item-sample2.png') }}"
+                                                                        alt="" style="width:32px; height:32px">
+                                                                </td>
+                                                                <td>
+                                                                    <div class="col">
+                                                                        <div class="row">
+                                                                            <h1 class="h6 font-weight-bold mb-0"
+                                                                                style="color: black">{{ $item->name }}
+                                                                            </h1>
+                                                                        </div>
+                                                                        <div class="row ">
+                                                                            <p class="font-weight-bold"
+                                                                                style="opacity: 75%; font-size: 10pt">
+                                                                                {{ $item->nohp }}</p>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="row ">
-                                                                        <p class="font-weight-bold"
-                                                                            style="opacity: 75%; font-size: 10pt">
-                                                                            Check in 10/9/2023</p>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td class="text-right pr-3">
-                                                                <a class="link-info" href="#"><i
-                                                                        class="fa-solid fa-chevron-right"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                        {{-- @endforeach --}}
-
-                                                        <tr>
-                                                            <td>
-                                                                <img class="avatar rounded-circle"
-                                                                    src="{{ asset('img/item-sample3.png') }}"
-                                                                    alt="" style="width:32px; height:32px">
-                                                            </td>
-                                                            <td>
-                                                                <div class="col">
-                                                                    <div class="row">
-                                                                        <h1 class="h6 font-weight-bold mb-0"
-                                                                            style="color: black">Alif Rizki</h1>
-                                                                    </div>
-                                                                    <div class="row ">
-                                                                        <p class="font-weight-bold"
-                                                                            style="opacity: 75%; font-size: 10pt">
-                                                                            Check in 10/9/2023</p>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td class="text-right pr-3">
-                                                                <a class="link-info" href="#"><i
-                                                                        class="fa-solid fa-chevron-right"></i></a>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td>
-                                                                <img class="avatar rounded-circle"
-                                                                    src="{{ asset('img/item-sample1.png') }}"
-                                                                    alt="" style="width:32px; height:32px">
-                                                            </td>
-                                                            <td>
-                                                                <div class="col">
-                                                                    <div class="row">
-                                                                        <h1 class="h6 font-weight-bold mb-0"
-                                                                            style="color: black">Alif Rizki</h1>
-                                                                    </div>
-                                                                    <div class="row ">
-                                                                        <p class="font-weight-bold"
-                                                                            style="opacity: 75%; font-size: 10pt">
-                                                                            Check in 10/9/2023</p>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td class="text-right pr-3">
-                                                                <a class="link-info" href="#"><i
-                                                                        class="fa-solid fa-chevron-right"></i></a>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td>
-                                                                <img class="avatar rounded-circle"
-                                                                    src="{{ asset('img/item-sample2.png') }}"
-                                                                    alt="" style="width:32px; height:32px">
-                                                            </td>
-                                                            <td>
-                                                                <div class="col">
-                                                                    <div class="row">
-                                                                        <h1 class="h6 font-weight-bold mb-0"
-                                                                            style="color: black">Alif Rizki</h1>
-                                                                    </div>
-                                                                    <div class="row ">
-                                                                        <p class="font-weight-bold"
-                                                                            style="opacity: 75%; font-size: 10pt">
-                                                                            Check in 10/9/2023</p>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td class="text-right pr-3">
-                                                                <a class="link-info" href="#"><i
-                                                                        class="fa-solid fa-chevron-right"></i></a>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td>
-                                                                <img class="avatar rounded-circle"
-                                                                    src="{{ asset('img/item-sample2.png') }}"
-                                                                    alt="" style="width:32px; height:32px">
-                                                            </td>
-                                                            <td>
-                                                                <div class="col">
-                                                                    <div class="row">
-                                                                        <h1 class="h6 font-weight-bold mb-0"
-                                                                            style="color: black">Alif Rizki</h1>
-                                                                    </div>
-                                                                    <div class="row ">
-                                                                        <p class="font-weight-bold"
-                                                                            style="opacity: 75%; font-size: 10pt">
-                                                                            Check in 10/9/2023</p>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td class="text-right pr-3">
-                                                                <a class="link-info" href="#"><i
-                                                                        class="fa-solid fa-chevron-right"></i></a>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td>
-                                                                <img class="avatar rounded-circle"
-                                                                    src="{{ asset('img/item-sample2.png') }}"
-                                                                    alt="" style="width:32px; height:32px">
-                                                            </td>
-                                                            <td>
-                                                                <div class="col">
-                                                                    <div class="row">
-                                                                        <h1 class="h6 font-weight-bold mb-0"
-                                                                            style="color: black">Alif Rizki</h1>
-                                                                    </div>
-                                                                    <div class="row ">
-                                                                        <p class="font-weight-bold"
-                                                                            style="opacity: 75%; font-size: 10pt">
-                                                                            Check in 10/9/2023</p>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td class="text-right pr-3">
-                                                                <a class="link-info" href="#"><i
-                                                                        class="fa-solid fa-chevron-right"></i></a>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td>
-                                                                <img class="avatar rounded-circle"
-                                                                    src="{{ asset('img/item-sample2.png') }}"
-                                                                    alt="" style="width:32px; height:32px">
-                                                            </td>
-                                                            <td>
-                                                                <div class="col">
-                                                                    <div class="row">
-                                                                        <h1 class="h6 font-weight-bold mb-0"
-                                                                            style="color: black">Alif Rizki</h1>
-                                                                    </div>
-                                                                    <div class="row ">
-                                                                        <p class="font-weight-bold"
-                                                                            style="opacity: 75%; font-size: 10pt">
-                                                                            Check in 10/9/2023</p>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td class="text-right pr-3">
-                                                                <a class="link-info" href="#"><i
-                                                                        class="fa-solid fa-chevron-right"></i></a>
-                                                            </td>
-                                                        </tr>
+                                                                </td>
+                                                                <td class="text-right pr-3">
+                                                                    <a class="link-info"
+                                                                        href="{{ route('pelanggan_detail', $item->id) }}"><i
+                                                                            class="fa-solid fa-chevron-right"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        @if (count($pelanggan_active) == 0)
+                                                            <tr>
+                                                                <td colspan="3" class="text-center">
+                                                                    <p class="font-weight-bold"
+                                                                        style="opacity: 75%; font-size: 10pt">
+                                                                        Belum ada pelanggan aktif</p>
+                                                                </td>
+                                                            </tr>
+                                                        @endif
                                                     </tbody>
                                                 </table>
 

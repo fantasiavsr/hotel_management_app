@@ -34,9 +34,79 @@ class Controller extends BaseController
         /* dd($hotels) ; */
         /* dd($hotels->name) ; */
 
+        /* total ruangan where */
+        $total_ruangan = ruangan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->count();
+        /* terakhir kali kapan ruangan ditambahkan */
+        $ruangan_last_update = ruangan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->orderBy('created_at', 'desc')->first();
+        /* total booking minggu ini where */
+        $total_booking = booking::where('user_id', Auth::user()->id)->where('isDeleted', 0)->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])->count();
+        /* perhitungan tambah berapa booking minggu ini dari minggu lalu */
+        $added_booking_from_last_week = booking::where('user_id', Auth::user()->id)->where('isDeleted', 0)->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])->count() - booking::where('user_id', Auth::user()->id)->where('isDeleted', 0)->whereBetween('created_at', [now()->subWeek()->startOfWeek(), now()->subWeek()->endOfWeek()])->count();
+        /* total pelanggan */
+        $total_pelanggan = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])->count();
+        /* perhitungan tambah berapa pelanggan minggu ini dari minggu lalu  */
+        $added_pelanggan_from_last_week = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])->count() - pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->whereBetween('created_at', [now()->subWeek()->startOfWeek(), now()->subWeek()->endOfWeek()])->count();
+
+        /* total booking */
+        /* $total_booking_all = booking::where('user_id', Auth::user()->id)->count(); */
+        $total_booking_all = booking::where('user_id', Auth::user()->id)->where('isDeleted', 0)->count();
+        /* total price transaksi yang status = "success" */
+        $total_transaksi = transaksi::where('user_id', Auth::user()->id)->where('isDeleted', 0)->where('status', 'success')->sum('price');
+        /* total berapa hari hotel telah dibuat */
+        $total_hari = hotels::where('user_id', Auth::user()->id)->first();
+        $total_hari = $total_hari->created_at->diffInDays(now());
+
+        $pelanggan_active = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->where('status', 'active')->get();
+        /* dd($pelanggan_active); */
+
+        /* data for statistik bulanan pelanggan tahun ini */
+        $jan = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->whereMonth('created_at', '01')->count();
+        $feb = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->whereMonth('created_at', '02')->count();
+        $mar = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->whereMonth('created_at', '03')->count();
+        $apr = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->whereMonth('created_at', '04')->count();
+        $mei = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->whereMonth('created_at', '05')->count();
+        $jun = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->whereMonth('created_at', '06')->count();
+        $jul = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->whereMonth('created_at', '07')->count();
+        $aug = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->whereMonth('created_at', '08')->count();
+        $sep = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->whereMonth('created_at', '09')->count();
+        $oct = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->whereMonth('created_at', '10')->count();
+        $nov = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->whereMonth('created_at', '11')->count();
+        $dec = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->whereMonth('created_at', '12')->count();
+
+        /* raungan yang baru ditambahkan */
+        $ruangan_new = ruangan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->orderBy('created_at', 'desc')->take(3)->get();
+
         return view('pages/dashboard', [
             'title' => "dashboard",
             'hotels' => $hotels,
+
+            'total_ruangan' => $total_ruangan,
+            'ruangan_last_update' => $ruangan_last_update,
+            'total_booking' => $total_booking,
+            'added_booking_from_last_week' => $added_booking_from_last_week,
+            'total_pelanggan' => $total_pelanggan,
+            'added_pelanggan_from_last_week' => $added_pelanggan_from_last_week,
+
+            'total_booking_all' => $total_booking_all,
+            'total_transaksi' => $total_transaksi,
+            'total_hari' => $total_hari,
+
+            'pelanggan_active' => $pelanggan_active,
+
+            'jan' => $jan,
+            'feb' => $feb,
+            'mar' => $mar,
+            'apr' => $apr,
+            'mei' => $mei,
+            'jun' => $jun,
+            'jul' => $jul,
+            'aug' => $aug,
+            'sep' => $sep,
+            'oct' => $oct,
+            'nov' => $nov,
+            'dec' => $dec,
+
+            'ruangan_new' => $ruangan_new,
         ]);
     }
 
@@ -520,7 +590,7 @@ class Controller extends BaseController
         $flight->price = request('price');
         $flight->status = request('status');
 
-       /*  dd($flight); */
+        /*  dd($flight); */
 
         $flight->save();
 
