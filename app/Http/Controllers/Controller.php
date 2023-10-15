@@ -720,4 +720,36 @@ class Controller extends BaseController
             'price' => $booking->price,
         ]);
     }
+
+    public function laporanRuangan(){
+        $ruangan = ruangan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
+        return view('pages/laporan/laporan_ruangan', [
+            'title' => "laporan_ruangan",
+            'ruangan' => $ruangan,
+        ]);
+    }
+
+    public function laporanPelanggan(){
+        $pelanggan = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
+        return view('pages/laporan/laporan_pelanggan', [
+            'title' => "laporan_pelanggan",
+            'pelanggan' => $pelanggan,
+        ]);
+    }
+
+    public function laporanBooking(){
+        $booking = booking::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
+        return view('pages/laporan/laporan_booking', [
+            'title' => "laporan_booking",
+            'booking' => $booking,
+        ]);
+    }
+
+    public function laporanTransaksi(){
+        $transaksi = transaksi::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
+        return view('pages/laporan/laporan_transaksi', [
+            'title' => "laporan_transaksi",
+            'transaksi' => $transaksi,
+        ]);
+    }
 }

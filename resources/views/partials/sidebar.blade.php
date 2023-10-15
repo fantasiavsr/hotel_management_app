@@ -88,13 +88,13 @@
             aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Management:</h6>
-                <a class="collapse-item {{ $title === 'Transaksi | Green Bond' ? 'active' : '' }}" href=""
+                <a class="collapse-item {{ $title === 'Transaksi | Green Bond' ? 'active' : '' }}" href="{{ route('laporanRuangan') }}"
                     @if ($title === 'Transaksi | Green Bond') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>Ruangan</a>
-                <a class="collapse-item {{ $title === 'Transaksi | Green Sukuk' ? 'active' : '' }}" href=""
+                <a class="collapse-item {{ $title === 'Transaksi | Green Sukuk' ? 'active' : '' }}" href="{{ route('laporanPelanggan') }}"
                     @if ($title === 'Transaksi | Green Sukuk') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>Pelanggan</a>
-                <a class="collapse-item {{ $title === 'Transaksi | Green Taxonomy' ? 'active' : '' }}" href=""
+                <a class="collapse-item {{ $title === 'Transaksi | Green Taxonomy' ? 'active' : '' }}" href="{{ route('laporanBooking') }}"
                     @if ($title === 'Transaksi | Green Taxonomy') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>Booking</a>
-                <a class="collapse-item {{ $title === 'Transaksi | List Transaksi' ? 'active' : '' }}" href=""
+                <a class="collapse-item {{ $title === 'Transaksi | List Transaksi' ? 'active' : '' }}" href="{{ route('laporanTransaksi') }}"
                     @if ($title === 'Transaksi | List Transaksi') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>
                     Transaksi</a>
             </div>

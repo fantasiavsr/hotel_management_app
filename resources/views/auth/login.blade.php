@@ -114,6 +114,12 @@
                                             <button type="submit"
                                                 class="btn btn-block btn-primary mt-4 px-5 mb-4 text-light shadow-custom-green">Login</button>
 
+                                            {{-- forgot password --}}
+                                            <div class="text-center mb-0">
+                                                <p class="mb-1">Forgot password? <a href="{{ route('password.request') }}"
+                                                        class="text-primary">Reset</a>
+                                                </p>
+                                            </div>
                                             <!-- Register buttons -->
                                             <div class="text-center">
                                                 <p>Not a member? <a href="{{ route('register') }}"

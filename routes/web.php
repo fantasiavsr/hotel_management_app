@@ -74,6 +74,11 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/transaksi_detail/update', [Controller::class, 'transaksi_detail_update'])->name('transaksi_detail_update');
     Route::post('/transaksi_del/', [Controller::class, 'transaksi_del'])->name('transaksi_del');
 
+    Route::get('/laporan/ruangan', [Controller::class, 'laporanRuangan'])->name('laporanRuangan');
+    Route::get('/laporan/pelanggan', [Controller::class, 'laporanPelanggan'])->name('laporanPelanggan');
+    Route::get('/laporan/booking', [Controller::class, 'laporanBooking'])->name('laporanBooking');
+    Route::get('/laporan/transaksi', [Controller::class, 'laporanTransaksi'])->name('laporanTransaksi');
+
     /* for get data */
     Route::get('/get-room-price/{id}', [Controller::class, 'getRoomPrice'])->name('get-room-price');
     Route::get('/get-booking-price/{id}', [Controller::class, 'getBookingPrice'])->name('get-booking-price');
