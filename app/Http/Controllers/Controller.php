@@ -554,6 +554,12 @@ class Controller extends BaseController
 
         $flight->user_id = Auth::user()->id;
         $flight->payment = request('payment');
+        /* if payment = 'tunai. bank = '-' */
+        if (request('payment') == 'tunai') {
+            $flight->bank = '-';
+        } else {
+            $flight->bank = request('bank');
+        }
         $flight->price = request('price');
         $flight->status = request('status');
 

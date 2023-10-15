@@ -107,7 +107,9 @@
                                         <div class="col form-outline mb-4">
                                             <label class="form-label">Harga Ruangan Perhari</label>
                                             <input id="room_price" type="number" name="visitor_nohp" class="form-control"
-                                                autofocus required style="background-color: #FAFAFA">
+                                                autofocus required style="background-color: #FAFAFA" value="{{
+                                                $room_price = $ruangan->where('id', $booking->room_id)->first()->price
+                                                }}">
                                         </div>
                                     </div>
 

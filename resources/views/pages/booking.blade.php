@@ -51,7 +51,7 @@
                                                     <th>Ruangan</th>
                                                     <th>Status</th>
                                                     <th>Check In</th>
-                                                    <th>Check In</th>
+                                                    <th>Check Out</th>
                                                     <th>Detail</th>
                                                 </tr>
                                             </thead>

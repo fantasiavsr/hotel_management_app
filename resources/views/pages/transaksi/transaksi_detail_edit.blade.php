@@ -85,9 +85,41 @@
                                     <div class="row">
                                         <div class="col-xl-4 form-outline mb-4">
                                             <label class="form-label">Payment</label>
-                                            <input type="text" name="payment" class="form-control" autofocus required
-                                                style="background-color: #FAFAFA" value="{{ $transaksi->payment }}">
-
+                                            <select id="payment" name="payment" class="form-control"
+                                                style="background-color: #FAFAFA">
+                                                {{-- <option value="tunai">Tunai</option>
+                                                <option value="bank">Bank</option> --}}
+                                                @if ($transaksi->payment == 'tunai')
+                                                    <option value="tunai" selected>Tunai</option>
+                                                    <option value="bank">Bank</option>
+                                                @elseif ($transaksi->payment == 'bank')
+                                                    <option value="tunai">Tunai</option>
+                                                    <option value="bank" selected>Bank</option>
+                                                @endif
+                                            </select>
+                                            {{-- <input type="text" name="payment" class="form-control" autofocus required
+                                                style="background-color: #FAFAFA"> --}}
+                                        </div>
+                                        <div class="col-xl-4 form-outline mb-4">
+                                            <label id="banklabel" class="form-label">Pilih Rekening</label>
+                                            <select id="bank" name="bank" class="form-control"
+                                                style="background-color: #FAFAFA">
+                                                {{-- <option value="BCA">BCA</option>
+                                                <option value="BRI">BRI</option> --}}
+                                                @if ($transaksi->bank == 'BCA')
+                                                    <option value="BCA" selected>BCA</option>
+                                                    <option value="BRI">BRI</option>
+                                                @elseif ($transaksi->bank == 'BRI')
+                                                    <option value="BCA">BCA</option>
+                                                    <option value="BRI" selected>BRI</option>
+                                                @elseif ($transaksi->bank == '-')
+                                                    <option value="" selected disabled hidden>Pilih Rekening</option>
+                                                    <option value="BCA">BCA</option>
+                                                    <option value="BRI">BRI</option>
+                                                @endif
+                                            </select>
+                                            {{-- <input type="text" name="payment" class="form-control" autofocus required
+                                                style="background-color: #FAFAFA"> --}}
                                         </div>
                                     </div>
 
@@ -163,6 +195,10 @@
                     var namaInput = document.getElementById('visitor_name');
                     var nohpInput = document.getElementById('visitor_nohp');
 
+                    var paymentSelect = document.getElementById('payment');
+                    var labelBank = document.getElementById('banklabel');
+                    var bankSelect = document.getElementById('bank');
+
                     // Membuat event listener untuk perubahan pemilihan dalam elemen 'select'
                     pelangganSelect.addEventListener('change', function() {
                         if (pelangganSelect.value === '') {
@@ -189,6 +225,60 @@
                             namaInput.value = split[1];
                             nohpInput.value = "Load from db pelanggan";
 
+                        }
+                    });
+
+                    $(document).ready(function() {
+                        // Ketika pilihan pada room_id berubah
+                        $('#booking_id').on('change', function() {
+                            var bookId = $(this).val(); // Mendapatkan ID ruangan yang dipilih
+
+                            if (bookId === '') {
+                                $('#booking_price').val(
+                                    ''); // Kosongkan input harga jika "Pilih Ruangan" dipilih
+                            } else {
+                                // Melakukan permintaan AJAX untuk mengambil harga ruangan
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/get-booking-price/' +
+                                        bookId, // Ganti dengan URL yang sesuai
+                                    /* url: 'test/get-room-price/' +
+                                        roomId, */
+                                    success: function(data) {
+                                        $('#booking_price').val(data
+                                            .price
+                                        ); // Mengisi input dengan harga yang diterima dari server
+                                    },
+                                    error: function(err) {
+                                        // Handle error jika ada, tampilkan error apa
+                                        console.log(err);
+                                    }
+                                });
+                            }
+                        });
+                    });
+
+                    // Sembunyikan label dan input bank saat halaman dimuat
+                    if (paymentSelect.value === 'tunai') {
+                        bankSelect.style.display = 'none';
+                        labelBank.style.display = 'none';
+                    } else {
+                        bankSelect.style.display = 'block';
+                        labelBank.style.display = 'block';
+                    }
+                    /* bankSelect.style.display = 'none';
+                    labelBank.style.display = 'none'; */
+
+                    // Tambahkan event listener untuk perubahan pemilihan dalam input "payment"
+                    paymentSelect.addEventListener('change', function() {
+                        if (paymentSelect.value === 'tunai') {
+                            // Jika pilihan "Tunai" dipilih, sembunyikan input "bank"
+                            bankSelect.style.display = 'none';
+                            labelBank.style.display = 'none';
+                        } else {
+                            // Jika pilihan "Bank" dipilih, tampilkan input "bank"
+                            bankSelect.style.display = 'block';
+                            labelBank.style.display = 'block';
                         }
                     });
                 });
