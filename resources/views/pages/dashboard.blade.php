@@ -180,6 +180,13 @@
                                             </div>
                                         @endforeach
 
+                                        @if (count($ruangan_new) == 0)
+                                            <div class="card mb-4 border-0">
+                                                <div class="card-body card-body-animation px-0">
+                                                    <p class="card-text">Belum ada ruangan yang ditambahkan</p>
+                                                </div>
+                                            </div>
+                                        @endif
                                     </div>
 
                                 </div>
