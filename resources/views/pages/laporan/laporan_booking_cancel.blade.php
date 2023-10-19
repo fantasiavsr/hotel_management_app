@@ -21,15 +21,41 @@
 
                     {{-- Sub Title --}}
                     <div class="d-sm-flex align-items-center justify-content-between pt-2 mt-4">
-                        <h1 class="h6 mb-0 font-weight-bold" style="color: black">List Transaksi</h1>
+                        <h1 class="h6 mb-0 font-weight-bold" style="color: black">List Booking</h1>
                         {{-- <a href="#" class="btn btn-success my-3" id="exportExcel">EXPORT EXCEL</a> --}}
-                        <button id="sheetjsexport" class="btn btn-success">Export as XLSX</button>
+                        <button id="sheetjsexport" class="btn btn-success my-2  ">Export as XLSX</button>
                     </div>
 
-                    <div class="d-sm-flex align-items-center justify-content-between pt-2  mb-2">
+                    <div class="d-sm-flex align-items-center pt-2 mb-0">
+                        <a href="{{ route('laporanBooking') }}" class='btn btn-outline-dark border-0 rounded-0'
+                        @php
+                            if (Route::currentRouteName() == 'laporanBooking') {
+                                echo 'style="border-bottom: 4px solid #000000 !important;"';
+                            }
+                        @endphp>Upcoming</a>
+                        <a href="{{ route('laporanBookingInhouse') }}" class='btn btn-outline-dark border-0 rounded-0'
+                        @php
+                            if (Route::currentRouteName() == 'laporanBookingInhouse') {
+                                echo 'style="border-bottom: 4px solid #000000 !important;"';
+                            }
+                        @endphp>In-house</a>
+                        <a href="{{ route('laporanBookingCompleted') }}" class='btn btn-outline-dark border-0 rounded-0'
+                        @php
+                            if (Route::currentRouteName() == 'laporanBookingCompleted') {
+                                echo 'style="border-bottom: 4px solid #000000 !important;"';
+                            }
+                        @endphp>Completed</a>
+                        <a href="{{ route('laporanBookingCancel') }}" class='btn btn-outline-dark border-0 rounded-0'
+                        @php
+                            if (Route::currentRouteName() == 'laporanBookingCancel') {
+                                echo 'style="border-bottom: 4px solid #000000 !important;"';
+                            }
+                        @endphp>Cancel</a>
                     </div>
 
-                    <div class="row">
+                    <hr class="mt-0">
+
+                    <div class="row mt-4">
 
                         <div class="col">
 
@@ -41,28 +67,35 @@
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th>Booking ID</th>
+                                                    <th>Customer ID</th>
+                                                    <th>Room ID</th>
                                                     <th>Customer Name</th>
                                                     <th>Customer No HP</th>
-                                                    <th>Payment</th>
-                                                    <th>Bank</th>
+                                                    <th>Total Visitor</th>
+                                                    <th>Check In</th>
+                                                    <th>Check Out</th>
                                                     <th>Status</th>
                                                     <th>Price</th>
+                                                    <th>Note</th>
                                                     <th>Created At</th>
                                                     <th>Updated At</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($transaksi as $item)
+                                                @foreach ($booking as $item)
                                                     <tr>
                                                         <td>{{ $item->id }}</td>
-                                                        <td>{{ $item->booking_id }}</td>
+                                                        <td>{{ $item->visitor_id }}</td>
+                                                        <td>{{ $item->room_id }}</td>
                                                         <td>{{ $item->visitor_name }}</td>
                                                         <td>{{ $item->visitor_nohp }}</td>
-                                                        <td>{{ $item->payment }}</td>
-                                                        <td>{{ $item->bank }}</td>
+                                                        <td>{{ $item->total_visitor }}</td>
+                                                        <td>{{ $item->checkin }}</td>
+                                                        <td>{{ $item->checkout }}</td>
                                                         <td>{{ $item->status }}</td>
                                                         <td>{{ $item->price }}</td>
+                                                        <td>{{ strlen($item->note) > 50 ? substr($item->note, 0, 50) . '...' : $item->note }}
+                                                        </td>
                                                         <td>{{ $item->created_at }}</td>
                                                         <td>{{ $item->updated_at }}</td>
                                                     </tr>

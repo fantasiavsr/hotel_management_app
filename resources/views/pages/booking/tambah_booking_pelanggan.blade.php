@@ -156,8 +156,9 @@
                                             <label class="form-label">Status</label>
                                             <select id="status" name="status" class="form-control"
                                                 style="background-color: #FAFAFA">
-                                                <option value="pending">Pending</option>
-                                                <option value="success">Success</option>
+                                                <option value="upcoming">Upcoming</option>
+                                                <option value="inhouse">In-house</option>
+                                                <option value="completed">Completed</option>
                                                 <option value="cancel">Cancel</option>
                                             </select>
                                         </div>

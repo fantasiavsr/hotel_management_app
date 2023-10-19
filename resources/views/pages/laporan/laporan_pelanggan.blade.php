@@ -21,7 +21,7 @@
 
                     {{-- Sub Title --}}
                     <div class="d-sm-flex align-items-center justify-content-between pt-2 mt-4">
-                        <h1 class="h6 mb-0 font-weight-bold" style="color: black">List Ruangan</h1>
+                        <h1 class="h6 mb-0 font-weight-bold" style="color: black">List Pelanggan</h1>
                         {{-- <a href="#" class="btn btn-success my-3" id="exportExcel">EXPORT EXCEL</a> --}}
                         <button id="sheetjsexport" class="btn btn-success">Export as XLSX</button>
                     </div>

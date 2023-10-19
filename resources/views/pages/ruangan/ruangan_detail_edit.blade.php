@@ -46,7 +46,7 @@
                                 <div class="col">
                                     <div class="row">
                                         <div class="col form-outline mb-4">
-                                            <label class="form-label">Nama{{-- <span>
+                                            <label class="form-label">Nama / Nomor Ruangan{{-- <span>
                                                     <p class="text-danger" style="font-size: 12px">*Required</p>
                                                 </span> --}}</label>
                                             <input type="text" name="name" class="form-control" autofocus required
@@ -74,8 +74,16 @@
                                                 style="background-color: #FAFAFA">
                                         </div>
                                     </div> --}}
-
-                                    <label class="form-label">Gambar: {{ $ruangan->image }}</label>
+                                    <div class="row d-flex">
+                                        <div class="col-sm form-outline mb-2">
+                                            <img class="card-img-top-custom2 rounded img-fluid"
+                                                @if ($ruangan->image != null) src="{{ asset('img/' . $ruangan->image) }}"
+                                                @else
+                                                    src="{{ asset('img/room-1.jpeg') }}" @endif
+                                                alt="Card image cap">
+                                        </div>
+                                    </div>
+                                    <label class="form-label mb-3">Gambar: {{ $ruangan->image }}</label>
                                     <div class="row d-flex">
                                         <div class="col-sm form-outline mb-4">
                                             <input type="file" name="image" class="form-input" autofocus
@@ -166,9 +174,11 @@
                                 <div class="col">
                                     <div class="row">
                                         <div class="col-xl-4 form-outline mb-4">
-                                            <label class="form-label">Harga</label>
+                                            <label class="form-label">Harga / Hari</label>
                                             <input type="number" name="price" class="form-control" autofocus
-                                                style="background-color: #FAFAFA" value="{{ $ruangan->price }}" required>
+                                                style="background-color: #FAFAFA" value="{{
+                                                    number_format($ruangan->price, 0, ',', '.')
+                                                }}" required>
                                         </div>
                                     </div>
                                 </div>

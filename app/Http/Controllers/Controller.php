@@ -119,11 +119,54 @@ class Controller extends BaseController
         /* check ruangan where user_id = auth user and isDeleted = 0 */
         $ruangan = ruangan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
 
+        /* availabe ruangan */
+        $availableRuangan = DB::table('ruangans')
+            ->where('ruangans.user_id', '=', Auth::user()->id)
+            ->where('ruangans.isDeleted', '=', 0)
+            ->whereNotIn('ruangans.id', function ($query) {
+                $query->select('bookings.room_id')
+                    ->from('bookings')
+                    ->where(function ($subquery) {
+                        $subquery->where('bookings.status', '=', 'inhouse')
+                            ->orWhere('bookings.status', '=', 'upcoming');
+                    });
+            })
+            ->get();
+
+
+        /* booked ruangan */
+        $bookedRuangan = DB::table('ruangans')
+            ->where('ruangans.user_id', '=', Auth::user()->id)
+            ->where('ruangans.isDeleted', '=', 0)
+            ->whereIn('ruangans.id', function ($query) {
+                $query->select('bookings.room_id')
+                    ->from('bookings')
+                    ->where('bookings.status', '=', 'upcoming');
+            })
+            ->get();
+
+        /* inhouse ruangan */
+        $inhouseRuangan = DB::table('ruangans')
+            ->where('ruangans.user_id', '=', Auth::user()->id)
+            ->where('ruangans.isDeleted', '=', 0)
+            ->whereIn('ruangans.id', function ($query) {
+                $query->select('bookings.room_id')
+                    ->from('bookings')
+                    ->where('bookings.status', '=', 'inhouse');
+            })
+            ->get();
+
         /*  dd($ruangan); */
+
+        $booking = booking::where('user_id', Auth::user()->id)->get();
 
         return view('pages/ruangan', [
             'title' => "ruangan",
+            'availableRuangan' => $availableRuangan,
+            'bookedRuangan' => $bookedRuangan,
+            'inhouseRuangan' => $inhouseRuangan,
             'ruangan' => $ruangan,
+            'booking' => $booking,
         ]);
     }
 
@@ -422,7 +465,17 @@ class Controller extends BaseController
         $hotel = hotels::where('user_id', Auth::user()->id)->first();
         /* where isDeleted = 0 */
         $pelanggan  = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
-        $ruangan  = ruangan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
+        /* check join ruangan with table booking with status = 'upcoming' that mean is booked dont show ruangan that booked */
+        $ruangan = DB::table('ruangans')
+            ->where('ruangans.user_id', '=', Auth::user()->id)
+            ->where('ruangans.isDeleted', '=', 0)
+            ->whereNotIn('ruangans.id', function ($query) {
+                $query->select('bookings.room_id')
+                    ->from('bookings')
+                    ->where('bookings.status', '=', 'inhouse');
+            })
+            ->get();
+
         return view('pages/booking/tambah_booking', [
             'title' => "tambah_booking",
             'hotel' => $hotel,
@@ -721,7 +774,8 @@ class Controller extends BaseController
         ]);
     }
 
-    public function laporanRuangan(){
+    public function laporanRuangan()
+    {
         $ruangan = ruangan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
         return view('pages/laporan/laporan_ruangan', [
             'title' => "laporan_ruangan",
@@ -729,7 +783,8 @@ class Controller extends BaseController
         ]);
     }
 
-    public function laporanPelanggan(){
+    public function laporanPelanggan()
+    {
         $pelanggan = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
         return view('pages/laporan/laporan_pelanggan', [
             'title' => "laporan_pelanggan",
@@ -737,15 +792,70 @@ class Controller extends BaseController
         ]);
     }
 
-    public function laporanBooking(){
+    public function laporanBooking()
+    {
         $booking = booking::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
+
+        /* booking where status = upcoming */
+        $booking_upcoming = booking::where('user_id', Auth::user()->id)->where('isDeleted', 0)->where('status', 'upcoming')->get();
+
+        /* booking where status = inhouse */
+        $booking_inhouse = booking::where('user_id', Auth::user()->id)->where('isDeleted', 0)->where('status', 'inhouse')->get();
+
+        /* booking where status = completed */
+        $booking_completed = booking::where('user_id', Auth::user()->id)->where('isDeleted', 0)->where('status', 'completed')->get();
+
+        /* booking where status = cancel */
+        $booking_cancel = booking::where('user_id', Auth::user()->id)->where('isDeleted', 0)->where('status', 'cancel')->get();
+
         return view('pages/laporan/laporan_booking', [
             'title' => "laporan_booking",
+            'booking' => $booking_upcoming,
+            'booking_upcoming' => $booking_upcoming,
+            'booking_inhouse' => $booking_inhouse,
+            'booking_completed' => $booking_completed,
+            'booking_cancel' => $booking_cancel,
+        ]);
+    }
+
+    public function laporanBookingUpcoming()
+    {
+        $booking = booking::where('user_id', Auth::user()->id)->where('isDeleted', 0)->where('status', 'upcoming')->get();
+        return view('pages/laporan/laporan_booking_upcoming', [
+            'title' => "laporan_booking_upcoming",
             'booking' => $booking,
         ]);
     }
 
-    public function laporanTransaksi(){
+    public function laporanBookingInhouse()
+    {
+        $booking = booking::where('user_id', Auth::user()->id)->where('isDeleted', 0)->where('status', 'inhouse')->get();
+        return view('pages/laporan/laporan_booking_inhouse', [
+            'title' => "laporan_booking_inhouse",
+            'booking' => $booking,
+        ]);
+    }
+
+    public function laporanBookingCompleted()
+    {
+        $booking = booking::where('user_id', Auth::user()->id)->where('isDeleted', 0)->where('status', 'completed')->get();
+        return view('pages/laporan/laporan_booking_completed', [
+            'title' => "laporan_booking_completed",
+            'booking' => $booking,
+        ]);
+    }
+
+    public function laporanBookingCancel()
+    {
+        $booking = booking::where('user_id', Auth::user()->id)->where('isDeleted', 0)->where('status', 'cancel')->get();
+        return view('pages/laporan/laporan_booking_cancel', [
+            'title' => "laporan_booking_cancel",
+            'booking' => $booking,
+        ]);
+    }
+
+    public function laporanTransaksi()
+    {
         $transaksi = transaksi::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
         return view('pages/laporan/laporan_transaksi', [
             'title' => "laporan_transaksi",

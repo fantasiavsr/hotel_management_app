@@ -81,7 +81,7 @@
                                                     <p class="font-weight-bold mb-0" style="opacity: 75%">Harga
                                                     </p>
                                                     <h1 class="h4 font-weight-bold" style="color: #3974FE">
-                                                        Rp{{ number_format($ruangan->price, 0, ',', '.') }}
+                                                        Rp{{ number_format($ruangan->price, 0, ',', '.') }}<small class="">/Hari</small>
                                                     </h1>
                                                 </div>
                                             </div>

@@ -37,7 +37,7 @@
                                 <div class="col">
                                     <div class="row">
                                         <div class="col form-outline mb-4">
-                                            <label class="form-label">Nama{{-- <span>
+                                            <label class="form-label">Nama / Nomor Ruangan{{-- <span>
                                                     <p class="text-danger" style="font-size: 12px">*Required</p>
                                                 </span> --}}</label>
                                             <input type="text" name="name" class="form-control" autofocus required style="background-color: #FAFAFA">
@@ -117,7 +117,7 @@
                                 <div class="col">
                                     <div class="row">
                                         <div class="col-xl-4 form-outline mb-4">
-                                            <label class="form-label">Harga</label>
+                                            <label class="form-label">Harga / Hari</label>
                                             <input type="number" name="price" class="form-control" autofocus style="background-color: #FAFAFA" required>
                                         </div>
                                     </div>

@@ -43,40 +43,18 @@
 
                                     <div class="card-deck">
 
-                                        {{-- @foreach ($ruangan as $item)
-                                            <div class="card card-animation mb-4 card-filter" data-string="{{ $item->name }}" style="max-width:">
-                                                <img class="card-img-top rounded img-fluid" src="{{ asset('img/room-7.jpeg') }}"
-                                                    alt="Card image cap">
-                                                <div
-                                                    class="card-body card-body-animation card-body card-body-animation-animation">
-                                                    <h4 class="h6 font-weight-bold card-title mb-0" style="color: black">{{ $item->name }}
-                                                    </h4>
-                                                    <p class="card-text">{{ $item->type }}</p>
-                                                    <h1 class="h5 font-weight-bold" style="color: #3974FE">{{ $item->price }}</h5>
-                                                        <div class="d-sm-flex">
-                                                            <p class="pr-2"><small class="text-muted">9 sq.m</small></p>
-                                                            <p class="pr-2"><small class="text-muted">{{ $item->bed }} Kasur</small></p>
-                                                            <p class="pr-2"><small class="text-muted">{{ $item->bathroom }} Km. Mandi</small></p>
-                                                        </div>
-                                                        <a href="{{ route('ruangan_detail') }}" class="stretched-link"></a>
-                                                </div>
-                                            </div>
-
-                                        @endforeach --}}
-
                                         <div class="cardContainer">
                                             @foreach ($ruangan->chunk(4) as $chunk)
                                                 <div class="card-deck">
+
                                                     @foreach ($chunk as $item)
                                                         <div class="card card-animation mb-4 card-filter"
                                                             data-string="{{ $item->name }}">
                                                             <img class="card-img-top-custom rounded img-fluid"
-                                                                @if ( $item->image != null )
-                                                                    {{-- src="{{ asset('img/' . $item->image) }}" --}}
+                                                                @if ($item->image != null) {{-- src="{{ asset('img/' . $item->image) }}" --}}
                                                                     src="{{ asset('public/img/' . $item->image) }}"
                                                                 @else
-                                                                    src="{{ asset('img/room-1.jpeg') }}"
-                                                                @endif
+                                                                    src="{{ asset('img/room-1.jpeg') }}" @endif
                                                                 alt="Card image cap">
                                                             <div
                                                                 class="card-body card-body-animation card-body card-body-animation-animation">
@@ -85,33 +63,73 @@
                                                                 </h4>
                                                                 <p class="card-text">{{ $item->type }}</p>
                                                                 <h1 class="h5 font-weight-bold" style="color: #3974FE">
-                                                                    Rp{{ number_format($item->price, 0, ',', '.') }}
-                                                                </h5>
-                                                                    <div class="d-sm-flex">
-                                                                        <p class="pr-2"><small class="text-muted">9
-                                                                                sq.m</small></p>
-                                                                        <p class="pr-2"><small
-                                                                                class="text-muted">{{ $item->bed }}
-                                                                                Kasur</small></p>
-                                                                        <p class="pr-2"><small
-                                                                                class="text-muted">{{ $item->bathroom }} Km.
-                                                                                Mandi</small></p>
-                                                                    </div>
-                                                                    {{-- <a href="{{ route('ruangan_detail') }}"
+                                                                    Rp{{ number_format($item->price, 0, ',', '.') }}<small
+                                                                        class="">/Hari</small>
+                                                                </h1>
+                                                                <div class="d-sm-flex">
+                                                                    <p class="pr-2"><small class="text-muted">9
+                                                                            sq.m</small></p>
+                                                                    <p class="pr-2"><small
+                                                                            class="text-muted">{{ $item->bed }}
+                                                                            Kasur</small></p>
+                                                                    <p class="pr-2"><small
+                                                                            class="text-muted">{{ $item->bathroom }} Km.
+                                                                            Mandi</small></p>
+                                                                </div>
+                                                                <div>
+                                                                    <span
+                                                                        @php
+                                                                    /* check if ruangan booked or not */
+                                                                    /* if there any ruangan in booking with status = 'upcoming' that mean is booked */
+                                                                    $upcomingBooking = $booking->where('room_id', $item->id)
+                                                                        ->where('status', 'upcoming')
+                                                                        ->where('isDeleted', 0)
+                                                                        ->first();
+                                                                    $inhouseBooking =$booking->where('room_id', $item->id)
+                                                                        ->where('status', 'inhouse')
+                                                                        ->where('isDeleted', 0)
+                                                                        ->first();
+                                                                    if ($upcomingBooking) {
+                                                                        echo 'class = "badge badge-warning"';
+                                                                    } else if ($inhouseBooking) {
+                                                                        echo 'class = "badge badge-danger"';
+                                                                    } else {
+                                                                        echo 'class = "badge badge-success"';
+                                                                    } @endphp>
+                                                                        @php
+                                                                            /* check if ruangan booked or not */
+                                                                            /* if there any ruangan in booking with status = 'upcoming' that mean is booked */
+                                                                            $upcomingBooking = $booking->where('room_id', $item->id)
+                                                                                ->where('status', 'upcoming')
+                                                                                ->where('isDeleted', 0)
+                                                                                ->first();
+                                                                            $inhouseBooking = $booking->where('room_id', $item->id)
+                                                                                ->where('status', 'inhouse')
+                                                                                ->where('isDeleted', 0)
+                                                                                ->first();
+                                                                            if ($upcomingBooking) {
+                                                                                echo 'Booked';
+                                                                            } elseif ($inhouseBooking) {
+                                                                                echo 'In House';
+                                                                            } else {
+                                                                                echo 'Available';
+                                                                            }
+                                                                        @endphp
+                                                                    </span>
+                                                                </div>
+                                                                {{-- <a href="{{ route('ruangan_detail') }}"
                                                                         class="stretched-link"></a> --}}
-                                                                    {{-- working ruangan detail with $id --}}
-                                                                    <a href="{{ route('ruangan_detail', $item->id) }}"
-                                                                        class="stretched-link"></a>
+                                                                {{-- working ruangan detail with $id --}}
+                                                                <a href="{{ route('ruangan_detail', $item->id) }}"
+                                                                    class="stretched-link"></a>
 
                                                             </div>
                                                         </div>
                                                     @endforeach
+
                                                 </div>
                                             @endforeach
                                         </div>
-                                        {{-- <div id="pagination" class="d-flex justify-content-center">
-                                            <ul class="pagination"></ul>
-                                        </div> --}}
 
                                     </div>
 

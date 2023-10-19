@@ -21,15 +21,41 @@
 
                     {{-- Sub Title --}}
                     <div class="d-sm-flex align-items-center justify-content-between pt-2 mt-4">
-                        <h1 class="h6 mb-0 font-weight-bold" style="color: black">List Ruangan</h1>
+                        <h1 class="h6 mb-0 font-weight-bold" style="color: black">List Booking</h1>
                         {{-- <a href="#" class="btn btn-success my-3" id="exportExcel">EXPORT EXCEL</a> --}}
-                        <button id="sheetjsexport" class="btn btn-success">Export as XLSX</button>
+                        <button id="sheetjsexport" class="btn btn-success my-2  ">Export as XLSX</button>
                     </div>
 
-                    <div class="d-sm-flex align-items-center justify-content-between pt-2  mb-2">
+                    <div class="d-sm-flex align-items-center pt-2 mb-0">
+                        <a href="{{ route('laporanBooking') }}" class='btn btn-outline-dark border-0 rounded-0'
+                        @php
+                            if (Route::currentRouteName() == 'laporanBooking') {
+                                echo 'style="border-bottom: 4px solid #000000 !important;"';
+                            }
+                        @endphp>Upcoming</a>
+                        <a href="{{ route('laporanBookingInhouse') }}" class='btn btn-outline-dark border-0 rounded-0'
+                        @php
+                            if (Route::currentRouteName() == 'laporanBookingInhouse') {
+                                echo 'style="border-bottom: 4px solid #000000 !important;"';
+                            }
+                        @endphp>In-house</a>
+                        <a href="{{ route('laporanBookingCompleted') }}" class='btn btn-outline-dark border-0 rounded-0'
+                        @php
+                            if (Route::currentRouteName() == 'laporanBookingCompleted') {
+                                echo 'style="border-bottom: 4px solid #000000 !important;"';
+                            }
+                        @endphp>Completed</a>
+                        <a href="{{ route('laporanBookingCancel') }}" class='btn btn-outline-dark border-0 rounded-0'
+                        @php
+                            if (Route::currentRouteName() == 'laporanBookingCancel') {
+                                echo 'style="border-bottom: 4px solid #000000 !important;"';
+                            }
+                        @endphp>Cancel</a>
                     </div>
 
-                    <div class="row">
+                    <hr class="mt-0">
+
+                    <div class="row mt-4">
 
                         <div class="col">
 

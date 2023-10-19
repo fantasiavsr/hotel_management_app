@@ -33,8 +33,9 @@
     <!-- Nav Item - Ruangan -->
     <li class="nav-item {{ request()->is('ruangan*') ? 'active' : '' }}">
         <a class="nav-link " href="{{ route('ruangan') }}"
-            @if (strpos($title, 'ruangan') !== false) style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>
-            <i class="fa-solid fa-bed"></i>
+           {{--  @if (strpos($title, 'ruangan') !== false) style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif> --}}
+           @if ($title === 'ruangan') !== false) style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>
+           <i class="fa-solid fa-bed"></i>
             <span>Ruangan</span>
         </a>
     </li>
@@ -88,14 +89,14 @@
             aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Management:</h6>
-                <a class="collapse-item {{ $title === 'Transaksi | Green Bond' ? 'active' : '' }}" href="{{ route('laporanRuangan') }}"
-                    @if ($title === 'Transaksi | Green Bond') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>Ruangan</a>
-                <a class="collapse-item {{ $title === 'Transaksi | Green Sukuk' ? 'active' : '' }}" href="{{ route('laporanPelanggan') }}"
-                    @if ($title === 'Transaksi | Green Sukuk') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>Pelanggan</a>
-                <a class="collapse-item {{ $title === 'Transaksi | Green Taxonomy' ? 'active' : '' }}" href="{{ route('laporanBooking') }}"
-                    @if ($title === 'Transaksi | Green Taxonomy') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>Booking</a>
-                <a class="collapse-item {{ $title === 'Transaksi | List Transaksi' ? 'active' : '' }}" href="{{ route('laporanTransaksi') }}"
-                    @if ($title === 'Transaksi | List Transaksi') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>
+                <a class="collapse-item {{ $title === 'laporan_ruangan' ? 'active' : '' }}" href="{{ route('laporanRuangan') }}"
+                    @if ($title === 'laporan_ruangan') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>Ruangan</a>
+                <a class="collapse-item {{ $title === 'laporan_pelanggan' ? 'active' : '' }}" href="{{ route('laporanPelanggan') }}"
+                    @if ($title === 'laporan_pelanggan') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>Pelanggan</a>
+                <a class="collapse-item {{ $title === 'laporan_booking' ? 'active' : '' }}" href="{{ route('laporanBooking') }}"
+                    @if ($title === 'laporan_booking') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>Booking</a>
+                <a class="collapse-item {{ $title === 'laporan_transaksi' ? 'active' : '' }}" href="{{ route('laporanTransaksi') }}"
+                    @if ($title === 'laporan_transaksi' ) style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>
                     Transaksi</a>
             </div>
         </div>

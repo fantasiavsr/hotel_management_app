@@ -13,6 +13,12 @@
         object-fit: cover !important;
     }
 
+    .card-img-top-custom2 {
+        width: 12vw !important;
+        height: 12vw !important;
+        object-fit: cover !important;
+    }
+
     .card-img-top-custom-detail {
         width: 100% !important;
         height: 28vw !important;

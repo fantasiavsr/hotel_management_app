@@ -107,9 +107,8 @@
                                         <div class="col form-outline mb-4">
                                             <label class="form-label">Harga Ruangan Perhari</label>
                                             <input id="room_price" type="number" name="visitor_nohp" class="form-control"
-                                                autofocus required style="background-color: #FAFAFA" value="{{
-                                                $room_price = $ruangan->where('id', $booking->room_id)->first()->price
-                                                }}">
+                                                autofocus required style="background-color: #FAFAFA"
+                                                value="{{ $room_price = $ruangan->where('id', $booking->room_id)->first()->price }}">
                                         </div>
                                     </div>
 
@@ -184,17 +183,25 @@
                                                 {{-- <option value="pending">Pending</option>
                                                 <option value="success">Success</option>
                                                 <option value="cancel">Cancel</option> --}}
-                                                @if ($booking->status == 'pending')
-                                                    <option value="pending" selected>Pending</option>
-                                                    <option value="success">Success</option>
+                                                @if ($booking->status == 'upcoming')
+                                                    <option value="upcoming" selected>Upcoming</option>
+                                                    <option value="inhouse">In-house</option>
+                                                    <option value="completed">Completed</option>
                                                     <option value="cancel">Cancel</option>
-                                                @elseif($booking->status == 'success')
-                                                    <option value="pending">Pending</option>
-                                                    <option value="success" selected>Success</option>
+                                                @elseif($booking->status == 'inhouse')
+                                                    <option value="upcoming">Upcoming</option>
+                                                    <option value="inhouse" selected>In-house</option>
+                                                    <option value="completed">Completed</option>
+                                                    <option value="cancel">Cancel</option>
+                                                @elseif($booking->status == 'completed')
+                                                    <option value="upcoming">Upcoming</option>
+                                                    <option value="inhouse">In-house</option>
+                                                    <option value="completed" selected>Completed</option>
                                                     <option value="cancel">Cancel</option>
                                                 @elseif($booking->status == 'cancel')
-                                                    <option value="pending">Pending</option>
-                                                    <option value="success">Success</option>
+                                                    <option value="upcoming">Upcoming</option>
+                                                    <option value="inhouse">In-house</option>
+                                                    <option value="completed">Completed</option>
                                                     <option value="cancel" selected>Cancel</option>
                                                 @endif
                                             </select>

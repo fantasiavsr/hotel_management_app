@@ -77,6 +77,9 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/laporan/ruangan', [Controller::class, 'laporanRuangan'])->name('laporanRuangan');
     Route::get('/laporan/pelanggan', [Controller::class, 'laporanPelanggan'])->name('laporanPelanggan');
     Route::get('/laporan/booking', [Controller::class, 'laporanBooking'])->name('laporanBooking');
+    Route::get('/laporan/BookingInhouse', [Controller::class, 'laporanBookingInhouse'])->name('laporanBookingInhouse');
+    Route::get('/laporan/BookingCompleted', [Controller::class, 'laporanBookingCompleted'])->name('laporanBookingCompleted');
+    Route::get('/laporan/BookingCancel', [Controller::class, 'laporanBookingCancel'])->name('laporanBookingCancel');
     Route::get('/laporan/transaksi', [Controller::class, 'laporanTransaksi'])->name('laporanTransaksi');
 
     /* for get data */
