@@ -82,6 +82,14 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/laporan/BookingCancel', [Controller::class, 'laporanBookingCancel'])->name('laporanBookingCancel');
     Route::get('/laporan/transaksi', [Controller::class, 'laporanTransaksi'])->name('laporanTransaksi');
 
+    Route::get('/checkin', [Controller::class, 'checkin'])->name('checkin');
+    Route::get('/checkinUpdate/{id}', [Controller::class, 'checkinUpdate'])->name('checkinUpdate');
+    Route::get('/checkinUndo/{id}', [Controller::class, 'checkinUndo'])->name('checkinUndo');
+
+    Route::get('/checkout', [Controller::class, 'checkout'])->name('checkout');
+    Route::get('/checkoutUpdate/{id}', [Controller::class, 'checkoutUpdate'])->name('checkoutUpdate');
+    Route::get('/checkoutUndo/{id}', [Controller::class, 'checkoutUndo'])->name('checkoutUndo');
+
     /* for get data */
     Route::get('/get-room-price/{id}', [Controller::class, 'getRoomPrice'])->name('get-room-price');
     Route::get('/get-booking-price/{id}', [Controller::class, 'getBookingPrice'])->name('get-booking-price');

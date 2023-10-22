@@ -19,8 +19,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('demo/css/sb-admin-2.min.css') }}" rel="stylesheet">
@@ -43,6 +42,8 @@
     <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+
 </head>
 
 <body id="page-top">
@@ -154,91 +155,91 @@
                         "Oct", "Nov", "Dec"
                     ],
                     datasets: [{
-                            label: "Pelanggan",
-                            lineTension: 0.3,
-                            backgroundColor: "rgba(57, 116, 254, 0.05)",
-                            borderColor: "rgba(57, 116, 254, 1)",
-                            pointRadius: 3,
-                            pointBackgroundColor: "rgba(79, 190, 171, 1)",
-                            pointBorderColor: "rgba(57, 116, 254, 1)",
-                            pointHoverRadius: 3,
-                            pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                            pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-                            pointHitRadius: 10,
-                            pointBorderWidth: 2,
-                            data: [{{ $jan }}, {{ $feb }}, {{ $mar }},
-                                {{ $apr }}, {{ $mei }}, {{ $jun }},
-                                {{ $jul }}, {{ $aug }}, {{ $sep }},
-                                {{ $oct }}, {{ $nov }}, {{ $dec }}
-                            ],
+                        label: "Pelanggan",
+                        lineTension: 0.3,
+                        backgroundColor: "rgba(57, 116, 254, 0.05)",
+                        borderColor: "rgba(57, 116, 254, 1)",
+                        pointRadius: 3,
+                        pointBackgroundColor: "rgba(79, 190, 171, 1)",
+                        pointBorderColor: "rgba(57, 116, 254, 1)",
+                        pointHoverRadius: 3,
+                        pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                        pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                        pointHitRadius: 10,
+                        pointBorderWidth: 2,
+                        data: [{{ $jan }}, {{ $feb }}, {{ $mar }},
+                            {{ $apr }}, {{ $mei }}, {{ $jun }},
+                            {{ $jul }}, {{ $aug }}, {{ $sep }},
+                            {{ $oct }}, {{ $nov }}, {{ $dec }}
+                        ],
                     }],
-            },
-            options: {
-                maintainAspectRatio: false,
-                layout: {
-                    padding: {
-                        left: 10,
-                        right: 25,
-                        top: 25,
-                        bottom: 0
-                    }
                 },
-                scales: {
-                    xAxes: [{
-                        time: {
-                            unit: 'date'
-                        },
-                        gridLines: {
-                            display: false,
-                            drawBorder: false
-                        },
-                        ticks: {
-                            maxTicksLimit: 7
+                options: {
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            left: 10,
+                            right: 25,
+                            top: 25,
+                            bottom: 0
                         }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            maxTicksLimit: 5,
-                            padding: 10,
-                            // Include a dollar sign in the ticks
-                            callback: function(value, index, values) {
-                                return '' + number_format(value) /* + '%' */ ;
+                    },
+                    scales: {
+                        xAxes: [{
+                            time: {
+                                unit: 'date'
+                            },
+                            gridLines: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                maxTicksLimit: 7
                             }
-                        },
-                        gridLines: {
-                            color: "rgb(234, 236, 244)",
-                            zeroLineColor: "rgb(234, 236, 244)",
-                            drawBorder: false,
-                            borderDash: [2],
-                            zeroLineBorderDash: [2]
-                        }
-                    }],
-                },
-                legend: {
-                    display: false
-                },
-                tooltips: {
-                    backgroundColor: "rgb(255,255,255)",
-                    bodyFontColor: "#858796",
-                    titleMarginBottom: 10,
-                    titleFontColor: '#6e707e',
-                    titleFontSize: 14,
-                    borderColor: '#dddfeb',
-                    borderWidth: 1,
-                    xPadding: 15,
-                    yPadding: 15,
-                    displayColors: false,
-                    intersect: false,
-                    mode: 'index',
-                    caretPadding: 10,
-                    callbacks: {
-                        label: function(tooltipItem, chart) {
-                            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                            return datasetLabel + ': ' + number_format(tooltipItem.yLabel) /* + '%' */ ;
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                maxTicksLimit: 5,
+                                padding: 10,
+                                // Include a dollar sign in the ticks
+                                callback: function(value, index, values) {
+                                    return '' + number_format(value) /* + '%' */ ;
+                                }
+                            },
+                            gridLines: {
+                                color: "rgb(234, 236, 244)",
+                                zeroLineColor: "rgb(234, 236, 244)",
+                                drawBorder: false,
+                                borderDash: [2],
+                                zeroLineBorderDash: [2]
+                            }
+                        }],
+                    },
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        titleMarginBottom: 10,
+                        titleFontColor: '#6e707e',
+                        titleFontSize: 14,
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        intersect: false,
+                        mode: 'index',
+                        caretPadding: 10,
+                        callbacks: {
+                            label: function(tooltipItem, chart) {
+                                var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                                return datasetLabel + ': ' + number_format(tooltipItem.yLabel) /* + '%' */ ;
+                            }
                         }
                     }
                 }
-            }
             });
         </script>
     @endif
@@ -277,7 +278,7 @@
         });
     </script> --}}
 
-    <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+    {{-- <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
     <script>
         $('#datepicker').datepicker({
             uiLibrary: 'bootstrap4'
@@ -287,6 +288,20 @@
     <script>
         $('#datepicker2').datepicker({
             uiLibrary: 'bootstrap4'
+        });
+    </script> --}}
+
+    <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+    <script>
+        $('#datepicker').datetimepicker({
+            footer: true,
+            modal: true,
+        });
+        $('#datepicker2').datetimepicker({
+            footer: true,
+            modal: true
         });
     </script>
 </body>

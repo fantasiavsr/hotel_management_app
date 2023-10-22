@@ -32,10 +32,9 @@
 
     <!-- Nav Item - Ruangan -->
     <li class="nav-item {{ request()->is('ruangan*') ? 'active' : '' }}">
-        <a class="nav-link " href="{{ route('ruangan') }}"
-           {{--  @if (strpos($title, 'ruangan') !== false) style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif> --}}
-           @if ($title === 'ruangan') !== false) style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>
-           <i class="fa-solid fa-bed"></i>
+        <a class="nav-link " href="{{ route('ruangan') }}" {{--  @if (strpos($title, 'ruangan') !== false) style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif> --}}
+            @if ($title === 'ruangan') !== false) style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>
+            <i class="fa-solid fa-bed"></i>
             <span>Ruangan</span>
         </a>
     </li>
@@ -68,6 +67,36 @@
         </a>
     </li>
 
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading - Activity -->
+    <div class="sidebar-heading">
+        Activity
+    </div>
+
+    <!-- Nav Item - Laporan -->
+    <li
+        class="nav-item {{ request()->is('activity*') || request()->is('checkin') || request()->is('checkout') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+            aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fa-solid fa-square-person-confined"></i>
+            <span>Aktifitas Hotel</span>
+        </a>
+        <div id="collapseUtilities"
+            class="collapse {{ request()->is('activity*') ? 'show' : '' }} {{ request()->is('check*') ? 'show' : '' }}"
+            aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Control:</h6>
+                <a class="collapse-item {{ $title === 'checkin' ? 'active' : '' }}" href="{{ route('checkin') }}"
+                    @if ($title === 'checkin') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>Check
+                    In<Inp></Inp></a>
+                <a class="collapse-item {{ $title === 'checkout' ? 'active' : '' }}" href="{{ route('checkout') }}"
+                    @if ($title === 'checkout') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>Check
+                    Out</a>
+            </div>
+        </div>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -79,24 +108,28 @@
 
     <!-- Nav Item - Laporan -->
     <li class="nav-item {{ request()->is('laporan*') ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-            aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2"
+            aria-expanded="true" aria-controls="collapseUtilities2">
             <i class="fa-solid fa-book"></i>
             <span>Laporan</span>
         </a>
-        <div id="collapseUtilities"
+        <div id="collapseUtilities2"
             class="collapse {{ request()->is('laporan*') ? 'show' : '' }} {{ request()->is('item*') ? 'show' : '' }}"
             aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Management:</h6>
-                <a class="collapse-item {{ $title === 'laporan_ruangan' ? 'active' : '' }}" href="{{ route('laporanRuangan') }}"
+                <a class="collapse-item {{ $title === 'laporan_ruangan' ? 'active' : '' }}"
+                    href="{{ route('laporanRuangan') }}"
                     @if ($title === 'laporan_ruangan') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>Ruangan</a>
-                <a class="collapse-item {{ $title === 'laporan_pelanggan' ? 'active' : '' }}" href="{{ route('laporanPelanggan') }}"
+                <a class="collapse-item {{ $title === 'laporan_pelanggan' ? 'active' : '' }}"
+                    href="{{ route('laporanPelanggan') }}"
                     @if ($title === 'laporan_pelanggan') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>Pelanggan</a>
-                <a class="collapse-item {{ $title === 'laporan_booking' ? 'active' : '' }}" href="{{ route('laporanBooking') }}"
+                <a class="collapse-item {{ $title === 'laporan_booking' ? 'active' : '' }}"
+                    href="{{ route('laporanBooking') }}"
                     @if ($title === 'laporan_booking') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>Booking</a>
-                <a class="collapse-item {{ $title === 'laporan_transaksi' ? 'active' : '' }}" href="{{ route('laporanTransaksi') }}"
-                    @if ($title === 'laporan_transaksi' ) style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>
+                <a class="collapse-item {{ $title === 'laporan_transaksi' ? 'active' : '' }}"
+                    href="{{ route('laporanTransaksi') }}"
+                    @if ($title === 'laporan_transaksi') style="color: #3974FE; background-color:#F0F0F0;  border-right: 8px solid #3974FE;" @endif>
                     Transaksi</a>
             </div>
         </div>

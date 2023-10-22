@@ -39,6 +39,9 @@
 
                             {{-- <input type="hidden" name="id" value="{{ $user->id }}"> --}}
                             <input type="hidden" name="id" value="{{ $booking->id }}">
+                            <input type="hidden" name="visitor_id" value="{{ $booking->visitor_id }}">
+                            <input type="hidden" name="visitor_name" value="{{ $booking->visitor_name }}">
+                            <input type="hidden" name="visitor_nohp" value="{{ $booking->visitor_nohp }}">
                             <div class="row">
                                 <div class="col-xl-3 mb-3">
                                     <h1 class="h5 mb-0 font-weight-bold" style="color: black">Informasi Umum</h1>
@@ -52,7 +55,7 @@
                                                 style="background-color: #FAFAFA"> --}}
                                             <select id="visitor_id" name="visitor_id" class="form-control"
                                                 style="background-color: #F0F0F0" disabled>
-                                                <option>{{ $booking->visitor_name }}</option>
+                                                <option>{{ $booking->visitor_id }} : {{ $booking->visitor_name }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -106,7 +109,7 @@
                                         </div>
                                         <div class="col form-outline mb-4">
                                             <label class="form-label">Harga Ruangan Perhari</label>
-                                            <input id="room_price" type="number" name="visitor_nohp" class="form-control"
+                                            <input id="room_price" type="number" name="" class="form-control"
                                                 autofocus required style="background-color: #FAFAFA"
                                                 value="{{ $room_price = $ruangan->where('id', $booking->room_id)->first()->price }}">
                                         </div>
@@ -144,7 +147,7 @@
                                             <input id="datepicker" type="text" name="checkin" class="form-control"
                                                 autofocus required style="background-color: #FAFAFA"
                                                 placeholder="{{ \Carbon\Carbon::now()->format('m/d/Y') }}"
-                                                value="{{ /* $booking->checkin */ \Carbon\Carbon::parse($booking->checkin)->format('m/d/Y') }}">
+                                                value="{{ /* $booking->checkin */ \Carbon\Carbon::parse($booking->checkin)->format('h:i m/d/Y') }}">
                                         </div>
                                         <div class="col form-outline mb-4">
                                             <label class="form-label">Check Out</label>
@@ -152,7 +155,7 @@
                                                 autofocus required style="background-color: #FAFAFA"
                                                 placeholder="{{ /* get current date + 30 */
                                                     \Carbon\Carbon::now()->addDays(30)->format('m/d/Y') }}"
-                                                value="{{ /* $booking->checkin */ \Carbon\Carbon::parse($booking->checkout)->format('m/d/Y') }}">
+                                                value="{{ /* $booking->checkin */ \Carbon\Carbon::parse($booking->checkout)->format('h:i m/d/Y') }}">
                                             {{-- <input id="datepicker" width="276" /> --}}
                                         </div>
                                     </div>
@@ -252,45 +255,14 @@
                             /* isi placeholder berdasarkan $pelanggan where $item1 id berdsarkan document.getElementById('visitor_id') */
                             namaInput.placeholder = document.getElementById('visitor_id').options[document
                                 .getElementById('visitor_id').selectedIndex].text;
-                            nohpInput.placeholder = document.getElementById('visitor_id').options[document
-                                .getElementById('visitor_id').selectedIndex].text;
+                            nohpInput.placeholder = "Load from db pelanggan";
                             /* add value */
                             namaInput.value = document.getElementById('visitor_id').options[document.getElementById(
                                 'visitor_id').selectedIndex].text;
-                            nohpInput.value = document.getElementById('visitor_id').options[document.getElementById(
-                                'visitor_id').selectedIndex].text;
+                            nohpInput.value = "Load from db pelanggan";
                         }
                     });
 
-                    $(document).ready(function() {
-                        // Ketika pilihan pada room_id berubah
-                        $('#room_id').on('change', function() {
-                            var roomId = $(this).val(); // Mendapatkan ID ruangan yang dipilih
-
-                            if (roomId === '') {
-                                $('#room_price').val(
-                                    ''); // Kosongkan input harga jika "Pilih Ruangan" dipilih
-                            } else {
-                                // Melakukan permintaan AJAX untuk mengambil harga ruangan
-                                $.ajax({
-                                    type: 'GET',
-                                    url: '/get-room-price/' +
-                                        roomId, // Ganti dengan URL yang sesuai
-                                    /* url: 'test/get-room-price/' +
-                                        roomId, */
-                                    success: function(data) {
-                                        $('#room_price').val(data
-                                            .price
-                                        ); // Mengisi input dengan harga yang diterima dari server
-                                    },
-                                    error: function(err) {
-                                        // Handle error jika ada, tampilkan error apa
-                                        console.log(err);
-                                    }
-                                });
-                            }
-                        });
-                    });
 
                     $(document).ready(function() {
                         // Ketika pilihan pada room_id berubah
@@ -325,9 +297,40 @@
                                 $('#price').val(totalPrice);
                             }
                         }
+
+                        // Ketika pilihan pada room_id berubah
+                        $('#room_id').on('change', function() {
+                            var roomId = $(this).val(); // Mendapatkan ID ruangan yang dipilih
+
+                            if (roomId === '') {
+                                $('#room_price').val(
+                                    ''); // Kosongkan input harga jika "Pilih Ruangan" dipilih
+                            } else {
+                                // Melakukan permintaan AJAX untuk mengambil harga ruangan
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/get-room-price/' +
+                                        roomId, // Ganti dengan URL yang sesuai
+                                    /* url: 'test/get-room-price/' +
+                                        roomId, */
+                                    success: function(data) {
+                                        $('#room_price').val(data
+                                            .price
+                                        );
+                                        updatePrice
+                                    (); // Mengisi input dengan harga yang diterima dari server
+                                    },
+                                    error: function(err) {
+                                        // Handle error jika ada, tampilkan error apa
+                                        console.log(err);
+                                    }
+                                });
+                            }
+                        });
                     });
                 });
             </script>
+
             <script>
                 document.getElementById('deleteForm').addEventListener('submit', function(e) {
                     e.preventDefault();

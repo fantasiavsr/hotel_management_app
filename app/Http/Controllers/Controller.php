@@ -10,12 +10,16 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+/* use carbon */
+use Carbon\Carbon;
 
 use App\Models\ruangan;
 use App\Models\hotels;
 use App\Models\pelanggan;
 use App\Models\booking;
 use App\Models\transaksi;
+use App\Models\checkin;
+use App\Models\checkout;
 use PHPUnit\Event\Code\Test;
 
 class Controller extends BaseController
@@ -472,9 +476,12 @@ class Controller extends BaseController
             ->whereNotIn('ruangans.id', function ($query) {
                 $query->select('bookings.room_id')
                     ->from('bookings')
+                    ->where('bookings.isDeleted', '=', 0)
                     ->where('bookings.status', '=', 'inhouse');
             })
             ->get();
+
+        /* dd($ruangan); */
 
         return view('pages/booking/tambah_booking', [
             'title' => "tambah_booking",
@@ -508,8 +515,8 @@ class Controller extends BaseController
         /* dd(request()->all()); */
 
         /* convert datepicker to mysql datetime format */
-        $checkin = date('Y-m-d', strtotime(request('checkin')));
-        $checkout = date('Y-m-d', strtotime(request('checkout')));
+        $checkin = date('Y-m-d H:i:s', strtotime(request('checkin')));
+        $checkout = date('Y-m-d H:i:s', strtotime(request('checkout')));
 
         /* dd($checkin); */
 
@@ -525,22 +532,38 @@ class Controller extends BaseController
 
         /* dd($visitor_name); */
 
-        $flight = new booking();
+        $booking = new booking();
 
-        $flight->user_id = Auth::user()->id;
-        $flight->visitor_id = request('visitor_id');
-        $flight->hotel_id = request('hotel_id');
-        $flight->room_id = request('room_id');
-        $flight->visitor_name = $visitor_name;
-        $flight->visitor_nohp = $visitor_nohp;
-        $flight->total_visitor = request('total_visitor');
-        $flight->checkin = $checkin;
-        $flight->checkout = $checkout;
-        $flight->status = request('status');
-        $flight->price = request('price');
-        $flight->note = request('note');
+        $booking->user_id = Auth::user()->id;
+        $booking->visitor_id = request('visitor_id');
+        $booking->hotel_id = request('hotel_id');
+        $booking->room_id = request('room_id');
+        $booking->visitor_name = $visitor_name;
+        $booking->visitor_nohp = $visitor_nohp;
+        $booking->total_visitor = request('total_visitor');
+        $booking->checkin = $checkin;
+        $booking->checkout = $checkout;
+        $booking->status = request('status');
+        $booking->price = request('price');
+        $booking->note = request('note');
 
-        $flight->save();
+        $booking->save();
+
+        $checkin = new checkin();
+
+        $checkin->user_id = Auth::user()->id;
+        $checkin->booking_id = $booking->id;
+
+        $checkin->save();
+
+        /* dd($checkin); */
+
+        /* $checkout = new checkout();
+
+        $checkout->user_id = Auth::user()->id;
+        $checkout->booking_id = $booking->id;
+
+        $checkout->save(); */
 
         return redirect()->route('booking');
     }
@@ -568,8 +591,8 @@ class Controller extends BaseController
         /* dd(request()->all()); */
 
         /* convert datepicker to mysql datetime format */
-        $checkin = date('Y-m-d', strtotime(request('checkin')));
-        $checkout = date('Y-m-d', strtotime(request('checkout')));
+        $checkin = date('Y-m-d H:i:s', strtotime(request('checkin')));
+        $checkout = date('Y-m-d H:i:s', strtotime(request('checkout')));
 
         /* dd($checkin); */
 
@@ -578,8 +601,8 @@ class Controller extends BaseController
         $flight = booking::findOrFail(request('id'));
 
         $flight->user_id = Auth::user()->id;
-        $flight->visitor_id = request('visitor_id');
-        $flight->hotel_id = request('hotel_id');
+        /* $flight->visitor_id = request('visitor_id'); */
+        /* $flight->hotel_id = request('hotel_id'); */
         $flight->room_id = request('room_id');
         $flight->total_visitor = request('total_visitor');
         $flight->checkin = $checkin;
@@ -736,6 +759,18 @@ class Controller extends BaseController
         $booking->isDeleted = 1;
         $booking->save();
 
+        $checkin = checkin::where('booking_id', request('id'))->first();
+        if ($checkin != null) {
+            $checkin->isDeleted = 1;
+            $checkin->save();
+        }
+
+        $checkout = checkout::where('booking_id', request('id'))->first();
+        if ($checkout != null) {
+            $checkout->isDeleted = 1;
+            $checkout->save();
+        }
+
         return redirect()->route('booking');
     }
 
@@ -861,5 +896,135 @@ class Controller extends BaseController
             'title' => "laporan_transaksi",
             'transaksi' => $transaksi,
         ]);
+    }
+
+    public function checkin()
+    {
+        $checkin = checkin::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
+        $booking = booking::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
+        $pelanggan = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
+        $ruangan = ruangan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
+
+        /* dd($checkin); */
+        return view('pages/checkin', [
+            'title' => "checkin",
+            'booking' => $booking,
+            'checkin' => $checkin,
+            'pelanggan' => $pelanggan,
+            'ruangan' => $ruangan,
+        ]);
+    }
+
+    public function checkinUpdate($id)
+    {
+        $checkin = checkin::findOrFail($id);
+
+        /* update checkin datetime to now */
+        $checkin->time = Carbon::now();
+
+        /* dd($checkin->time); */
+
+        $checkin->save();
+
+        /* update booking status to 'inhouse' */
+        $booking = booking::findOrFail($checkin->booking_id);
+
+        $booking->status = 'inhouse';
+
+        $booking->save();
+
+        $checkout = new checkout();
+
+        $checkout->user_id = Auth::user()->id;
+        $checkout->booking_id = $booking->id;
+
+        $checkout->save();
+
+        return redirect()->route('checkin');
+    }
+
+    public function checkinUndo($id)
+    {
+        $checkin = checkin::findOrFail($id);
+
+        /* update checkin datetime to null */
+        $checkin->time = null;
+
+        /* dd($checkin->time); */
+
+        $checkin->save();
+
+        /* update booking status to 'upcoming' */
+        $booking = booking::findOrFail($checkin->booking_id);
+
+        $booking->status = 'upcoming';
+
+        $booking->save();
+
+        $checkout = checkout::where('booking_id', $booking->id)->first();
+
+        $checkout->delete();
+
+        return redirect()->route('checkin');
+    }
+
+    public function checkout()
+    {
+        $checkout = checkout::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
+        $booking = booking::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
+        $pelanggan = pelanggan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
+        $ruangan = ruangan::where('user_id', Auth::user()->id)->where('isDeleted', 0)->get();
+
+        /* dd($booking); */
+        /* dd($checkin); */
+        return view('pages/checkout', [
+            'title' => "checkout",
+            'booking' => $booking,
+            'checkout' => $checkout,
+            'pelanggan' => $pelanggan,
+            'ruangan' => $ruangan,
+        ]);
+    }
+
+    public function checkoutUpdate($id)
+    {
+        $checkout = checkout::findOrFail($id);
+
+        /* update checkin datetime to now */
+        $checkout->time = Carbon::now();
+
+        /* dd($checkin->time); */
+
+        $checkout->save();
+
+        /* update booking status to 'inhouse' */
+        $booking = booking::findOrFail($checkout->booking_id);
+
+        $booking->status = 'complete';
+
+        $booking->save();
+
+        return redirect()->route('checkout');
+    }
+
+    public function checkoutUndo($id)
+    {
+        $checkout = checkout::findOrFail($id);
+
+        /* update checkin datetime to null */
+        $checkout->time = null;
+
+        /* dd($checkin->time); */
+
+        $checkout->save();
+
+        /* update booking status to 'upcoming' */
+        $booking = booking::findOrFail($checkout->booking_id);
+
+        $booking->status = 'inhouse';
+
+        $booking->save();
+
+        return redirect()->route('checkout');
     }
 }

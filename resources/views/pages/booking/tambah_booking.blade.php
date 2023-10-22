@@ -46,7 +46,8 @@
                                                 style="background-color: #FAFAFA"> --}}
                                             <select id="visitor_id" name="visitor_id" class="form-control"
                                                 style="background-color: #FAFAFA">
-                                                <option value="">Isikan Nama & No HP Manual di bawah / Pilih Pelanggan</option>
+                                                <option value="">Isikan Nama & No HP Manual di bawah / Pilih Pelanggan
+                                                </option>
                                                 @foreach ($pelanggan as $item1)
                                                     <option value="{{ $item1->id }}">{{ $item1->name }}</option>
                                                 @endforeach
@@ -57,13 +58,13 @@
                                     <div class="row">
                                         <div class="col form-outline mb-4">
                                             <label class="form-label">Nama</label>
-                                            <input id="visitor_name" type="string" name="visitor_name" class="form-control" autofocus
-                                                required style="background-color: #FAFAFA">
+                                            <input id="visitor_name" type="string" name="visitor_name" class="form-control"
+                                                autofocus required style="background-color: #FAFAFA">
                                         </div>
                                         <div class="col form-outline mb-4">
                                             <label class="form-label">No HP</label>
-                                            <input id="visitor_nohp" type="text" name="visitor_nohp" class="form-control" autofocus
-                                                required style="background-color: #FAFAFA">
+                                            <input id="visitor_nohp" type="text" name="visitor_nohp" class="form-control"
+                                                autofocus required style="background-color: #FAFAFA">
                                         </div>
                                     </div>
 
@@ -81,7 +82,7 @@
                                         </div>
                                         <div class="col form-outline mb-4">
                                             <label class="form-label">Harga Ruangan Perhari</label>
-                                            <input id="room_price" type="number" name="visitor_nohp" class="form-control"
+                                            <input id="room_price" type="number" name="" class="form-control"
                                                 autofocus required style="background-color: #FAFAFA">
                                         </div>
                                     </div>
@@ -120,14 +121,14 @@
                                             <label class="form-label">Check In</label>
                                             <input id="datepicker" type="text" name="checkin" class="form-control"
                                                 autofocus required style="background-color: #FAFAFA"
-                                                placeholder="{{ \Carbon\Carbon::now()->format('m/d/Y') }}">
+                                                value="{{ \Carbon\Carbon::now()->setTime(12, 0)->format('h:i m/d/Y') }}">
                                         </div>
                                         <div class="col form-outline mb-4">
                                             <label class="form-label">Check Out</label>
                                             <input id="datepicker2" type="text" name="checkout" class="form-control"
                                                 autofocus required style="background-color: #FAFAFA"
-                                                placeholder="{{ /* get current date + 30 */
-                                                    \Carbon\Carbon::now()->addDays(30)->format('m/d/Y') }}">
+                                                value="{{ /* get current date + 1 */
+                                                    \Carbon\Carbon::now()->addDays(1)->setTime(12, 0)->format('h:i m/d/Y') }}">
                                             {{-- <input id="datepicker" width="276" /> --}}
                                         </div>
                                     </div>
@@ -135,8 +136,8 @@
                                     <div class="row">
                                         <div class="col-xl-4 form-outline mb-4">
                                             <label class="form-label">Harga</label>
-                                            <input id="price" type="number" name="price" class="form-control" autofocus required
-                                                style="background-color: #FAFAFA">
+                                            <input id="price" type="number" name="price" class="form-control"
+                                                autofocus required style="background-color: #FAFAFA">
                                         </div>
                                     </div>
 
@@ -187,13 +188,13 @@
             </div>
             <!-- End of Page Wrapper -->
             <script>
-                document.addEventListener('DOMContentLoaded', function () {
+                document.addEventListener('DOMContentLoaded', function() {
                     var pelangganSelect = document.getElementById('visitor_id');
                     var namaInput = document.getElementById('visitor_name');
                     var nohpInput = document.getElementById('visitor_nohp');
 
                     // Membuat event listener untuk perubahan pemilihan dalam elemen 'select'
-                    pelangganSelect.addEventListener('change', function () {
+                    pelangganSelect.addEventListener('change', function() {
                         if (pelangganSelect.value === '') {
                             namaInput.disabled = false;
                             nohpInput.disabled = false;
@@ -204,43 +205,16 @@
                             namaInput.disabled = true;
                             nohpInput.disabled = true;
                             /* isi placeholder berdasarkan $pelanggan where $item1 id berdsarkan document.getElementById('visitor_id') */
-                            namaInput.placeholder =  document.getElementById('visitor_id').options[document.getElementById('visitor_id').selectedIndex].text;
+                            namaInput.placeholder = document.getElementById('visitor_id').options[document
+                                .getElementById('visitor_id').selectedIndex].text;
                             nohpInput.placeholder = "Load from db pelanggan";
                             /* add value */
-                            namaInput.value = document.getElementById('visitor_id').options[document.getElementById('visitor_id').selectedIndex].text;
+                            namaInput.value = document.getElementById('visitor_id').options[document.getElementById(
+                                'visitor_id').selectedIndex].text;
                             nohpInput.value = "Load from db pelanggan";
                         }
                     });
 
-                    $(document).ready(function() {
-                        // Ketika pilihan pada room_id berubah
-                        $('#room_id').on('change', function() {
-                            var roomId = $(this).val(); // Mendapatkan ID ruangan yang dipilih
-
-                            if (roomId === '') {
-                                $('#room_price').val(
-                                    ''); // Kosongkan input harga jika "Pilih Ruangan" dipilih
-                            } else {
-                                // Melakukan permintaan AJAX untuk mengambil harga ruangan
-                                $.ajax({
-                                    type: 'GET',
-                                    url: '/get-room-price/' +
-                                        roomId, // Ganti dengan URL yang sesuai
-                                    /* url: 'test/get-room-price/' +
-                                        roomId, */
-                                    success: function(data) {
-                                        $('#room_price').val(data
-                                            .price
-                                        ); // Mengisi input dengan harga yang diterima dari server
-                                    },
-                                    error: function(err) {
-                                        // Handle error jika ada, tampilkan error apa
-                                        console.log(err);
-                                    }
-                                });
-                            }
-                        });
-                    });
 
                     $(document).ready(function() {
                         // Ketika pilihan pada room_id berubah
@@ -275,6 +249,35 @@
                                 $('#price').val(totalPrice);
                             }
                         }
+
+                        // Ketika pilihan pada room_id berubah
+                        $('#room_id').on('change', function() {
+                            var roomId = $(this).val(); // Mendapatkan ID ruangan yang dipilih
+
+                            if (roomId === '') {
+                                $('#room_price').val(
+                                    ''); // Kosongkan input harga jika "Pilih Ruangan" dipilih
+                            } else {
+                                // Melakukan permintaan AJAX untuk mengambil harga ruangan
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/get-room-price/' +
+                                        roomId, // Ganti dengan URL yang sesuai
+                                    /* url: 'test/get-room-price/' +
+                                        roomId, */
+                                    success: function(data) {
+                                        $('#room_price').val(data
+                                            .price
+                                        );
+                                        updatePrice(); // Mengisi input dengan harga yang diterima dari server
+                                    },
+                                    error: function(err) {
+                                        // Handle error jika ada, tampilkan error apa
+                                        console.log(err);
+                                    }
+                                });
+                            }
+                        });
                     });
                 });
             </script>

@@ -15,6 +15,9 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <br>
+                    <br>
+                    <a href="{{ route('dashboard') }}" class="btn btn-outline-dark">Go to Dashboard</a>
                 </div>
             </div>
         </div>
