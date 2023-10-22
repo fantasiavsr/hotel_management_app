@@ -109,10 +109,10 @@
 
                                                                                 @if (isset($item->time))
                                                                                     @php
-                                                                                        $checkin = strtotime($booking->where('id', $item->booking_id)->first()->checkin);
+                                                                                        $checkout = strtotime($booking->where('id', $item->booking_id)->first()->checkout);
                                                                                         $time = strtotime($item->time);
 
-                                                                                        $diff = $time - $checkin;
+                                                                                        $diff = $time - $checkout;
 
                                                                                         $hourDiff = $diff / (60 * 60); // Menghitung selisih jam, termasuk tanggal
                                                                                         $hourDiff = $diff / (60 * 60); // Menghitung selisih jam dalam desimal
@@ -121,27 +121,18 @@
                                                                                         if ($hourDiff > 6) {
                                                                                             $badge = 'Terlambat (' . $hourDiff . ' jam)';
                                                                                             $fee = 0.5; // 50% biaya
-                                                                                        } elseif ($hourDiff < -6) {
-                                                                                            $badge = 'Terlalu awal (' . $hourDiff . ' jam)';
-                                                                                            $fee = 0.5; // 50% biaya
                                                                                         } elseif ($hourDiff > 3) {
                                                                                             $badge = 'Terlambat (' . $hourDiff . ' jam)';
-                                                                                            $fee = 0.25; // 25% biaya
-                                                                                        } elseif ($hourDiff < -3) {
-                                                                                            $badge = 'Terlalu Awal (' . $hourDiff . ' jam)';
                                                                                             $fee = 0.25; // 25% biaya
                                                                                         } elseif ($hourDiff > 1) {
                                                                                             $badge = 'Terlambat (' . $hourDiff . ' jam)';
                                                                                             $fee = 0.1; // 10% biaya
-                                                                                        } elseif ($hourDiff < -1) {
-                                                                                            $badge = 'Terlalu Awal (' . $hourDiff . ' jam)';
-                                                                                            $fee = 0.1; // 10% biaya
                                                                                         } else {
                                                                                             $badge = 'Tepat Waktu';
-                                                                                            $fee = 0; // 0% biaya (tidak terlambat atau terlalu awal)
+                                                                                            $fee = 0; // 0% biaya (tidak terlambat)
                                                                                         }
-
                                                                                     @endphp
+
 
                                                                                     <span
                                                                                         class="badge badge-{{ $badge == 'Tepat Waktu' ? 'success' : 'danger' }}">{{ $badge }}
