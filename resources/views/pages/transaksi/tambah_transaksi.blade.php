@@ -102,9 +102,24 @@
 
                                     <div class="row">
                                         <div class="col form-outline mb-4">
-                                            <label class="form-label">Harga</label>
+                                            <label class="form-label">Harga Booking</label>
+
+                                            {{-- tampilkan perulangan span class badge danger --}}
+
+                                            <input id="booking_price1" type="number" name="" class="form-control"
+                                                autofocus style="background-color: #FAFAFA">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col form-outline mb-4">
+                                            <label class="form-label">Harga Total</label>
+
+                                            {{-- tampilkan perulangan span class badge danger --}}
+
                                             <input id="booking_price" type="number" name="price" class="form-control"
                                                 autofocus style="background-color: #FAFAFA">
+                                            <div id="charge_info"></div>
                                         </div>
                                     </div>
 
@@ -137,7 +152,8 @@
                             <div class="row">
                                 <div class="col text-right">
                                     <a href="{{ url()->previous() }}" class="btn btn-outline-dark">Kembali</a>
-                                    <button type="submit" class="btn btn-primary" style="min-width: 240px">Simpan</button>
+                                    <button type="submit" class="btn btn-primary"
+                                        style="min-width: 240px">Simpan</button>
 
                                 </div>
                             </div>
@@ -192,34 +208,87 @@
                     });
 
                     $(document).ready(function() {
-                        // Ketika pilihan pada room_id berubah
+                        // Ketika pilihan pada booking_id berubah
                         $('#booking_id').on('change', function() {
-                            var bookId = $(this).val(); // Mendapatkan ID ruangan yang dipilih
+                            var bookId = $(this).val();
 
                             if (bookId === '') {
-                                $('#booking_price').val(
-                                    ''); // Kosongkan input harga jika "Pilih Ruangan" dipilih
+                                $('#booking_price').val('');
+                                $('#booking_price1').val('');
+                                $('#charge_info').empty();
                             } else {
-                                // Melakukan permintaan AJAX untuk mengambil harga ruangan
+                                // Melakukan permintaan AJAX untuk mengambil harga booking berdasarkan booking_id
                                 $.ajax({
                                     type: 'GET',
-                                    url: '/get-booking-price/' +
-                                        bookId, // Ganti dengan URL yang sesuai
-                                    /* url: 'test/get-room-price/' +
-                                        roomId, */
-                                    success: function(data) {
-                                        $('#booking_price').val(data
-                                            .price
-                                        ); // Mengisi input dengan harga yang diterima dari server
+                                    url: '/get-booking-price/' + bookId,
+                                    success: function(bookingData) {
+                                        // Mengambil harga booking
+                                        var bookingPrice = parseFloat(bookingData.price);
+
+                                        $('#booking_price1').val(
+                                        bookingPrice); // Mengisi input harga booking awal
+
+                                        // Melakukan permintaan AJAX untuk mengambil data charge berdasarkan booking_id
+                                        $.ajax({
+                                            type: 'GET',
+                                            url: '/get-booking-charge/' + bookId,
+                                            success: function(chargeData) {
+                                                // Menghapus badge yang mungkin ada sebelumnya
+                                                $('#charge_info').empty();
+
+                                                // Mengambil data charge
+                                                var charge = chargeData.charge;
+
+                                                // Menghitung total charge
+                                                var totalCharge = 0;
+                                                charge.forEach(function(item) {
+                                                    var percentage =
+                                                        parseFloat(item
+                                                            .percentage);
+                                                    totalCharge += (
+                                                        bookingPrice *
+                                                        percentage);
+
+                                                    // Periksa apakah percentage adalah 0, jika ya, tambahkan kelas "badge-success"
+                                                    var badgeClass =
+                                                        percentage === 0 ?
+                                                        'badge-success' :
+                                                        'badge-danger';
+
+                                                    // Menampilkan charge_type dan percentage dalam elemen span badge
+                                                    var chargeInfo =
+                                                        '<span class="badge ' +
+                                                        badgeClass +
+                                                        ' mr-2">' +
+                                                        item.charge_type +
+                                                        ' (' + (percentage *
+                                                            100) +
+                                                        '%)</span>';
+
+                                                    $('#charge_info')
+                                                        .append(chargeInfo);
+                                                });
+
+                                                // Mengisi input harga dengan total harga dan charge
+                                                $('#booking_price').val(
+                                                    bookingPrice + totalCharge);
+                                            },
+                                            error: function(err) {
+                                                // Handle error jika ada, tampilkan pesan kesalahan
+                                                console.log(err);
+                                            }
+                                        });
                                     },
                                     error: function(err) {
-                                        // Handle error jika ada, tampilkan error apa
+                                        // Handle error jika ada, tampilkan pesan kesalahan
                                         console.log(err);
                                     }
                                 });
                             }
                         });
                     });
+
+
 
                     // Sembunyikan label dan input bank saat halaman dimuat
                     bankSelect.style.display = 'none';

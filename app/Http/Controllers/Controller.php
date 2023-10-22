@@ -20,6 +20,7 @@ use App\Models\booking;
 use App\Models\transaksi;
 use App\Models\checkin;
 use App\Models\checkout;
+use App\Models\charge;
 use PHPUnit\Event\Code\Test;
 
 class Controller extends BaseController
@@ -940,6 +941,48 @@ class Controller extends BaseController
 
         $checkout->save();
 
+        /* check if early or late checkin */
+        $checkin_time =  strtotime($checkin->time);
+        $booking_checkin = strtotime($booking->checkin);
+
+        $diff = $checkin_time - $booking_checkin; // Selisih waktu checkin dengan waktu booking
+
+        $hourDiff = $diff / (60 * 60); // Menghitung selisih jam, termasuk tanggal
+        $hourDiff = $diff / (60 * 60); // Menghitung selisih jam dalam desimal
+        $hourDiff = round($hourDiff, 1); // Pembulatan selisih jam ke angka desimal dengan 1 angka di belakang koma
+
+        if ($hourDiff > 6) {
+            $charge_type = 'Check in Terlambat (' . $hourDiff . ' jam)';
+            $percentage = 0.5;
+        } elseif ($hourDiff < -6) {
+            $charge_type = 'Check in Terlalu awal (' . $hourDiff . ' jam)';
+            $percentage = 0.5; // 50% biaya
+        } elseif ($hourDiff > 3) {
+            $charge_type = 'Check in Terlambat (' . $hourDiff . ' jam)';
+            $percentage = 0.25; // 25% biaya
+        } elseif ($hourDiff < -3) {
+            $charge_type = 'Check in Terlalu Awal (' . $hourDiff . ' jam)';
+            $percentage = 0.25; // 25% biaya
+        } elseif ($hourDiff > 1) {
+            $charge_type = 'Check in Terlambat (' . $hourDiff . ' jam)';
+            $percentage = 0.1; // 10% biaya
+        } elseif ($hourDiff < -1) {
+            $charge_type = 'Check in Terlalu Awal (' . $hourDiff . ' jam)';
+            $percentage = 0.1; // 10% biaya
+        } else {
+            $charge_type = 'Check in Tepat Waktu';
+            $percentage = 0; // 0% biaya (tidak terlambat atau terlalu awal)
+        }
+
+        $charge = new charge();
+
+        $charge->user_id = Auth::user()->id;
+        $charge->booking_id = $booking->id;
+        $charge->charge_type = $charge_type;
+        $charge->percentage = $percentage;
+
+        $charge->save();
+
         return redirect()->route('checkin');
     }
 
@@ -961,9 +1004,13 @@ class Controller extends BaseController
 
         $booking->save();
 
-        $checkout = checkout::where('booking_id', $booking->id)->first();
+        $checkout = checkout::findOrFail('booking_id', $booking->id)->first();
 
         $checkout->delete();
+
+        $charge = charge::findOrFail('booking_id', $booking->id)->first();
+
+        $charge->delete();
 
         return redirect()->route('checkin');
     }
@@ -1004,6 +1051,41 @@ class Controller extends BaseController
 
         $booking->save();
 
+        //* check if early or late checkin */
+        $checkout_time =  strtotime($checkout->time);
+        $booking_checkout = strtotime($booking->checkout);
+
+        $diff = $checkout_time - $booking_checkout; // Selisih waktu checkin dengan waktu booking
+
+        $hourDiff = $diff / (60 * 60); // Menghitung selisih jam, termasuk tanggal
+        $hourDiff = $diff / (60 * 60); // Menghitung selisih jam dalam desimal
+        $hourDiff = round($hourDiff, 1); // Pembulatan selisih jam ke angka desimal dengan 1 angka di belakang koma
+
+        if ($hourDiff > 6) {
+            $charge_type = 'Check Out Terlambat (' . $hourDiff . ' jam)';
+            $percentage = 0.5;
+        } elseif ($hourDiff > 3) {
+            $charge_type = 'Check Out Terlambat (' . $hourDiff . ' jam)';
+            $percentage = 0.25; // 25% biaya
+        } elseif ($hourDiff > 1) {
+            $charge_type = 'Check Out Terlambat (' . $hourDiff . ' jam)';
+            $percentage = 0.1; // 10% biaya
+        } else {
+            $charge_type = 'Check Out Tepat Waktu';
+            $percentage = 0; // 0% biaya (tidak terlambat atau terlalu awal)
+        }
+
+        $charge = new charge();
+
+        $charge->user_id = Auth::user()->id;
+        $charge->booking_id = $booking->id;
+        $charge->charge_type = $charge_type;
+        $charge->percentage = $percentage;
+
+        $charge->save();
+
+
+
         return redirect()->route('checkout');
     }
 
@@ -1026,5 +1108,15 @@ class Controller extends BaseController
         $booking->save();
 
         return redirect()->route('checkout');
+    }
+
+    public function getBookingCharge($id)
+    {
+        $charge = charge::where('booking_id', $id)->get();
+        /*  dd($ruangan); */
+
+        return response()->json([
+            'charge' => $charge,
+        ]);
     }
 }
